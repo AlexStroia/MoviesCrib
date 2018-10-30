@@ -6,14 +6,10 @@ import android.support.v7.widget.Toolbar;
 
 public class MoviesActivity extends AppCompatActivity {
 
-    Toolbar toolbar;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movies);
-
-        toolbar = findViewById(R.id.toolbar);
 
         setup();
     }

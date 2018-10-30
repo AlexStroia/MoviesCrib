@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!--  Toolbar-->
+    <!--Toolbar-->
     <dimen name="toolbar_text_size">24sp</dimen>
+
+    <!--Constraints-->
+    <dimen name="basic_margin">8dp</dimen>
+    <dimen name="poster_height">300dp</dimen>
+    <dimen name="poster_width">200dp</dimen>
+    <dimen name="poster_text_size">22sp</dimen>
+    <dimen name="poster_text_padding">5dp</dimen>
+    <dimen name="cardview_corner_radius">5dp</dimen>
+
+
 
 </resources>
