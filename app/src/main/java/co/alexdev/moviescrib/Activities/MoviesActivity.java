@@ -1,8 +1,9 @@
-package co.alexdev.moviescrib;
+package co.alexdev.moviescrib.Activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+
+import co.alexdev.moviescrib.R;
 
 public class MoviesActivity extends AppCompatActivity {
 
