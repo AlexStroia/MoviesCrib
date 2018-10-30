@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorDarkGrey"
     tools:context=".Activities.MoviesActivity">
 
     <include
@@ -16,12 +17,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_movies"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="@dimen/rv_margin"
-        android:layout_marginTop="@dimen/rv_margin"
-        android:layout_marginEnd="@dimen/rv_margin"
-        android:layout_marginBottom="@dimen/rv_margin"
+        android:layout_marginStart="@dimen/basic_margin"
+        android:layout_marginEnd="@dimen/basic_margin"
+        android:layout_marginBottom="@dimen/basic_margin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
