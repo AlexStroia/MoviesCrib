@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">MoviesCrib</string>
+
+    <!--  Toolbar-->
+    <string name="toolbar_title">Movies Crib</string>
+    <string name="toolbar_content_description">Custom toolbar used in the application</string>
 </resources>
