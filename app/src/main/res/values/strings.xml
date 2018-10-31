@@ -6,4 +6,8 @@
 
     <string name="poster_title">Avengers</string>
     <string name="poster_content_description">Poster of the movie</string>
+
+    <string name="poster_release_date">11.10.2016</string>
+    <string name="poster_info">Thanos is comming</string>
+    <string name="poster_vote_average">8.0</string>
 </resources>

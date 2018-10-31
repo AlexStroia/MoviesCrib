@@ -8,7 +8,12 @@
     <dimen name="poster_width">200dp</dimen>
     <dimen name="poster_text_size">22sp</dimen>
     <dimen name="poster_text_padding">5dp</dimen>
-    <dimen name="cardview_corner_radius">10dp</dimen>
+    <dimen name="cv_corner_radius">10dp</dimen>
     <dimen name="small_margin_left">5dp</dimen>
+    <dimen name="spinner_margin_left">15dp</dimen>
+    <dimen name="spinner_size">25dp</dimen>
+    <dimen name="basic_padding">5dp</dimen>
+    <dimen name="const_spacing_detail_activity">32dp</dimen>
+    <dimen name="const_horizontal_bias">0.5</dimen>
 
 </resources>

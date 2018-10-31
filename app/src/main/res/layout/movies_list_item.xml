@@ -11,7 +11,7 @@
         android:layout_marginEnd="@dimen/basic_margin"
         android:layout_marginBottom="@dimen/basic_margin"
         app:cardBackgroundColor="@color/cardview_shadow_start_color"
-        app:cardCornerRadius="@dimen/cardview_corner_radius"
+        app:cardCornerRadius="@dimen/cv_corner_radius"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

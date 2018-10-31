@@ -11,20 +11,18 @@
         android:background="@color/colorBlack"
         android:minHeight="?attr/actionBarSize">
 
-
         <TextView
             android:id="@+id/tx_toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity = "center"
-            android:gravity="center"
+            android:layout_gravity="center"
             android:drawableEnd="@drawable/popcorn"
             android:drawablePadding="5dp"
             android:fontFamily="@font/robotica"
+            android:gravity="center"
             android:text="@string/toolbar_title"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/toolbar_text_size" />
-
 
     </android.support.v7.widget.Toolbar>
 </LinearLayout>

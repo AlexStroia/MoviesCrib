@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+
 import java.util.List;
 
 import co.alexdev.moviescrib.Model.Movie;
@@ -43,8 +44,8 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesView
         final String image = movieList.get(i).getImage();
 
         moviesViewHolder.tv_movie_title.setText(title);
+        //Picasso.get().load().into(moviesViewHolder.iv_movie);
         //TODO - LOAD WITH PICASSO IMAGE
-
     }
 
     @Override

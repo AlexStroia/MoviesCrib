@@ -16,6 +16,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Spinner
+        android:id="@+id/sp_sorting"
+        android:layout_width="@dimen/spinner_size"
+        android:layout_height="@dimen/spinner_size"
+        android:layout_marginStart="@dimen/spinner_margin_left"
+        android:layout_marginBottom="@dimen/basic_margin"
+        android:background="@drawable/ic_spinner"
+        app:layout_constraintBottom_toTopOf="@+id/rv_movies"
+        app:layout_constraintStart_toStartOf="parent"></Spinner>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_movies"
         android:layout_width="0dp"
