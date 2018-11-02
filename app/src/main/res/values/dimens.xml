@@ -2,7 +2,6 @@
 <resources>
 
     <dimen name="toolbar_text_size">24sp</dimen>
-
     <dimen name="basic_margin">8dp</dimen>
     <dimen name="poster_height">300dp</dimen>
     <dimen name="poster_width">200dp</dimen>

@@ -16,7 +16,9 @@ import java.util.ArrayList;
 
 import co.alexdev.moviescrib.Adapter.MoviesAdapter;
 import co.alexdev.moviescrib.Model.Movie;
+import co.alexdev.moviescrib.Model.MovieRequest;
 import co.alexdev.moviescrib.R;
+
 
 public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.onMovieClickListener, AdapterView.OnItemSelectedListener {
     private static final String TAG = "MoviesActivity";
@@ -39,6 +41,8 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.o
 
         setupRecyclerView();
         setupSpinner();
+
+        MovieRequest.getPopularMovies();
     }
 
     private void setupRecyclerView() {
@@ -49,7 +53,6 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.o
         mMoviesArray.add(movie);
         mMoviesArray.add(movie);
         mMoviesArray.add(movie);
-
 
         mMoviesAdapter = new MoviesAdapter(mMoviesArray, this);
         gridLayoutManager = new GridLayoutManager(this, 2);

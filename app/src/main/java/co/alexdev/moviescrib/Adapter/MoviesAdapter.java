@@ -41,7 +41,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesView
     public void onBindViewHolder(@NonNull MoviesAdapter.MoviesViewHolder moviesViewHolder, int i) {
 
         final String title = movieList.get(i).getTitle();
-        final String image = movieList.get(i).getImage();
+        final String image = movieList.get(i).getPoster_path();
 
         moviesViewHolder.tv_movie_title.setText(title);
         //Picasso.get().load().into(moviesViewHolder.iv_movie);

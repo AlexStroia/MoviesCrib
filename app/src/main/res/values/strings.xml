@@ -10,4 +10,6 @@
     <string name="poster_release_date">11.10.2016</string>
     <string name="poster_info">Thanos is comming</string>
     <string name="poster_vote_average">8.0</string>
+
+    <string name="api_key">ed54cea63b99ab9822ad2510c09d1c0c</string>
 </resources>

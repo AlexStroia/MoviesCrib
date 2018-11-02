@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import co.alexdev.moviescrib.R;
 
+
 public class DetailActivity extends AppCompatActivity {
 
     @Override
