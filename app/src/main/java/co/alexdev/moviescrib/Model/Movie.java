@@ -2,7 +2,6 @@ package co.alexdev.moviescrib.Model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import com.google.gson.annotations.SerializedName;
 
 public final class Movie implements Parcelable {

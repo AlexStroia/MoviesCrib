@@ -8,9 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-
 import com.squareup.picasso.Picasso;
-
 import co.alexdev.moviescrib.Model.Movie;
 import co.alexdev.moviescrib.R;
 

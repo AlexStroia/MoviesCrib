@@ -1,9 +1,6 @@
 package co.alexdev.moviescrib.Model;
 
-import android.util.Log;
-
 import java.util.List;
-
 import co.alexdev.moviescrib.Utils.RetrofitClient;
 import retrofit2.Call;
 import retrofit2.Callback;

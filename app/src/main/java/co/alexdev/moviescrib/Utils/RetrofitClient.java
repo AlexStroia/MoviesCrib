@@ -1,10 +1,7 @@
 package co.alexdev.moviescrib.Utils;
 
 import android.net.Uri;
-import android.util.Log;
-
 import java.io.IOException;
-
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;

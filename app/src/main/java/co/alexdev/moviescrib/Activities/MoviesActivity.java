@@ -10,10 +10,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import co.alexdev.moviescrib.Adapter.MoviesAdapter;
 import co.alexdev.moviescrib.Model.Movie;
 import co.alexdev.moviescrib.Model.MovieRequest;
