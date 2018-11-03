@@ -11,5 +11,6 @@
     <string name="poster_info">Thanos is comming</string>
     <string name="poster_vote_average">8.0</string>
 
-    <string name="api_key">ed54cea63b99ab9822ad2510c09d1c0c</string>
+    <string name="api_key"></string>
+    <string name="tmdb_image_url">https://image.tmdb.org/t/p/w342/</string>
 </resources>

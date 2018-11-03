@@ -3,8 +3,8 @@ package co.alexdev.moviescrib.Activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,6 +13,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import co.alexdev.moviescrib.Adapter.MoviesAdapter;
 import co.alexdev.moviescrib.Model.Movie;
@@ -20,12 +21,12 @@ import co.alexdev.moviescrib.Model.MovieRequest;
 import co.alexdev.moviescrib.R;
 
 
-public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.onMovieClickListener, AdapterView.OnItemSelectedListener {
+public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.onMovieClickListener, AdapterView.OnItemSelectedListener, MovieRequest.MovieListListener {
     private static final String TAG = "MoviesActivity";
     private RecyclerView rv_movies;
     private Spinner sp_sorting;
-    private GridLayoutManager gridLayoutManager;
-    private ArrayList<Movie> mMoviesArray = new ArrayList<>();
+    private StaggeredGridLayoutManager staggeredGridLayoutManager;
+    private List<Movie> mMoviesArray = new ArrayList<>();
 
     private Toast mToast;
     private MoviesAdapter mMoviesAdapter;
@@ -42,22 +43,14 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.o
         setupRecyclerView();
         setupSpinner();
 
-        MovieRequest.getPopularMovies();
+        getMovies();
     }
 
     private void setupRecyclerView() {
-        Movie movie = new Movie("Avengers", 5.6, "11.05.1995", "www.google.ro", "Awesome movie");
-        mMoviesArray.add(movie);
-        mMoviesArray.add(movie);
-        mMoviesArray.add(movie);
-        mMoviesArray.add(movie);
-        mMoviesArray.add(movie);
-        mMoviesArray.add(movie);
+        mMoviesAdapter = new MoviesAdapter(this, mMoviesArray, this);
+        staggeredGridLayoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
 
-        mMoviesAdapter = new MoviesAdapter(mMoviesArray, this);
-        gridLayoutManager = new GridLayoutManager(this, 2);
-
-        rv_movies.setLayoutManager(gridLayoutManager);
+        rv_movies.setLayoutManager(staggeredGridLayoutManager);
         rv_movies.setAdapter(mMoviesAdapter);
     }
 
@@ -70,6 +63,9 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.o
         sp_sorting.setOnItemSelectedListener(this);
     }
 
+    private void getMovies() {
+        MovieRequest.getPopularMovies(this);
+    }
 
     @Override
     public void onMovieClick(int position) {
@@ -92,5 +88,10 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.o
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
+    }
+
+    @Override
+    public void onMovieListReceivedListener(List<Movie> movieList) {
+        mMoviesAdapter.setMovieList(movieList);
     }
 }

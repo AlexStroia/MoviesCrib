@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="@dimen/basic_margin">
+    android:layout_marginStart="@dimen/basic_margin">
 
     <android.support.v7.widget.CardView
         android:layout_width="wrap_content"
@@ -18,32 +18,32 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/iv_poster"
-                android:layout_width="@dimen/poster_width"
-                android:layout_height="@dimen/poster_height"
-                android:layout_marginRight="@dimen/basic_margin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/basic_margin"
                 android:adjustViewBounds="false"
                 android:contentDescription="@string/poster_content_description"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0"
-                app:srcCompat="@drawable/poster" />
+                app:layout_constraintVertical_bias="0.0" />
 
             <TextView
                 android:id="@+id/tv_movie_name"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:fontFamily="@font/robotica"
+                android:textAlignment="center"
                 android:gravity="center"
-                android:paddingLeft="@dimen/poster_text_padding"
-                android:paddingRight="@dimen/poster_text_padding"
                 android:text="@string/poster_title"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/poster_text_size"

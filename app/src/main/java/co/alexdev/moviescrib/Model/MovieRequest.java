@@ -11,10 +11,15 @@ import retrofit2.Response;
 
 public class MovieRequest {
 
-    private static final String TAG = "MovieRequest";
-    static List<Movie> movieList;
+    public interface MovieListListener {
+        void onMovieListReceivedListener(final List<Movie> movieList);
+    }
 
-    static public List<Movie> getPopularMovies() {
+    private static final String TAG = "MovieRequest";
+    private static MovieListListener mMovieListListener;
+
+    static public void getPopularMovies(MovieListListener movieListListener) {
+        mMovieListListener = movieListListener;
 
         Call<MovieResponse> popularMoviesCall = RetrofitClient.shared().getMovieApi().popularMovieList();
         popularMoviesCall.enqueue(new Callback<MovieResponse>() {
@@ -24,8 +29,8 @@ public class MovieRequest {
                     Log.d(TAG, "onResponse: " + response.errorBody());
                     return;
                 }
+                mMovieListListener.onMovieListReceivedListener(response.body().getMovieList());
                 Log.d(TAG, "onResponse: " + response.body().getMovieList().toString());
-                movieList = response.body().getMovieList();
             }
 
             @Override
@@ -34,10 +39,9 @@ public class MovieRequest {
                 return;
             }
         });
-        return movieList;
     }
 
-    static public List<Movie> getTopRatedMovies() {
+    static void getTopRatedMovies() {
 
         Call<MovieResponse> topRatedCall = RetrofitClient.shared().getMovieApi().topRatedMovieList();
 
@@ -48,8 +52,8 @@ public class MovieRequest {
                     Log.d(TAG, "onResponse: " + response.errorBody());
                     return;
                 }
+                mMovieListListener.onMovieListReceivedListener(response.body().getMovieList());
                 Log.d(TAG, "onResponse: " + response.body().getMovieList().toString());
-                movieList = response.body().getMovieList();
             }
 
             @Override
@@ -58,6 +62,5 @@ public class MovieRequest {
                 return;
             }
         });
-        return movieList;
     }
 }
