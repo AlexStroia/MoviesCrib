@@ -75,6 +75,7 @@ public class DetailActivity extends AppCompatActivity {
         final String moviePath = movie.getPoster_path();
         final String imageUri = buildImageUri(moviePath);
         Picasso.get().load(imageUri)
+                .placeholder(R.drawable.loading_animation)
                 .into(iv_poster);
     }
 
