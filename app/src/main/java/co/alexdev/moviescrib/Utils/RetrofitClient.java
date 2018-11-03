@@ -16,11 +16,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
 
-    private static final String TAG = "RetrofitClient";
-
     private static final String URL_SCHEME = "https";
     private static final String BASE_URL = "api.tmdb.org";
-    private static final String API_KEY = "";
+    public static final String PATH = "/3/";
+    private static final String API_KEY = "ENTER YOUR API KEY HERE";
     private static final String API_KEY_IDENTIFIER = "api_key";
 
     private final Retrofit retrofit;
@@ -56,7 +55,6 @@ public class RetrofitClient {
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        Log.d(TAG, "RetrofitClient: " + retrofit);
     }
 
     public static synchronized RetrofitClient shared() {
@@ -75,7 +73,7 @@ public class RetrofitClient {
         Uri.Builder builder = new Uri.Builder()
                 .scheme(URL_SCHEME)
                 .authority(BASE_URL)
-                .path("/3/");
+                .path(PATH);
         return builder.build();
     }
 

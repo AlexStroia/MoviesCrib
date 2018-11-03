@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -22,7 +21,7 @@ import co.alexdev.moviescrib.R;
 
 
 public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.onMovieClickListener, AdapterView.OnItemSelectedListener, MovieRequest.MovieListListener {
-    private static final String TAG = "MoviesActivity";
+
     private RecyclerView rv_movies;
     private Spinner sp_sorting;
     private StaggeredGridLayoutManager staggeredGridLayoutManager;
@@ -30,6 +29,7 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.o
 
     private Toast mToast;
     private MoviesAdapter mMoviesAdapter;
+    private Movie movie;
 
 
     @Override
@@ -43,13 +43,13 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.o
         setupRecyclerView();
         setupSpinner();
 
-        getMovies();
+        getMostPopularMovies();
     }
 
     private void setupRecyclerView() {
         mMoviesAdapter = new MoviesAdapter(this, mMoviesArray, this);
         staggeredGridLayoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
-
+        staggeredGridLayoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS);
         rv_movies.setLayoutManager(staggeredGridLayoutManager);
         rv_movies.setAdapter(mMoviesAdapter);
     }
@@ -63,26 +63,35 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.o
         sp_sorting.setOnItemSelectedListener(this);
     }
 
-    private void getMovies() {
+    private void getMostPopularMovies() {
         MovieRequest.getPopularMovies(this);
+    }
+
+    private void getTopRatedMovies() {
+        MovieRequest.getTopRatedMovies();
     }
 
     @Override
     public void onMovieClick(int position) {
-        if (mToast != null) {
-            mToast.cancel();
-        }
-        mToast = Toast.makeText(this, "Position: " + position, Toast.LENGTH_LONG);
-        mToast.show();
-
         Intent intent = new Intent(this, DetailActivity.class);
+        movie = mMoviesArray.get(position);
+        final String movieKey = getString(R.string.selected_movie_key);
+        if (movie != null) {
+            intent.putExtra(movieKey, movie);
+        }
         startActivity(intent);
     }
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        final Object position = adapterView.getItemAtPosition(i);
-        Log.d(TAG, "onItemSelected: position: " + position);
+        final String spinnerSelectedItem = adapterView.getItemAtPosition(i).toString();
+        final String[] spinnerItems = getResources().getStringArray(R.array.sorting_styles);
+
+        if (spinnerSelectedItem.equalsIgnoreCase(spinnerItems[0])) {
+            getMostPopularMovies();
+        } else if (spinnerSelectedItem.equalsIgnoreCase(spinnerItems[1])) {
+            getTopRatedMovies();
+        }
     }
 
     @Override
@@ -92,6 +101,12 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.o
 
     @Override
     public void onMovieListReceivedListener(List<Movie> movieList) {
-        mMoviesAdapter.setMovieList(movieList);
+        if (movieList.size() != 0) {
+            mMoviesArray = movieList;
+            mMoviesAdapter.setMovieList(mMoviesArray);
+        } else {
+            mToast = Toast.makeText(this, getString(R.string.no_movies_error), Toast.LENGTH_LONG);
+            mToast.show();
+        }
     }
 }

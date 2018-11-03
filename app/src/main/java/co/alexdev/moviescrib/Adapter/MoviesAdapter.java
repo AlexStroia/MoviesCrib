@@ -3,12 +3,12 @@ package co.alexdev.moviescrib.Adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -17,7 +17,6 @@ import co.alexdev.moviescrib.Model.Movie;
 import co.alexdev.moviescrib.R;
 
 public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder> {
-    private static final String TAG = "MoviesAdapter";
 
     private List<Movie> movieList;
     private static onMovieClickListener mMovieClickListener;
@@ -32,7 +31,6 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesView
         this.mContext = context;
         this.movieList = movieList;
         this.mMovieClickListener = movieClickListener;
-
         tmdb_image_url = context.getString(R.string.tmdb_image_url);
     }
 
@@ -50,9 +48,9 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesView
         final String imageUri = buildImageUri(imagePath);
 
         moviesViewHolder.tv_movie_title.setText(title);
-       // Glide.with(mContext).load(imageUri).into(moviesViewHolder.iv_movie);
         Picasso.get().load(imageUri)
                 .placeholder(R.drawable.loading_animation)
+                .fit()
                 .into(moviesViewHolder.iv_movie);
     }
 
@@ -68,7 +66,6 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesView
 
     private String buildImageUri(final String imagePath) {
         String imageString = new StringBuilder().append(tmdb_image_url).append(imagePath).toString();
-        Log.d(TAG, "buildImageUri: " + imageString);
         return imageString;
     }
 

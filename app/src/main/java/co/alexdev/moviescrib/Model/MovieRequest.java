@@ -15,7 +15,6 @@ public class MovieRequest {
         void onMovieListReceivedListener(final List<Movie> movieList);
     }
 
-    private static final String TAG = "MovieRequest";
     private static MovieListListener mMovieListListener;
 
     static public void getPopularMovies(MovieListListener movieListListener) {
@@ -26,22 +25,19 @@ public class MovieRequest {
             @Override
             public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
                 if (!response.isSuccessful()) {
-                    Log.d(TAG, "onResponse: " + response.errorBody());
                     return;
                 }
                 mMovieListListener.onMovieListReceivedListener(response.body().getMovieList());
-                Log.d(TAG, "onResponse: " + response.body().getMovieList().toString());
             }
 
             @Override
             public void onFailure(Call<MovieResponse> call, Throwable t) {
-                Log.d(TAG, "onFailure: " + t.getMessage());
                 return;
             }
         });
     }
 
-    static void getTopRatedMovies() {
+    public static void getTopRatedMovies() {
 
         Call<MovieResponse> topRatedCall = RetrofitClient.shared().getMovieApi().topRatedMovieList();
 
@@ -49,16 +45,13 @@ public class MovieRequest {
             @Override
             public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
                 if (!response.isSuccessful()) {
-                    Log.d(TAG, "onResponse: " + response.errorBody());
                     return;
                 }
                 mMovieListListener.onMovieListReceivedListener(response.body().getMovieList());
-                Log.d(TAG, "onResponse: " + response.body().getMovieList().toString());
             }
 
             @Override
             public void onFailure(Call<MovieResponse> call, Throwable t) {
-                Log.d(TAG, "onFailure: " + t.getMessage());
                 return;
             }
         });

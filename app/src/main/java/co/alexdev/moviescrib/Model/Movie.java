@@ -1,8 +1,11 @@
 package co.alexdev.moviescrib.Model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
-public final class Movie {
+public final class Movie implements Parcelable {
 
     @SerializedName("title")
     private final String title;
@@ -15,13 +18,25 @@ public final class Movie {
     @SerializedName("overview")
     private final String overview;
 
-    public Movie(String title, double vote_average, String release_date, String poster_path, String overview) {
-        this.title = title;
-        this.vote_average = vote_average;
-        this.release_date = release_date;
-        this.poster_path = poster_path;
-        this.overview = overview;
+    protected Movie(Parcel in) {
+        title = in.readString();
+        vote_average = in.readDouble();
+        release_date = in.readString();
+        poster_path = in.readString();
+        overview = in.readString();
     }
+
+    public static final Creator<Movie> CREATOR = new Creator<Movie>() {
+        @Override
+        public Movie createFromParcel(Parcel in) {
+            return new Movie(in);
+        }
+
+        @Override
+        public Movie[] newArray(int size) {
+            return new Movie[size];
+        }
+    };
 
     public String getTitle() {
         return title;
@@ -52,5 +67,19 @@ public final class Movie {
                 ", poster_path='" + poster_path + '\'' +
                 ", overview='" + overview + '\'' +
                 '}';
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(title);
+        parcel.writeDouble(vote_average);
+        parcel.writeString(release_date);
+        parcel.writeString(poster_path);
+        parcel.writeString(overview);
     }
 }

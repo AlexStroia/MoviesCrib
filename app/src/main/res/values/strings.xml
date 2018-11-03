@@ -11,6 +11,10 @@
     <string name="poster_info">Thanos is comming</string>
     <string name="poster_vote_average">8.0</string>
 
-    <string name="api_key"></string>
     <string name="tmdb_image_url">https://image.tmdb.org/t/p/w342/</string>
+    <string name="tmdb_image_url_large">https://image.tmdb.org/t/p/original/</string>
+
+    <string name="selected_movie_key">SELECTED_MOVIE</string>
+
+    <string name="no_movies_error">There are no movies to display.</string>
 </resources>
