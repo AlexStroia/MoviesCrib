@@ -7,9 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
+
 import java.util.List;
+
 import co.alexdev.moviescrib.Model.Movie;
 import co.alexdev.moviescrib.R;
 
@@ -39,16 +44,24 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesView
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MoviesAdapter.MoviesViewHolder moviesViewHolder, int i) {
+    public void onBindViewHolder(@NonNull final MoviesAdapter.MoviesViewHolder moviesViewHolder, int i) {
         final String title = movieList.get(i).getTitle();
         final String imagePath = movieList.get(i).getPoster_path();
         final String imageUri = buildImageUri(imagePath);
 
         moviesViewHolder.tv_movie_title.setText(title);
         Picasso.get().load(imageUri)
-                .placeholder(R.drawable.loading_animation)
-                .fit()
-                .into(moviesViewHolder.iv_movie);
+                .into(moviesViewHolder.iv_movie, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        moviesViewHolder.pb_movie_progress.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+
+                    }
+                });
     }
 
     @Override
@@ -70,12 +83,14 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesView
 
         ImageView iv_movie;
         TextView tv_movie_title;
+        ProgressBar pb_movie_progress;
 
         public MoviesViewHolder(@NonNull View itemView) {
             super(itemView);
 
             iv_movie = itemView.findViewById(R.id.iv_poster);
             tv_movie_title = itemView.findViewById(R.id.tv_movie_name);
+            pb_movie_progress = itemView.findViewById(R.id.pb_movie_loading);
             itemView.setOnClickListener(this);
         }
 

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -20,20 +22,38 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-
-        <ImageView
-            android:id="@+id/iv_detail_poster"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/poster_height"
+        <FrameLayout
+            android:id="@+id/frameLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/basic_margin"
             android:layout_marginTop="@dimen/basic_margin"
             android:layout_marginEnd="@dimen/basic_margin"
-            android:contentDescription="@string/poster_content_description"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/include"
-            app:srcCompat="@drawable/poster" />
+            app:layout_constraintTop_toBottomOf="@+id/include">
+
+            <ImageView
+                android:id="@+id/iv_detail_poster"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/poster_height"
+                android:layout_marginStart="@dimen/basic_margin"
+                android:layout_marginTop="@dimen/basic_margin"
+                android:layout_marginEnd="@dimen/basic_margin"
+                android:contentDescription="@string/poster_content_description"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/include"
+                app:srcCompat="@drawable/poster" />
+
+            <ProgressBar
+                android:id="@+id/pb_movie_loading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
+
+        </FrameLayout>
 
         <TextView
             android:id="@+id/tv_detail_title"
@@ -48,7 +68,7 @@
             app:layout_constraintEnd_toStartOf="@+id/tv_release_date"
             app:layout_constraintHorizontal_bias="@dimen/const_horizontal_bias"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_detail_poster" />
+            app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
 
         <TextView
             android:id="@+id/tv_release_date"
@@ -63,7 +83,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="@dimen/const_horizontal_bias"
             app:layout_constraintStart_toEndOf="@+id/tv_detail_title"
-            app:layout_constraintTop_toBottomOf="@+id/iv_detail_poster" />
+            app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
 
         <TextView
             android:id="@+id/tv_plot_synopsis"
