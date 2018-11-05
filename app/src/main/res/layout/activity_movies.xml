@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorDarkGrey"
-    tools:context=".Activities.MoviesActivity">
+    tools:context=".activities.MoviesActivity">
 
     <include
         android:id="@+id/include"
@@ -20,7 +20,7 @@
         android:id="@+id/sp_sorting"
         android:layout_width="@dimen/spinner_size"
         android:layout_height="@dimen/spinner_size"
-        android:layout_marginStart="@dimen/spinner_margin_left"
+        android:layout_marginStart="@dimen/_15dp"
         android:layout_marginBottom="@dimen/basic_margin"
         android:background="@drawable/ic_spinner"
         app:layout_constraintBottom_toTopOf="@+id/rv_movies"

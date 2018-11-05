@@ -5,15 +5,16 @@
     <dimen name="basic_margin">8dp</dimen>
     <dimen name="poster_height">300dp</dimen>
     <dimen name="poster_width">200dp</dimen>
-    <dimen name="poster_text_size">22sp</dimen>
-    <dimen name="detail_text_30sp">30sp</dimen>
+    <dimen name="fontSize_22sp">22sp</dimen>
+    <dimen name="fontSize_30sp">30sp</dimen>
     <dimen name="poster_text_padding">5dp</dimen>
     <dimen name="cv_corner_radius">10dp</dimen>
-    <dimen name="small_margin_left">5dp</dimen>
-    <dimen name="spinner_margin_left">15dp</dimen>
+    <dimen name="_5dp">5dp</dimen>
+    <dimen name="_15dp">15dp</dimen>
     <dimen name="spinner_size">25dp</dimen>
-    <dimen name="basic_padding">5dp</dimen>
+    <dimen name="basic_padding_5dp">5dp</dimen>
     <dimen name="const_spacing_detail_activity">32dp</dimen>
     <dimen name="const_horizontal_bias">0.5</dimen>
+    <dimen name="rb_step_size">0.5</dimen>
 
 </resources>

@@ -1,4 +1,4 @@
-package co.alexdev.moviescrib.Adapter;
+package co.alexdev.moviescrib.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -15,7 +15,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import co.alexdev.moviescrib.Model.Movie;
+import co.alexdev.moviescrib.model.Movie;
 import co.alexdev.moviescrib.R;
 
 public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder> {
@@ -39,7 +39,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesView
     @Override
     public MoviesAdapter.MoviesViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         final Context context = mContext;
-        final View rootView = LayoutInflater.from(context).inflate(R.layout.movies_list_item, viewGroup, false);
+        final View rootView = LayoutInflater.from(context).inflate(R.layout.item_movie_list, viewGroup, false);
         return new MoviesViewHolder(rootView);
     }
 

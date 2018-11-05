@@ -1,4 +1,4 @@
-package co.alexdev.moviescrib.Model;
+package co.alexdev.moviescrib.model;
 
 import com.google.gson.annotations.SerializedName;
 import java.util.List;

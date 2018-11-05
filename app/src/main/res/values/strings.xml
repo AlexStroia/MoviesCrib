@@ -12,7 +12,7 @@
     <string name="poster_vote_average">8.0</string>
 
     <string name="tmdb_image_url">https://image.tmdb.org/t/p/w342/</string>
-    <string name="tmdb_image_url_large">https://image.tmdb.org/t/p/original/</string>
+    <string name="tmdb_image_url_large">https://image.tmdb.org/t/p/w500/</string>
 
     <string name="selected_movie_key">SELECTED_MOVIE</string>
 

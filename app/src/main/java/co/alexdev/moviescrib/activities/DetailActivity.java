@@ -1,4 +1,4 @@
-package co.alexdev.moviescrib.Activities;
+package co.alexdev.moviescrib.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
-import co.alexdev.moviescrib.Model.Movie;
+import co.alexdev.moviescrib.model.Movie;
 import co.alexdev.moviescrib.R;
 
 public class DetailActivity extends AppCompatActivity {

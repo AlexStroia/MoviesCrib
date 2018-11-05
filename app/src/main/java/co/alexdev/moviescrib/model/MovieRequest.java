@@ -1,7 +1,7 @@
-package co.alexdev.moviescrib.Model;
+package co.alexdev.moviescrib.model;
 
 import java.util.List;
-import co.alexdev.moviescrib.Utils.RetrofitClient;
+import co.alexdev.moviescrib.utils.networking.RetrofitClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

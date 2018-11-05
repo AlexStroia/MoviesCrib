@@ -1,4 +1,4 @@
-package co.alexdev.moviescrib.Activities;
+package co.alexdev.moviescrib.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -10,11 +10,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.List;
-import co.alexdev.moviescrib.Adapter.MoviesAdapter;
-import co.alexdev.moviescrib.Model.Movie;
-import co.alexdev.moviescrib.Model.MovieRequest;
+
+import co.alexdev.moviescrib.adapter.MoviesAdapter;
+import co.alexdev.moviescrib.model.Movie;
+import co.alexdev.moviescrib.model.MovieRequest;
 import co.alexdev.moviescrib.R;
 
 

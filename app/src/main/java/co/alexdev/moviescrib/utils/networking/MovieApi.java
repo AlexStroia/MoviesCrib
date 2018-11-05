@@ -1,6 +1,6 @@
-package co.alexdev.moviescrib.Utils;
+package co.alexdev.moviescrib.utils.networking;
 
-import co.alexdev.moviescrib.Model.MovieResponse;
+import co.alexdev.moviescrib.model.MovieResponse;
 import retrofit2.Call;
 import retrofit2.http.GET;
 

@@ -1,4 +1,4 @@
-package co.alexdev.moviescrib.Model;
+package co.alexdev.moviescrib.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
