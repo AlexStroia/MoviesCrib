@@ -1,4 +1,4 @@
-# MoviesCrib
+# MoviesCrib - Phase 1
 
     Present the user with a grid arrangement of movie posters upon launch.
     Allow your user to change sort order via a setting:
