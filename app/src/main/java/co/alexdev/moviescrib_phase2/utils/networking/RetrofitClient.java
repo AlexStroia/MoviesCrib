@@ -19,7 +19,7 @@ public class RetrofitClient {
     private static final String URL_SCHEME = "https";
     private static final String BASE_URL = "api.tmdb.org";
     public static final String PATH = "/3/";
-    private static final String API_KEY = "ENTER YOUR API KEY HERE";
+    private static final String API_KEY = "";
     private static final String API_KEY_IDENTIFIER = "api_key";
 
     private final Retrofit retrofit;
