@@ -21,8 +21,8 @@
             android:fontFamily="@font/robotica"
             android:gravity="center"
             android:text="@string/toolbar_title"
-            android:textColor="@color/colorWhite"
-            android:textSize="@dimen/toolbar_text_size" />
+            android:textColor="@color/custom_red"
+            android:textSize="@dimen/_24sp" />
 
     </android.support.v7.widget.Toolbar>
 </LinearLayout>

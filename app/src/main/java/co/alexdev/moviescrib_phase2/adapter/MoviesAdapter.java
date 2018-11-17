@@ -1,4 +1,4 @@
-package co.alexdev.moviescrib.adapter;
+package co.alexdev.moviescrib_phase2.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -15,8 +15,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import co.alexdev.moviescrib.model.Movie;
-import co.alexdev.moviescrib.R;
+import co.alexdev.moviescrib_phase2.model.Movie;
+import co.alexdev.moviescrib_phase2.R;
 
 public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder> {
 
@@ -25,6 +25,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesView
     private final Context mContext;
     private final String tmdb_image_url;
 
+    /*Listener used to detect the position of the Movie that is clicked in the Adapter*/
     public interface onMovieClickListener {
         void onMovieClick(int position);
     }
@@ -33,7 +34,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesView
         this.mContext = context;
         this.movieList = movieList;
         this.mMovieClickListener = movieClickListener;
-        tmdb_image_url = context.getString(R.string.tmdb_image_url);
+        tmdb_image_url = context.getString(R.string.tmdb_image_url_large);
     }
 
     @Override
@@ -51,17 +52,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesView
 
         moviesViewHolder.tv_movie_title.setText(title);
         Picasso.get().load(imageUri)
-                .into(moviesViewHolder.iv_movie, new Callback() {
-                    @Override
-                    public void onSuccess() {
-                        moviesViewHolder.pb_movie_progress.setVisibility(View.GONE);
-                    }
-
-                    @Override
-                    public void onError(Exception e) {
-
-                    }
-                });
+                .into(moviesViewHolder.iv_movie);
     }
 
     @Override
@@ -69,31 +60,35 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesView
         return (movieList != null && movieList.size() > 0 ? movieList.size() : 0);
     }
 
+    /*Function used to set the movie list with the movie data that came from the API*/
     public void setMovieList(List<Movie> movieList) {
         this.movieList = movieList;
         notifyDataSetChanged();
     }
 
+    /*Helper function that help us to build the URI for our image
+     * pathForLargeImage - the basic path that every image has
+     * imageUri - the unique URI that every image has */
     private String buildImageUri(final String imagePath) {
         String imageString = new StringBuilder().append(tmdb_image_url).append(imagePath).toString();
         return imageString;
     }
 
+    /*Implemented View.OnClickListener to detect when a item is tapped in the RecyclerView*/
     static class MoviesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ImageView iv_movie;
         TextView tv_movie_title;
-        ProgressBar pb_movie_progress;
 
         public MoviesViewHolder(@NonNull View itemView) {
             super(itemView);
 
             iv_movie = itemView.findViewById(R.id.iv_poster);
             tv_movie_title = itemView.findViewById(R.id.tv_movie_name);
-            pb_movie_progress = itemView.findViewById(R.id.pb_movie_loading);
             itemView.setOnClickListener(this);
         }
 
+        /*Override the function by getting the adapter position that is clicked and passing it to our listener*/
         @Override
         public void onClick(View view) {
             final int position = getAdapterPosition();

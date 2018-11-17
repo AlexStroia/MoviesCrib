@@ -25,10 +25,12 @@
         <FrameLayout
             android:id="@+id/frameLayout"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/basic_margin"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="@dimen/basic_margin"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/_8dp"
+            android:layout_marginTop="@dimen/_8dp"
+            android:layout_marginEnd="@dimen/_8dp"
+            android:layout_marginBottom="@dimen/_8dp"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.038"
             app:layout_constraintStart_toStartOf="parent"
@@ -38,80 +40,77 @@
                 android:id="@+id/iv_detail_poster"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/basic_margin"
-                android:layout_marginTop="@dimen/basic_margin"
-                android:layout_marginEnd="@dimen/basic_margin"
+                android:layout_marginStart="@dimen/_8dp"
+                android:layout_marginTop="@dimen/_8dp"
+                android:layout_marginEnd="@dimen/_8dp"
                 android:contentDescription="@string/poster_content_description"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/include" />
 
-            <ProgressBar
-                android:id="@+id/pb_movie_loading"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center" />
-
         </FrameLayout>
 
-        <TextView
-            android:id="@+id/tv_detail_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/basic_margin"
-            android:layout_marginTop="@dimen/basic_margin"
-            android:layout_marginEnd="@dimen/basic_margin"
-            android:fontFamily="@font/robotoboldcondensed"
-            android:gravity="center"
-            android:text="@string/poster_title"
-            android:textColor="@android:color/black"
-            android:textSize="@dimen/fontSize_22sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/frameLayout"
-            app:layout_constraintTop_toTopOf="@+id/frameLayout" />
-
-        <TextView
-            android:id="@+id/tv_release_date"
+        <LinearLayout
+            android:id="@+id/linearLayout2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/basic_margin"
-            android:layout_marginTop="@dimen/basic_margin"
-            android:layout_marginEnd="@dimen/basic_margin"
-            android:fontFamily="@font/robotoboldcondensed"
+            android:layout_marginStart="@dimen/_8dp"
+            android:layout_marginTop="@dimen/_8dp"
+            android:layout_marginEnd="@dimen/_8dp"
             android:gravity="center"
-            android:text="@string/poster_release_date"
-            android:textColor="@android:color/black"
-            android:textSize="@dimen/fontSize_22sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/frameLayout"
-            app:layout_constraintTop_toBottomOf="@+id/tv_detail_title" />
-
-        <TextView
-            android:id="@+id/tv_plot_synopsis"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/basic_margin"
-            android:layout_marginBottom="@dimen/basic_margin"
-            android:fontFamily="@font/movietitle"
-            android:text="@string/poster_info"
-            android:textColor="@android:color/black"
-            android:textSize="@dimen/fontSize_30sp"
+            android:orientation="vertical"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-            app:layout_constraintEnd_toEndOf="@+id/tv_release_date"
-            app:layout_constraintStart_toStartOf="@+id/tv_release_date"
-            app:layout_constraintTop_toBottomOf="@+id/tv_release_date"
-            app:layout_constraintVertical_bias="0.42" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/frameLayout"
+            app:layout_constraintTop_toBottomOf="@+id/include">
+
+            <TextView
+                android:id="@+id/tv_detail_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8dp"
+                android:layout_marginTop="@dimen/_8dp"
+                android:layout_marginEnd="@dimen/_8dp"
+                android:fontFamily="@font/robotoboldcondensed"
+                android:gravity="center"
+                android:text="@string/poster_title"
+                android:textSize="@dimen/_22sp" />
+
+            <TextView
+                android:id="@+id/tv_release_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8dp"
+                android:layout_marginTop="@dimen/_8dp"
+                android:layout_marginEnd="@dimen/_8dp"
+                android:fontFamily="@font/robotoboldcondensed"
+                android:gravity="center"
+                android:text="@string/poster_release_date"
+                android:textSize="@dimen/_22sp" />
+
+            <TextView
+                android:id="@+id/tv_plot_synopsis"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_100dp"
+                android:layout_marginTop="@dimen/_8dp"
+                android:layout_marginBottom="@dimen/_8dp"
+                android:fontFamily="@font/movietitle"
+                android:scrollbars="vertical"
+                android:text="@string/poster_info"
+                android:textSize="@dimen/_30sp" />
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/linearLayout"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/basic_margin"
-            android:layout_marginEnd="@dimen/basic_margin"
-            android:layout_marginBottom="@dimen/const_spacing_detail_activity"
+            android:layout_marginStart="@dimen/_8dp"
+            android:layout_marginEnd="@dimen/_8dp"
+            android:layout_marginBottom="@dimen/_8dp"
+            android:gravity="center"
             android:orientation="horizontal"
-            android:paddingTop="@dimen/basic_padding_5dp"
+            android:paddingTop="@dimen/_5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="@dimen/const_horizontal_bias"
@@ -121,9 +120,17 @@
                 android:id="@+id/rb_vote_average"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:isIndicator="true"
-                android:progressTint="@color/golden_yellow"
-                android:stepSize="@dimen/rb_step_size" />
+                android:outlineAmbientShadowColor="@color/custom_red"
+                android:outlineSpotShadowColor="@color/custom_red"
+                android:progressBackgroundTint="@android:color/transparent"
+                android:progressTint="@color/custom_red"
+                android:secondaryProgressTint="@android:color/transparent"
+                android:stepSize="@dimen/rb_step_size"
+                android:scaleX="@dimen/_rb_small"
+                android:scaleY="@dimen/_rb_small"
+                />
 
             <TextView
                 android:id="@+id/tv_vote_average"
@@ -131,20 +138,13 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:fontFamily="@font/movietitle"
-                android:paddingStart="@dimen/basic_padding_5dp"
-                android:paddingLeft="@dimen/basic_padding_5dp"
-                android:paddingRight="@dimen/basic_padding_5dp"
+                android:paddingStart="@dimen/_5dp"
+                android:paddingLeft="@dimen/_5dp"
+                android:paddingRight="@dimen/_5dp"
                 android:text="@string/poster_vote_average"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/fontSize_30sp" />
+                android:textSize="@dimen/_30sp"
+                android:visibility="gone" />
         </LinearLayout>
 
-        <android.support.constraint.Barrier
-            android:id="@+id/barrier2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:barrierDirection="top"
-            app:constraint_referenced_ids="tv_plot_synopsis,linearLayout"
-            app:layout_constraintTop_toBottomOf="@id/frameLayout" />
     </android.support.constraint.ConstraintLayout>
 </android.support.v4.widget.NestedScrollView>

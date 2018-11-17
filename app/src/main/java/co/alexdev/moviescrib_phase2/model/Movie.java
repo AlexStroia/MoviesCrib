@@ -1,11 +1,12 @@
-package co.alexdev.moviescrib.model;
+package co.alexdev.moviescrib_phase2.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
 public final class Movie implements Parcelable {
-
+    /*Used SerializedName so that Retrofit will know what type of data to extract if our params name are differnet*/
     @SerializedName("title")
     private final String title;
     @SerializedName("vote_average")
@@ -17,6 +18,7 @@ public final class Movie implements Parcelable {
     @SerializedName("overview")
     private final String overview;
 
+    /*Parcel in to get the converted stream into our data*/
     protected Movie(Parcel in) {
         title = in.readString();
         vote_average = in.readDouble();
@@ -25,6 +27,8 @@ public final class Movie implements Parcelable {
         overview = in.readString();
     }
 
+    /*Creator of the parcel that let us to send data between activity
+     * When we send na object between activity we convert it to a stream of data and after we deserialize it*/
     public static final Creator<Movie> CREATOR = new Creator<Movie>() {
         @Override
         public Movie createFromParcel(Parcel in) {

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="co.alexdev.moviescrib">
+    package="co.alexdev.moviescrib_phase2">
 
     <uses-permission android:name="android.permission.INTERNET"/>
 
@@ -11,15 +11,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/DarkTheme">
-        <activity android:name=".activities.MoviesActivity">
+        <activity android:name="co.alexdev.moviescrib_phase2.activities.MoviesActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.DetailActivity"
-            android:parentActivityName=".activities.MoviesActivity"
+        <activity android:name="co.alexdev.moviescrib_phase2.activities.DetailActivity"
+            android:parentActivityName="co.alexdev.moviescrib_phase2.activities.MoviesActivity"
             ></activity>
     </application>
 
