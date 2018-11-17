@@ -1,4 +1,4 @@
-package co.alexdev.moviescrib;
+package co.alexdev.moviescrib_phase2;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

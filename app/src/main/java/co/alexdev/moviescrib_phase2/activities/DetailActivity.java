@@ -1,20 +1,19 @@
-package co.alexdev.moviescrib.activities;
+package co.alexdev.moviescrib_phase2.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
-import co.alexdev.moviescrib.model.Movie;
-import co.alexdev.moviescrib.R;
+import co.alexdev.moviescrib_phase2.model.Movie;
+import co.alexdev.moviescrib_phase2.R;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -25,7 +24,6 @@ public class DetailActivity extends AppCompatActivity {
     private TextView tv_plot_synopsis;
     private RatingBar rb_vote_average;
     private TextView tv_vote_average;
-    private ProgressBar pb_movie_loading;
 
     private Movie movie;
 
@@ -38,10 +36,10 @@ public class DetailActivity extends AppCompatActivity {
         iv_poster = findViewById(R.id.iv_detail_poster);
         tv_detail_title = findViewById(R.id.tv_detail_title);
         tv_release_date = findViewById(R.id.tv_release_date);
+        tv_release_date.setMovementMethod(new ScrollingMovementMethod());
         tv_plot_synopsis = findViewById(R.id.tv_plot_synopsis);
         rb_vote_average = findViewById(R.id.rb_vote_average);
         tv_vote_average = findViewById(R.id.tv_vote_average);
-        pb_movie_loading = findViewById(R.id.pb_movie_loading);
 
         setCustomToolbar();
         setRatingBar();
@@ -49,12 +47,16 @@ public class DetailActivity extends AppCompatActivity {
         final Intent intent = getIntent();
         final String movieKey = getString(R.string.selected_movie_key);
 
+        /*Check if there is a intent who has the SELECTED_MOVIE key
+         * SELECTED_MOVIE is the key that we use to check if the intent has the movie that we want*/
         if (intent.hasExtra(movieKey)) {
             movie = intent.getParcelableExtra(movieKey);
             displayData();
         }
     }
 
+    /*Set the custom toolbar with the navigation icon
+     * Set the listener of the custom toolbar that when is clicked to finish this activity*/
     private void setCustomToolbar() {
         customToolbar.setNavigationIcon(R.drawable.ic_arrow_white_24dp);
         customToolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -65,6 +67,7 @@ public class DetailActivity extends AppCompatActivity {
         });
     }
 
+    /*First check if we have a movie, if we have populate the view with the specific detail*/
     private void displayData() {
         if (movie != null) {
             loadImage();
@@ -78,33 +81,31 @@ public class DetailActivity extends AppCompatActivity {
         }
     }
 
+    /*Load the image with Picasso into our image*/
     private void loadImage() {
         final String imageUri = buildImageUri();
         Picasso.get().load(imageUri)
-                .into(iv_poster, new Callback() {
-                    @Override
-                    public void onSuccess() {
-                        pb_movie_loading.setVisibility(View.GONE);
-                    }
-
-                    @Override
-                    public void onError(Exception e) {
-
-                    }
-                });
+                .into(iv_poster);
     }
 
+    /*Helper function that help us to build the URI for our image
+     * pathForLargeImage - the basic path that every image has
+     * imageUri - the unique URI that every image has */
     private String buildImageUri() {
         final String pathForLargeImage = getString(R.string.tmdb_image_url_large);
         final String imageUri = new StringBuilder().append(pathForLargeImage).append(movie.getPoster_path()).toString();
         return imageUri;
     }
 
+    /*Set rating bar to step size
+     * 0.5 - We can view half of a star not only a full star
+     * 5 - Maximum number of stars */
     private void setRatingBar() {
-        rb_vote_average.setStepSize(0.01f);
+        rb_vote_average.setStepSize(0.5f);
         rb_vote_average.setMax(5);
     }
 
+    /*Calculate the rating stars*/
     private float getRatingBarStars(final float vote_average) {
         return vote_average / 2;
     }

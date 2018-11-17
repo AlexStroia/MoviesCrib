@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MoviesCrib</string>
+    <string name="app_name">MoviesCrib - Phase 2</string>
 
     <string name="toolbar_title">Movies Crib</string>
     <string name="toolbar_content_description">Custom toolbar used in the application</string>
@@ -13,6 +13,7 @@
 
     <string name="tmdb_image_url">https://image.tmdb.org/t/p/w342/</string>
     <string name="tmdb_image_url_large">https://image.tmdb.org/t/p/w500/</string>
+    <string name="tmdb_image_url_original">https://image.tmdb.org/t/p/original/</string>
 
     <string name="selected_movie_key">SELECTED_MOVIE</string>
 

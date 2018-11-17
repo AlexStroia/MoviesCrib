@@ -1,9 +1,11 @@
-package co.alexdev.moviescrib.utils.networking;
+package co.alexdev.moviescrib_phase2.utils.networking;
 
-import co.alexdev.moviescrib.model.MovieResponse;
+import co.alexdev.moviescrib_phase2.model.MovieResponse;
 import retrofit2.Call;
 import retrofit2.http.GET;
 
+/*Endpoints used when we are querying*/
+/*GET means that we want to get some data*/
 public interface MovieApi {
     @GET("movie/popular")
     Call<MovieResponse> popularMovieList();

@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <dimen name="toolbar_text_size">24sp</dimen>
-    <dimen name="basic_margin">8dp</dimen>
+    <dimen name="_24sp">24sp</dimen>
+    <dimen name="_8dp">8dp</dimen>
     <dimen name="poster_height">300dp</dimen>
     <dimen name="poster_width">200dp</dimen>
-    <dimen name="fontSize_22sp">22sp</dimen>
-    <dimen name="fontSize_30sp">30sp</dimen>
-    <dimen name="poster_text_padding">5dp</dimen>
-    <dimen name="cv_corner_radius">10dp</dimen>
+    <dimen name="_22sp">22sp</dimen>
+    <dimen name="_30sp">30sp</dimen>
+    <dimen name="_10dp">10dp</dimen>
     <dimen name="_5dp">5dp</dimen>
     <dimen name="_15dp">15dp</dimen>
     <dimen name="spinner_size">25dp</dimen>
-    <dimen name="basic_padding_5dp">5dp</dimen>
-    <dimen name="const_spacing_detail_activity">32dp</dimen>
+    <dimen name="_32dp">32dp</dimen>
+    <dimen name="_100dp">100dp</dimen>
     <dimen name="const_horizontal_bias">0.5</dimen>
     <dimen name="rb_step_size">0.5</dimen>
 
+    <!--Made it item to work when adding it to the rating bar-->
+    <item name="_rb_small" format="float" type="dimen">0.75</item>
 </resources>
