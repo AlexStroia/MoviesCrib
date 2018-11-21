@@ -1,12 +1,15 @@
 package co.alexdev.moviescrib_phase2.adapter;
 
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.view.View;
+import android.view.ViewGroup;
 
 import co.alexdev.moviescrib_phase2.fragments.FavouritesFragment;
-import co.alexdev.moviescrib_phase2.fragments.DetailMovieFragment;
-import co.alexdev.moviescrib_phase2.fragments.MoviesFragment;
+import co.alexdev.moviescrib_phase2.fragments.MostPopularFragment;
+import co.alexdev.moviescrib_phase2.fragments.TopRatedFragment;
 
 /*Class used to populate the pages inside a ViewPager*/
 public class PagerAdapter extends FragmentPagerAdapter {
@@ -22,17 +25,18 @@ public class PagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return new MoviesFragment();
+                return new MostPopularFragment();
 
             case 1:
-                return new DetailMovieFragment();
+                return new FavouritesFragment();
 
             case 2:
-                return new FavouritesFragment();
+                return new TopRatedFragment();
 
         }
         return null;
     }
+
 
     @Override
     public int getCount() {

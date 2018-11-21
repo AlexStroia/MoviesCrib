@@ -12,7 +12,9 @@ public class MovieRequest {
 
     /*Listener implemented in mainActivity*/
     public interface MovieListListener {
-        void onMovieListReceivedListener(final List<Movie> movieList);
+        void onMostPopularListReceivedListener(final List<Movie> movieList);
+
+        void onTopRatedListReceivedListener(final List<Movie> movieList);
     }
 
     private static MovieListListener mMovieListListener;
@@ -30,7 +32,7 @@ public class MovieRequest {
                 if (!response.isSuccessful()) {
                     return;
                 }
-                mMovieListListener.onMovieListReceivedListener(response.body().getMovieList());
+                mMovieListListener.onMostPopularListReceivedListener(response.body().getMovieList());
             }
 
             @Override
@@ -41,7 +43,8 @@ public class MovieRequest {
     }
 
     /*Static function that is getting the top rated movies movies*/
-    public static void getTopRatedMovies() {
+    public static void getTopRatedMovies(MovieListListener movieListListener) {
+        mMovieListListener = movieListListener;
         /*Initiate a call by getting the top rates movies and after that pass it to the listener
          * Definied MovieResponse which is the type of the response that we initially get*/
         Call<MovieResponse> topRatedCall = RetrofitClient.shared().getMovieApi().topRatedMovieList();
@@ -52,7 +55,7 @@ public class MovieRequest {
                 if (!response.isSuccessful()) {
                     return;
                 }
-                mMovieListListener.onMovieListReceivedListener(response.body().getMovieList());
+                mMovieListListener.onTopRatedListReceivedListener(response.body().getMovieList());
             }
 
             @Override
