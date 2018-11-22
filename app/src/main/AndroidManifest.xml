@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/DarkTheme">
-        <activity android:name="co.alexdev.moviescrib_phase2.activities.MoviesActivity">
+        <activity android:name="co.alexdev.moviescrib_phase2.activities.BaseActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name="co.alexdev.moviescrib_phase2.activities.DetailActivity"
-            android:parentActivityName="co.alexdev.moviescrib_phase2.activities.MoviesActivity"
+            android:parentActivityName="co.alexdev.moviescrib_phase2.activities.BaseActivity"
             ></activity>
     </application>
 

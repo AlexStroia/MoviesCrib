@@ -1,5 +1,7 @@
 package co.alexdev.moviescrib_phase2.fragments;
 
+import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -13,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import co.alexdev.moviescrib_phase2.R;
+import co.alexdev.moviescrib_phase2.activities.DetailActivity;
 import co.alexdev.moviescrib_phase2.adapter.MoviesAdapter;
 import co.alexdev.moviescrib_phase2.model.Movie;
 import co.alexdev.moviescrib_phase2.model.MovieRequest;
@@ -51,20 +54,23 @@ public class TopRatedFragment extends Fragment implements MoviesAdapter.onMovieC
         MovieRequest.getTopRatedMovies(this);
     }
 
+    private void showDetailActivity(final Movie movie) {
+        final Resources resources = getResources();
+        Intent intent = new Intent(getActivity(), DetailActivity.class);
+        intent.putExtra(resources.getString(R.string.selected_movie_key), movie);
+        startActivity(intent);
+    }
+
     @Override
     public void onMovieClick(int position) {
         final Movie movie = mMovieList.get(position);
+        showDetailActivity(movie);
         Log.d(TAG, "onMovieClick: " + movie.toString());
     }
 
     /*Set da adapter with the populated list*/
     @Override
     public void onMostPopularListReceivedListener(List<Movie> movieList) {
-    }
-
-    public void setMovieList(List<Movie> movieList) {
-        mMovieList = movieList;
-        mMoviesAdapter.setMovieList(movieList);
     }
 
     @Override

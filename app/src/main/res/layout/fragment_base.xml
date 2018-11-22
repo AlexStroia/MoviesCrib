@@ -1,29 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorDarkGrey"
-    tools:context=".activities.MoviesActivity">
-
-    <include
-        android:id="@+id/include"
-        layout="@layout/custom_toolbar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Spinner
-        android:id="@+id/sp_sorting"
-        android:layout_width="@dimen/spinner_size"
-        android:layout_height="@dimen/spinner_size"
-        android:layout_marginStart="@dimen/_15dp"
-        android:layout_marginBottom="@dimen/_8dp"
-        android:background="@drawable/ic_spinner"
-        app:layout_constraintStart_toStartOf="parent"></Spinner>
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.BaseFragment">
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tabLayout"
@@ -47,7 +28,7 @@
         <android.support.design.widget.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/title_favourites"
+            android:text="@string/title_top_rated"
             />
 
         <android.support.design.widget.TabItem
