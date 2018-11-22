@@ -1,13 +1,8 @@
 package co.alexdev.moviescrib_phase2.adapter;
 
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.view.View;
-import android.view.ViewGroup;
-
 import co.alexdev.moviescrib_phase2.fragments.FavouritesFragment;
 import co.alexdev.moviescrib_phase2.fragments.MostPopularFragment;
 import co.alexdev.moviescrib_phase2.fragments.TopRatedFragment;
