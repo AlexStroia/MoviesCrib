@@ -50,7 +50,6 @@ public class BaseFragment extends Fragment {
         FragmentManager fragmentManager = getChildFragmentManager();
         pagerAdapter = new PagerAdapter(fragmentManager, tabLayout.getTabCount());
         viewPager.setAdapter(pagerAdapter);
-     //   viewPager.setOffscreenPageLimit(3);
     }
 
     /*Setup the tab layout

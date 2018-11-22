@@ -22,6 +22,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+
         <FrameLayout
             android:id="@+id/frameLayout"
             android:layout_width="wrap_content"
@@ -48,6 +49,19 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/include" />
+
+
+            <ImageButton
+                android:id="@+id/ib_fav"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginBottom="@dimen/_8dp"
+                android:background="@null"
+                android:paddingTop="@dimen/_15dp"
+                android:paddingRight="@dimen/_8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:srcCompat="@drawable/ic_heart_empty" />
 
         </FrameLayout>
 
@@ -80,7 +94,7 @@
             <TextView
                 android:id="@+id/tv_release_date"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginStart="@dimen/_8dp"
                 android:layout_marginTop="@dimen/_8dp"
                 android:layout_marginEnd="@dimen/_8dp"
@@ -91,11 +105,14 @@
 
             <TextView
                 android:id="@+id/tv_plot_synopsis"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/_100dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_8dp"
                 android:layout_marginBottom="@dimen/_8dp"
+                android:fadeScrollbars="true"
                 android:fontFamily="@font/movietitle"
+                android:lines="3"
+                android:scrollbarStyle="insideOverlay"
                 android:scrollbars="vertical"
                 android:text="@string/poster_info"
                 android:textSize="@dimen/_30sp" />
@@ -108,7 +125,7 @@
             android:layout_marginStart="@dimen/_8dp"
             android:layout_marginEnd="@dimen/_8dp"
             android:layout_marginBottom="@dimen/_8dp"
-            android:gravity="center"
+            android:gravity="right"
             android:orientation="horizontal"
             android:paddingTop="@dimen/_5dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -126,11 +143,10 @@
                 android:outlineSpotShadowColor="@color/custom_red"
                 android:progressBackgroundTint="@android:color/transparent"
                 android:progressTint="@color/custom_red"
-                android:secondaryProgressTint="@android:color/transparent"
-                android:stepSize="@dimen/rb_step_size"
                 android:scaleX="@dimen/_rb_small"
                 android:scaleY="@dimen/_rb_small"
-                />
+                android:secondaryProgressTint="@android:color/transparent"
+                android:stepSize="@dimen/rb_step_size" />
 
             <TextView
                 android:id="@+id/tv_vote_average"

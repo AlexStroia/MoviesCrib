@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ public class DetailActivity extends AppCompatActivity {
     private TextView tv_plot_synopsis;
     private RatingBar rb_vote_average;
     private TextView tv_vote_average;
+    private ImageButton ib_favorite;
 
     private Movie movie;
 
@@ -36,10 +38,11 @@ public class DetailActivity extends AppCompatActivity {
         iv_poster = findViewById(R.id.iv_detail_poster);
         tv_detail_title = findViewById(R.id.tv_detail_title);
         tv_release_date = findViewById(R.id.tv_release_date);
-        tv_release_date.setMovementMethod(new ScrollingMovementMethod());
         tv_plot_synopsis = findViewById(R.id.tv_plot_synopsis);
+        tv_plot_synopsis.setMovementMethod(new ScrollingMovementMethod());
         rb_vote_average = findViewById(R.id.rb_vote_average);
         tv_vote_average = findViewById(R.id.tv_vote_average);
+        ib_favorite = findViewById(R.id.ib_fav);
 
         setCustomToolbar();
         setRatingBar();

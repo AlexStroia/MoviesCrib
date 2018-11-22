@@ -17,19 +17,19 @@ import java.util.List;
 
 import co.alexdev.moviescrib_phase2.R;
 import co.alexdev.moviescrib_phase2.activities.DetailActivity;
-import co.alexdev.moviescrib_phase2.adapter.MoviesAdapter;
+import co.alexdev.moviescrib_phase2.adapter.MostPopularMoviesAdapter;
 import co.alexdev.moviescrib_phase2.model.Movie;
 import co.alexdev.moviescrib_phase2.model.MovieRequest;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MostPopularFragment extends Fragment implements MoviesAdapter.onMovieClickListener, MovieRequest.MovieListListener {
+public class MostPopularFragment extends Fragment implements MostPopularMoviesAdapter.onMostPopularMovieCLick, MovieRequest.MovieListListener {
 
     private static final String TAG = "MostPopularFragment";
     private static final int GRID_COLUMN_SPAN = 2;
     private RecyclerView rv_movies;
-    private MoviesAdapter mMoviesAdapter;
+    private MostPopularMoviesAdapter mMostPopularMoviesAdapter;
     private GridLayoutManager mGridLayoutManager;
     private List<Movie> mMovieList = new ArrayList<>();
 
@@ -47,9 +47,9 @@ public class MostPopularFragment extends Fragment implements MoviesAdapter.onMov
     }
 
     private void setupRecyclerView() {
-        mMoviesAdapter = new MoviesAdapter(getActivity(), mMovieList, this);
+        mMostPopularMoviesAdapter = new MostPopularMoviesAdapter(getActivity(), mMovieList, this);
         mGridLayoutManager = new GridLayoutManager(getActivity(), GRID_COLUMN_SPAN);
-        rv_movies.setAdapter(mMoviesAdapter);
+        rv_movies.setAdapter(mMostPopularMoviesAdapter);
         rv_movies.setLayoutManager(mGridLayoutManager);
     }
 
@@ -58,15 +58,12 @@ public class MostPopularFragment extends Fragment implements MoviesAdapter.onMov
         MovieRequest.getPopularMovies(this);
     }
 
-    /*Get top rated movies*/
-    private void getTopRatedMovies() {
-        MovieRequest.getTopRatedMovies(this);
-    }
-
     @Override
     public void onMovieClick(int position) {
         final Movie movie = mMovieList.get(position);
-        showDetailActivity(movie);
+        if(movie != null) {
+            showDetailActivity(movie);
+        }
         Log.d(TAG, "onMovieClick: " + movie.toString());
     }
 
@@ -81,7 +78,7 @@ public class MostPopularFragment extends Fragment implements MoviesAdapter.onMov
     @Override
     public void onMostPopularListReceivedListener(List<Movie> movieList) {
         mMovieList = movieList;
-        mMoviesAdapter.setMovieList(movieList);
+        mMostPopularMoviesAdapter.setMovieList(movieList);
     }
 
     @Override

@@ -16,15 +16,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Spinner
-        android:id="@+id/sp_sorting"
-        android:layout_width="@dimen/spinner_size"
-        android:layout_height="@dimen/spinner_size"
-        android:layout_marginStart="@dimen/_15dp"
-        android:layout_marginBottom="@dimen/_8dp"
-        android:background="@drawable/ic_spinner"
-        app:layout_constraintStart_toStartOf="parent"></Spinner>
-
     <fragment
         android:id="@+id/base_fragment"
         android:name="co.alexdev.moviescrib_phase2.fragments.BaseFragment"

@@ -7,10 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
-
-import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -18,19 +15,20 @@ import java.util.List;
 import co.alexdev.moviescrib_phase2.model.Movie;
 import co.alexdev.moviescrib_phase2.R;
 
-public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder> {
+/*Adapter used to populate MostPopularFragment*/
+public class MostPopularMoviesAdapter extends RecyclerView.Adapter<MostPopularMoviesAdapter.MoviesViewHolder> {
 
     private List<Movie> movieList;
-    private static onMovieClickListener mMovieClickListener;
+    private static onMostPopularMovieCLick mMovieClickListener;
     private final Context mContext;
     private final String tmdb_image_url;
 
     /*Listener used to detect the position of the Movie that is clicked in the Adapter*/
-    public interface onMovieClickListener {
+    public interface onMostPopularMovieCLick {
         void onMovieClick(int position);
     }
 
-    public MoviesAdapter(Context context, List<Movie> movieList, onMovieClickListener movieClickListener) {
+    public MostPopularMoviesAdapter(Context context, List<Movie> movieList, onMostPopularMovieCLick movieClickListener) {
         this.mContext = context;
         this.movieList = movieList;
         this.mMovieClickListener = movieClickListener;
@@ -38,14 +36,14 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesView
     }
 
     @Override
-    public MoviesAdapter.MoviesViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public MostPopularMoviesAdapter.MoviesViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         final Context context = mContext;
         final View rootView = LayoutInflater.from(context).inflate(R.layout.item_movie_list, viewGroup, false);
         return new MoviesViewHolder(rootView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final MoviesAdapter.MoviesViewHolder moviesViewHolder, int i) {
+    public void onBindViewHolder(@NonNull final MostPopularMoviesAdapter.MoviesViewHolder moviesViewHolder, int i) {
         final String title = movieList.get(i).getTitle();
         final String imagePath = movieList.get(i).getPoster_path();
         final String imageUri = buildImageUri(imagePath);
