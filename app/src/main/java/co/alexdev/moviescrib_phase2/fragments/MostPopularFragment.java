@@ -90,13 +90,12 @@ public class MostPopularFragment extends Fragment implements MoviesAdapter.onMov
 
     }
 
-
-    @Override
+/*    @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (this.isVisible() && !hasBeenVisibleOnce) {
             getMostPopularMovies();
             hasBeenVisibleOnce = true;
         }
-    }
+    }*/
 }

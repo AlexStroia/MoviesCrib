@@ -74,6 +74,7 @@ public class TopRatedFragment extends Fragment implements MoviesAdapter.onMovieC
         mMoviesAdapter.setMovieList(movieList);
     }
 
+    /*Load data in the fragment only after it gets visible to the user*/
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
