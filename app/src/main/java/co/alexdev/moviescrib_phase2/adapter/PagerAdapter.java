@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -28,10 +29,10 @@ public class PagerAdapter extends FragmentPagerAdapter {
                 return new MostPopularFragment();
 
             case 1:
-                return new FavouritesFragment();
+                return new TopRatedFragment();
 
             case 2:
-                return new TopRatedFragment();
+                return new FavouritesFragment();
 
         }
         return null;

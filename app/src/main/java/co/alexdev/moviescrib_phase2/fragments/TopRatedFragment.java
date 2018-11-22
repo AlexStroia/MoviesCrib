@@ -25,6 +25,7 @@ public class TopRatedFragment extends Fragment implements MoviesAdapter.onMovieC
     private MoviesAdapter mMoviesAdapter;
     private GridLayoutManager mGridLayoutManager;
     private List<Movie> mMovieList = new ArrayList<>();
+    private boolean hasBeenVisibleOnce = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,8 +35,6 @@ public class TopRatedFragment extends Fragment implements MoviesAdapter.onMovieC
         rv_movies = rootView.findViewById(R.id.rv_movies2);
 
         setupRecyclerView();
-
-        getTopRatedMovies();
 
         return rootView;
     }
@@ -63,11 +62,25 @@ public class TopRatedFragment extends Fragment implements MoviesAdapter.onMovieC
     public void onMostPopularListReceivedListener(List<Movie> movieList) {
     }
 
+    public void setMovieList(List<Movie> movieList) {
+        mMovieList = movieList;
+        mMoviesAdapter.setMovieList(movieList);
+    }
+
     @Override
     public void onTopRatedListReceivedListener(List<Movie> movieList) {
         Log.d(TAG, "onTopRatedListReceivedListener: " + movieList.toString());
         mMovieList = movieList;
         mMoviesAdapter.setMovieList(movieList);
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (this.isVisible() && !hasBeenVisibleOnce) {
+            getTopRatedMovies();
+            hasBeenVisibleOnce = true;
+        }
     }
 }
 

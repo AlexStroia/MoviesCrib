@@ -32,6 +32,7 @@ public class MostPopularFragment extends Fragment implements MoviesAdapter.onMov
     private MoviesAdapter mMoviesAdapter;
     private GridLayoutManager mGridLayoutManager;
     private List<Movie> mMovieList = new ArrayList<>();
+    private boolean hasBeenVisibleOnce = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -58,6 +59,11 @@ public class MostPopularFragment extends Fragment implements MoviesAdapter.onMov
         MovieRequest.getPopularMovies(this);
     }
 
+    /*Get top rated movies*/
+    private void getTopRatedMovies() {
+        MovieRequest.getTopRatedMovies(this);
+    }
+
     @Override
     public void onMovieClick(int position) {
         final Movie movie = mMovieList.get(position);
@@ -77,10 +83,20 @@ public class MostPopularFragment extends Fragment implements MoviesAdapter.onMov
     public void onMostPopularListReceivedListener(List<Movie> movieList) {
         mMovieList = movieList;
         mMoviesAdapter.setMovieList(movieList);
-}
+    }
 
     @Override
     public void onTopRatedListReceivedListener(List<Movie> movieList) {
 
+    }
+
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (this.isVisible() && !hasBeenVisibleOnce) {
+            getMostPopularMovies();
+            hasBeenVisibleOnce = true;
+        }
     }
 }
