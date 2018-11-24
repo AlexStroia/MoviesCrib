@@ -23,7 +23,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
-        <FrameLayout
+ <!--       <FrameLayout
             android:id="@+id/frameLayout"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
@@ -50,117 +50,132 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/include" />
 
-
-            <ImageButton
-                android:id="@+id/ib_fav"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_marginBottom="@dimen/_8dp"
-                android:background="@null"
-                android:paddingTop="@dimen/_15dp"
-                android:paddingRight="@dimen/_8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:srcCompat="@drawable/ic_heart_empty" />
-
-        </FrameLayout>
+        </FrameLayout>-->
 
         <LinearLayout
-            android:id="@+id/linearLayout2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_8dp"
-            android:layout_marginTop="@dimen/_8dp"
-            android:layout_marginEnd="@dimen/_8dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
             android:gravity="center"
             android:orientation="vertical"
-            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/frameLayout"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/include">
 
-            <TextView
-                android:id="@+id/tv_detail_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_8dp"
-                android:layout_marginTop="@dimen/_8dp"
-                android:layout_marginEnd="@dimen/_8dp"
-                android:fontFamily="@font/robotoboldcondensed"
-                android:gravity="center"
-                android:text="@string/poster_title"
-                android:textSize="@dimen/_22sp" />
-
-            <TextView
-                android:id="@+id/tv_release_date"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/_8dp"
-                android:layout_marginTop="@dimen/_8dp"
-                android:layout_marginEnd="@dimen/_8dp"
-                android:fontFamily="@font/robotoboldcondensed"
-                android:gravity="center"
-                android:text="@string/poster_release_date"
-                android:textSize="@dimen/_22sp" />
-
-            <TextView
-                android:id="@+id/tv_plot_synopsis"
+            <ImageView
+                android:id="@+id/iv_detail_poster"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8dp"
                 android:layout_marginTop="@dimen/_8dp"
+                android:layout_marginEnd="@dimen/_8dp"
+                android:contentDescription="@string/poster_content_description"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/include" />
+
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8dp"
+                android:layout_marginTop="@dimen/_8dp"
+                android:layout_marginEnd="@dimen/_8dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/frameLayout"
+                app:layout_constraintTop_toBottomOf="@+id/include">
+
+                <TextView
+                    android:id="@+id/tv_detail_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_8dp"
+                    android:layout_marginTop="@dimen/_8dp"
+                    android:layout_marginEnd="@dimen/_8dp"
+                    android:fontFamily="@font/robotoboldcondensed"
+                    android:gravity="center"
+                    android:text="@string/poster_title"
+                    android:textSize="@dimen/_22sp" />
+
+                <TextView
+                    android:id="@+id/tv_release_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/_8dp"
+                    android:layout_marginTop="@dimen/_8dp"
+                    android:layout_marginEnd="@dimen/_8dp"
+                    android:fontFamily="@font/robotoboldcondensed"
+                    android:gravity="center"
+                    android:text="@string/poster_release_date"
+                    android:textSize="@dimen/_22sp" />
+
+                <TextView
+                    android:id="@+id/tv_plot_synopsis"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8dp"
+                    android:layout_marginBottom="@dimen/_8dp"
+                    android:fadeScrollbars="true"
+                    android:fontFamily="@font/movietitle"
+                    android:lines="3"
+                    android:scrollbarStyle="insideOverlay"
+                    android:scrollbars="vertical"
+                    android:text="@string/poster_info"
+                    android:textSize="@dimen/_30sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8dp"
+                android:layout_marginEnd="@dimen/_8dp"
                 android:layout_marginBottom="@dimen/_8dp"
-                android:fadeScrollbars="true"
-                android:fontFamily="@font/movietitle"
-                android:lines="3"
-                android:scrollbarStyle="insideOverlay"
-                android:scrollbars="vertical"
-                android:text="@string/poster_info"
-                android:textSize="@dimen/_30sp" />
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/_5dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="@dimen/const_horizontal_bias"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <RatingBar
+                    android:id="@+id/rb_vote_average"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:isIndicator="true"
+                    android:outlineAmbientShadowColor="@color/custom_red"
+                    android:outlineSpotShadowColor="@color/custom_red"
+                    android:progressBackgroundTint="@android:color/transparent"
+                    android:progressTint="@color/custom_red"
+                    android:scaleX="@dimen/_rb_small"
+                    android:scaleY="@dimen/_rb_small"
+                    android:secondaryProgressTint="@android:color/transparent"
+                    android:stepSize="@dimen/rb_step_size" />
+
+                <TextView
+                    android:id="@+id/tv_vote_average"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/movietitle"
+                    android:paddingStart="@dimen/_5dp"
+                    android:paddingEnd="@dimen/_5dp"
+                    android:text="@string/poster_vote_average"
+                    android:textSize="@dimen/_30sp"
+                    android:visibility="gone" />
+            </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_8dp"
-            android:layout_marginEnd="@dimen/_8dp"
-            android:layout_marginBottom="@dimen/_8dp"
-            android:gravity="right"
-            android:orientation="horizontal"
-            android:paddingTop="@dimen/_5dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="@dimen/const_horizontal_bias"
-            app:layout_constraintStart_toStartOf="parent">
 
-            <RatingBar
-                android:id="@+id/rb_vote_average"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:isIndicator="true"
-                android:outlineAmbientShadowColor="@color/custom_red"
-                android:outlineSpotShadowColor="@color/custom_red"
-                android:progressBackgroundTint="@android:color/transparent"
-                android:progressTint="@color/custom_red"
-                android:scaleX="@dimen/_rb_small"
-                android:scaleY="@dimen/_rb_small"
-                android:secondaryProgressTint="@android:color/transparent"
-                android:stepSize="@dimen/rb_step_size" />
-
-            <TextView
-                android:id="@+id/tv_vote_average"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:fontFamily="@font/movietitle"
-                android:paddingStart="@dimen/_5dp"
-                android:paddingLeft="@dimen/_5dp"
-                android:paddingRight="@dimen/_5dp"
-                android:text="@string/poster_vote_average"
-                android:textSize="@dimen/_30sp"
-                android:visibility="gone" />
-        </LinearLayout>
 
     </android.support.constraint.ConstraintLayout>
 </android.support.v4.widget.NestedScrollView>

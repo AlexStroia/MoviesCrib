@@ -25,7 +25,6 @@ public class DetailActivity extends AppCompatActivity {
     private TextView tv_plot_synopsis;
     private RatingBar rb_vote_average;
     private TextView tv_vote_average;
-    private ImageButton ib_favorite;
 
     private Movie movie;
 
@@ -42,7 +41,6 @@ public class DetailActivity extends AppCompatActivity {
         tv_plot_synopsis.setMovementMethod(new ScrollingMovementMethod());
         rb_vote_average = findViewById(R.id.rb_vote_average);
         tv_vote_average = findViewById(R.id.tv_vote_average);
-        ib_favorite = findViewById(R.id.ib_fav);
 
         setCustomToolbar();
         setRatingBar();
