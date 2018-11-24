@@ -92,7 +92,7 @@ public class DetailActivity extends YouTubeBaseActivity implements MovieRequest.
             @Override
             public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
                 youTubePlayer.cueVideo(id);
-                youTubePlayer.setPlayerStyle(YouTubePlayer.PlayerStyle.MINIMAL);
+                youTubePlayer.setPlayerStyle(YouTubePlayer.PlayerStyle.DEFAULT);
             }
 
             @Override
