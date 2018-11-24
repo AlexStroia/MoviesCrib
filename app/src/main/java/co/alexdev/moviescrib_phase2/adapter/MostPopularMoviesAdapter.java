@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -18,19 +19,19 @@ import co.alexdev.moviescrib_phase2.R;
 /*Adapter used to populate MostPopularFragment*/
 public class MostPopularMoviesAdapter extends RecyclerView.Adapter<MostPopularMoviesAdapter.MoviesViewHolder> {
 
-    private List<Movie> movieList;
-    private static onMostPopularMovieCLick mMovieClickListener;
-    private final Context mContext;
-    private final String tmdb_image_url;
+    List<Movie> mMovieList;
+    static onMostPopularMovieCLick mMovieClickListener;
+    final Context mContext;
+    final String tmdb_image_url;
 
     /*Listener used to detect the position of the Movie that is clicked in the Adapter*/
     public interface onMostPopularMovieCLick {
         void onMovieClick(int position);
     }
 
-    public MostPopularMoviesAdapter(Context context, List<Movie> movieList, onMostPopularMovieCLick movieClickListener) {
+    public MostPopularMoviesAdapter(Context context, List<Movie> mMovieList, onMostPopularMovieCLick movieClickListener) {
         this.mContext = context;
-        this.movieList = movieList;
+        this.mMovieList = mMovieList;
         this.mMovieClickListener = movieClickListener;
         tmdb_image_url = context.getString(R.string.tmdb_image_url_large);
     }
@@ -44,8 +45,8 @@ public class MostPopularMoviesAdapter extends RecyclerView.Adapter<MostPopularMo
 
     @Override
     public void onBindViewHolder(@NonNull final MostPopularMoviesAdapter.MoviesViewHolder moviesViewHolder, int i) {
-        final String title = movieList.get(i).getTitle();
-        final String imagePath = movieList.get(i).getPoster_path();
+        final String title = mMovieList.get(i).getTitle();
+        final String imagePath = mMovieList.get(i).getPoster_path();
         final String imageUri = buildImageUri(imagePath);
 
         moviesViewHolder.tv_movie_title.setText(title);
@@ -55,12 +56,12 @@ public class MostPopularMoviesAdapter extends RecyclerView.Adapter<MostPopularMo
 
     @Override
     public int getItemCount() {
-        return (movieList != null && movieList.size() > 0 ? movieList.size() : 0);
+        return (mMovieList != null && mMovieList.size() > 0 ? mMovieList.size() : 0);
     }
 
     /*Function used to set the movie list with the movie data that came from the API*/
-    public void setMovieList(List<Movie> movieList) {
-        this.movieList = movieList;
+    public void setmMovieList(List<Movie> mMovieList) {
+        this.mMovieList = mMovieList;
         notifyDataSetChanged();
     }
 

@@ -19,6 +19,7 @@ import co.alexdev.moviescrib_phase2.activities.DetailActivity;
 import co.alexdev.moviescrib_phase2.adapter.TopRatedMoviesAdapter;
 import co.alexdev.moviescrib_phase2.model.Movie;
 import co.alexdev.moviescrib_phase2.model.MovieRequest;
+import co.alexdev.moviescrib_phase2.model.Trailer;
 
 public class TopRatedFragment extends Fragment implements TopRatedMoviesAdapter.onTopRatedMovieClick, MovieRequest.MovieListListener {
 
@@ -77,7 +78,12 @@ public class TopRatedFragment extends Fragment implements TopRatedMoviesAdapter.
     public void onTopRatedListReceivedListener(List<Movie> movieList) {
         Log.d(TAG, "onTopRatedListReceivedListener: " + movieList.toString());
         mMovieList = movieList;
-        mTopRatedMoviesAdapter.setMovieList(movieList);
+        mTopRatedMoviesAdapter.setmMovieList(movieList);
+    }
+
+    @Override
+    public void onTrailerListReceivedListener(List<Trailer> trailerList) {
+
     }
 
     /*Load data in the fragment only after it gets visible to the user*/

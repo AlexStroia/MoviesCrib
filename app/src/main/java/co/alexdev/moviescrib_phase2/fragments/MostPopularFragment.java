@@ -20,6 +20,7 @@ import co.alexdev.moviescrib_phase2.activities.DetailActivity;
 import co.alexdev.moviescrib_phase2.adapter.MostPopularMoviesAdapter;
 import co.alexdev.moviescrib_phase2.model.Movie;
 import co.alexdev.moviescrib_phase2.model.MovieRequest;
+import co.alexdev.moviescrib_phase2.model.Trailer;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -78,11 +79,16 @@ public class MostPopularFragment extends Fragment implements MostPopularMoviesAd
     @Override
     public void onMostPopularListReceivedListener(List<Movie> movieList) {
         mMovieList = movieList;
-        mMostPopularMoviesAdapter.setMovieList(movieList);
+        mMostPopularMoviesAdapter.setmMovieList(movieList);
     }
 
     @Override
     public void onTopRatedListReceivedListener(List<Movie> movieList) {
+
+    }
+
+    @Override
+    public void onTrailerListReceivedListener(List<Trailer> trailerList) {
 
     }
 }

@@ -19,19 +19,19 @@ import co.alexdev.moviescrib_phase2.model.Movie;
 /*Adapter used to populate TopRatedFragment*/
 public class TopRatedMoviesAdapter extends RecyclerView.Adapter<TopRatedMoviesAdapter.TopRatedMoviesViewHolder> {
 
-    private List<Movie> movieList;
+    private List<Movie> mMovieList;
     private static onTopRatedMovieClick mMovieClickListener;
     private final Context mContext;
-    private final String tmdb_image_url;
+     final String tmdb_image_url;
 
     /*Listener used to detect the position of the Movie that is clicked in the Adapter*/
     public interface onTopRatedMovieClick {
         void onMovieClick(int position);
     }
 
-    public TopRatedMoviesAdapter(Context context, List<Movie> movieList, TopRatedMoviesAdapter.onTopRatedMovieClick movieClickListener) {
+    public TopRatedMoviesAdapter(Context context, List<Movie> mMovieList, TopRatedMoviesAdapter.onTopRatedMovieClick movieClickListener) {
         this.mContext = context;
-        this.movieList = movieList;
+        this.mMovieList = mMovieList;
         this.mMovieClickListener = movieClickListener;
         tmdb_image_url = context.getString(R.string.tmdb_image_url_large);
     }
@@ -45,8 +45,8 @@ public class TopRatedMoviesAdapter extends RecyclerView.Adapter<TopRatedMoviesAd
 
     @Override
     public void onBindViewHolder(@NonNull final TopRatedMoviesAdapter.TopRatedMoviesViewHolder topRatedMoviesViewHolder, int i) {
-        final String title = movieList.get(i).getTitle();
-        final String imagePath = movieList.get(i).getPoster_path();
+        final String title = mMovieList.get(i).getTitle();
+        final String imagePath = mMovieList.get(i).getPoster_path();
         final String imageUri = buildImageUri(imagePath);
 
         topRatedMoviesViewHolder.tv_movie_title.setText(title);
@@ -56,12 +56,12 @@ public class TopRatedMoviesAdapter extends RecyclerView.Adapter<TopRatedMoviesAd
 
     @Override
     public int getItemCount() {
-        return (movieList != null && movieList.size() > 0 ? movieList.size() : 0);
+        return (mMovieList != null && mMovieList.size() > 0 ? mMovieList.size() : 0);
     }
 
     /*Function used to set the movie list with the movie data that came from the API*/
-    public void setMovieList(List<Movie> movieList) {
-        this.movieList = movieList;
+    public void setmMovieList(List<Movie> mMovieList) {
+        this.mMovieList = mMovieList;
         notifyDataSetChanged();
     }
 

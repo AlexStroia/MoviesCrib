@@ -1,32 +1,45 @@
 package co.alexdev.moviescrib_phase2.activities;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.google.android.youtube.player.YouTubeBaseActivity;
+import com.google.android.youtube.player.YouTubeInitializationResult;
+import com.google.android.youtube.player.YouTubePlayer;
+import com.google.android.youtube.player.YouTubePlayerView;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import co.alexdev.moviescrib_phase2.model.Movie;
 import co.alexdev.moviescrib_phase2.R;
+import co.alexdev.moviescrib_phase2.model.MovieRequest;
+import co.alexdev.moviescrib_phase2.model.Trailer;
 
-public class DetailActivity extends AppCompatActivity {
+public class DetailActivity extends YouTubeBaseActivity implements MovieRequest.MovieListListener {
 
-    private Toolbar customToolbar;
-    private ImageView iv_poster;
-    private TextView tv_detail_title;
-    private TextView tv_release_date;
-    private TextView tv_plot_synopsis;
-    private RatingBar rb_vote_average;
-    private TextView tv_vote_average;
+    Toolbar customToolbar;
+    ImageView iv_poster;
+    TextView tv_detail_title;
+    TextView tv_release_date;
+    TextView tv_plot_synopsis;
+    RatingBar rb_vote_average;
+    TextView tv_vote_average;
+    LinearLayout ll_add_to_favorites;
+    YouTubePlayerView youTubePlayerView;
+    String YOUTUBE_API_KEY = "";
 
     private Movie movie;
+    private List<Trailer> trailerList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +54,10 @@ public class DetailActivity extends AppCompatActivity {
         tv_plot_synopsis.setMovementMethod(new ScrollingMovementMethod());
         rb_vote_average = findViewById(R.id.rb_vote_average);
         tv_vote_average = findViewById(R.id.tv_vote_average);
+        ll_add_to_favorites = findViewById(R.id.ll_add_to_favorites);
+        youTubePlayerView = findViewById(R.id.youtube_player);
+
+        YOUTUBE_API_KEY = getResources().getString(R.string.YOUTUBE_PLAYER_API_KEY);
 
         setCustomToolbar();
         setRatingBar();
@@ -53,7 +70,36 @@ public class DetailActivity extends AppCompatActivity {
         if (intent.hasExtra(movieKey)) {
             movie = intent.getParcelableExtra(movieKey);
             displayData();
+            getTrailerForCurrentMovie();
+            setTrailerMovieAdapter();
         }
+    }
+
+    private void setTrailerMovieAdapter() {
+        //trailerMoviesAdapter = new TrailerMoviesAdapter(this, trailerList, this);
+        //  rv_trailers.setLayoutManager(new LinearLayoutManager(this));
+        //    rv_trailers.setAdapter(trailerMoviesAdapter);
+    }
+
+    private void getTrailerForCurrentMovie() {
+        if (movie != null) {
+            MovieRequest.getVideoTrailers(this, movie.getId());
+        }
+    }
+
+    private void setYoutubeTrailer(final String id) {
+        youTubePlayerView.initialize(YOUTUBE_API_KEY, new YouTubePlayer.OnInitializedListener() {
+            @Override
+            public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
+                youTubePlayer.cueVideo(id);
+                youTubePlayer.setPlayerStyle(YouTubePlayer.PlayerStyle.MINIMAL);
+            }
+
+            @Override
+            public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
+
+            }
+        });
     }
 
     /*Set the custom toolbar with the navigation icon
@@ -109,5 +155,24 @@ public class DetailActivity extends AppCompatActivity {
     /*Calculate the rating stars*/
     private float getRatingBarStars(final float vote_average) {
         return vote_average / 2;
+    }
+
+    @Override
+    public void onMostPopularListReceivedListener(List<Movie> movieList) {
+
+    }
+
+    @Override
+    public void onTopRatedListReceivedListener(List<Movie> movieList) {
+
+    }
+
+    @Override
+    public void onTrailerListReceivedListener(List<Trailer> trailerList) {
+        if (trailerList != null && trailerList.size() > 0) {
+            this.trailerList = trailerList;
+            final String YOUTUBE_PATH = this.trailerList.get(0).getKey();
+            setYoutubeTrailer(YOUTUBE_PATH);
+        }
     }
 }

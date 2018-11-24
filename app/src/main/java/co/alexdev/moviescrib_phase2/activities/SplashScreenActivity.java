@@ -3,10 +3,8 @@ package co.alexdev.moviescrib_phase2.activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.ImageView;
 
 import co.alexdev.moviescrib_phase2.R;
@@ -16,7 +14,6 @@ public class SplashScreenActivity extends AppCompatActivity {
     ImageView iv_popcorn_splash;
     ImageView iv_splash_logo;
     ImageView iv_glasses_big;
-    Button btnGetStarted;
 
     Animation alpha;
     Animation fromBottom;

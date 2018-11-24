@@ -19,9 +19,9 @@ import co.alexdev.moviescrib_phase2.adapter.PagerAdapter;
  */
 public class BaseFragment extends Fragment {
 
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
-    private PagerAdapter pagerAdapter;
+    TabLayout tabLayout;
+    ViewPager viewPager;
+    PagerAdapter pagerAdapter;
 
     public BaseFragment() {
         // Required empty public constructor

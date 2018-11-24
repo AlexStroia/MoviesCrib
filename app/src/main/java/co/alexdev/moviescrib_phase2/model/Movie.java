@@ -7,6 +7,8 @@ import com.google.gson.annotations.SerializedName;
 
 public final class Movie implements Parcelable {
     /*Used SerializedName so that Retrofit will know what type of data to extract if our params name are differnet*/
+    @SerializedName("id")
+    private final int id;
     @SerializedName("title")
     private final String title;
     @SerializedName("vote_average")
@@ -20,6 +22,7 @@ public final class Movie implements Parcelable {
 
     /*Parcel in to get the converted stream into our data*/
     protected Movie(Parcel in) {
+        id = in.readInt();
         title = in.readString();
         vote_average = in.readDouble();
         release_date = in.readString();
@@ -40,6 +43,10 @@ public final class Movie implements Parcelable {
             return new Movie[size];
         }
     };
+
+    public int getId() {
+        return id;
+    }
 
     public String getTitle() {
         return title;
@@ -64,7 +71,8 @@ public final class Movie implements Parcelable {
     @Override
     public String toString() {
         return "Movie{" +
-                "title='" + title + '\'' +
+                "id=" + id +
+                ", title='" + title + '\'' +
                 ", vote_average=" + vote_average +
                 ", release_date='" + release_date + '\'' +
                 ", poster_path='" + poster_path + '\'' +
@@ -79,6 +87,7 @@ public final class Movie implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(id);
         parcel.writeString(title);
         parcel.writeDouble(vote_average);
         parcel.writeString(release_date);

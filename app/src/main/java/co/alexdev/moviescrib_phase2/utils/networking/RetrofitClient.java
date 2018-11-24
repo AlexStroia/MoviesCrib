@@ -16,14 +16,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /*RetrofitClient that we use when we want to perform network requests*/
 public class RetrofitClient {
 
-    private static final String URL_SCHEME = "https";
-    private static final String BASE_URL = "api.tmdb.org";
-    public static final String PATH = "/3/";
-    private static final String API_KEY = "ed54cea63b99ab9822ad2510c09d1c0c";
-    private static final String API_KEY_IDENTIFIER = "api_key";
+    static final String URL_SCHEME = "https";
+    static final String BASE_URL = "api.tmdb.org";
+    static final String PATH = "/3/";
+    static final String API_KEY = "";
+    static final String API_KEY_IDENTIFIER = "api_key";
 
-    private final Retrofit retrofit;
-    private static RetrofitClient mInstance;
+    final Retrofit retrofit;
+    static RetrofitClient mInstance;
 
     /*Using an OkHttpClient and on top of it we are adding an interceptor used to intercept requests so we can add the API KEY*/
     private RetrofitClient() {
@@ -88,7 +88,7 @@ public class RetrofitClient {
     }
 
     /*Create the Api Endpoints*/
-    public MovieApi getMovieApi() {
-        return retrofit.create(MovieApi.class);
+    public MovieService getMovieApi() {
+        return retrofit.create(MovieService.class);
     }
 }
