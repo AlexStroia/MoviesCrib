@@ -11,17 +11,18 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import co.alexdev.moviescrib_phase2.R;
+import co.alexdev.moviescrib_phase2.activities.BaseActivity;
 import co.alexdev.moviescrib_phase2.adapter.PagerAdapter;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class BaseFragment extends Fragment {
+public class BaseFragment extends Fragment implements BaseActivity.onViewPagerPositionChangedListener {
 
-    TabLayout tabLayout;
-    ViewPager viewPager;
-    PagerAdapter pagerAdapter;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
+    private PagerAdapter pagerAdapter;
 
     public BaseFragment() {
         // Required empty public constructor
@@ -38,6 +39,9 @@ public class BaseFragment extends Fragment {
         viewPager = rootView.findViewById(R.id.viewPager);
 
         initView();
+
+        /*Set the listener from the activity into this fragment to update the position of the view pager*/
+        ((BaseActivity) getActivity()).setViewPagerPositionListener(BaseFragment.this);
         return rootView;
     }
 
@@ -53,10 +57,10 @@ public class BaseFragment extends Fragment {
     }
 
     /*Setup the tab layout
-    * Set the listener for the moment when a tab is clicked
-    * Set the view pager to that tab position
-    * In the end we add viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout)
-    * With this function our view pager will sync with the tab layout*/
+     * Set the listener for the moment when a tab is clicked
+     * Set the view pager to that tab position
+     * In the end we add viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout)
+     * With this function our view pager will sync with the tab layout*/
     private void setupTabLayout() {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -75,5 +79,13 @@ public class BaseFragment extends Fragment {
             }
         });
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+    }
+
+    /*Check if is not the same position */
+    @Override
+    public void onViewPagerPositionChanged(int position) {
+        if (position != viewPager.getCurrentItem()) {
+            viewPager.setCurrentItem(position);
+        }
     }
 }

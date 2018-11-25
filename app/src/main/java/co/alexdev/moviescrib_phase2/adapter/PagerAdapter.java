@@ -11,7 +11,7 @@ import co.alexdev.moviescrib_phase2.fragments.TopRatedFragment;
 /*Class used to populate the pages inside a ViewPager*/
 public class PagerAdapter extends FragmentStatePagerAdapter {
 
-    int mNumberOfTabs;
+    private int mNumberOfTabs;
 
     public PagerAdapter(FragmentManager fm, final int mNumberOfTabs) {
         super(fm);
@@ -34,6 +34,11 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
         return null;
     }
 
+    @Override
+    public int getItemPosition(Object object) {
+        // POSITION_NONE makes it possible to reload the PagerAdapter
+        return POSITION_NONE;
+    }
 
     @Override
     public int getCount() {

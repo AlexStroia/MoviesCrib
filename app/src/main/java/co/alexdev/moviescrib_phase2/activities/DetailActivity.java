@@ -30,22 +30,22 @@ import co.alexdev.moviescrib_phase2.model.Trailer;
 
 public class DetailActivity extends YouTubeBaseActivity implements MovieRequest.MovieListListener {
 
-    Toolbar customToolbar;
-    ImageView iv_poster;
-    TextView tv_detail_title;
-    TextView tv_release_date;
-    TextView tv_plot_synopsis;
-    RatingBar rb_vote_average;
-    TextView tv_vote_average;
-    LinearLayout ll_add_to_favorites;
-    YouTubePlayerView youTubePlayerView;
-    RecyclerView rv_reviews;
-    String YOUTUBE_API_KEY = "";
+    private Toolbar customToolbar;
+    private ImageView iv_poster;
+    private TextView tv_detail_title;
+    private TextView tv_release_date;
+    private TextView tv_plot_synopsis;
+    private RatingBar rb_vote_average;
+    private TextView tv_vote_average;
+    private LinearLayout ll_add_to_favorites;
+    private YouTubePlayerView youTubePlayerView;
+    private RecyclerView rv_reviews;
+    private String YOUTUBE_API_KEY = "";
 
-    ReviewsMoviesAdapter reviewsMoviesAdapter;
-    Movie movie;
-    List<Trailer> trailerList = new ArrayList<>();
-    List<Reviews> reviewsList = new ArrayList<>();
+    private ReviewsMoviesAdapter reviewsMoviesAdapter;
+    private Movie movie;
+    private List<Trailer> trailerList = new ArrayList<>();
+    private List<Reviews> reviewsList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,10 +101,14 @@ public class DetailActivity extends YouTubeBaseActivity implements MovieRequest.
         }
     }
 
+    /*When the device is rotated, play the video on full screen*/
     private void setYoutubeTrailer(final String id) {
         youTubePlayerView.initialize(YOUTUBE_API_KEY, new YouTubePlayer.OnInitializedListener() {
             @Override
-            public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
+            public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean wasRotated) {
+                if (wasRotated) {
+                    youTubePlayer.setFullscreen(true);
+                }
                 youTubePlayer.cueVideo(id);
                 youTubePlayer.setPlayerStyle(YouTubePlayer.PlayerStyle.DEFAULT);
             }

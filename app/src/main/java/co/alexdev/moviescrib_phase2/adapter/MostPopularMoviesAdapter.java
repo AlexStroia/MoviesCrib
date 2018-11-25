@@ -19,10 +19,10 @@ import co.alexdev.moviescrib_phase2.R;
 /*Adapter used to populate MostPopularFragment*/
 public class MostPopularMoviesAdapter extends RecyclerView.Adapter<MostPopularMoviesAdapter.MoviesViewHolder> {
 
-    List<Movie> mMovieList;
-    static onMostPopularMovieCLick mMovieClickListener;
-    final Context mContext;
-    final String tmdb_image_url;
+    private List<Movie> mMovieList;
+    private static onMostPopularMovieCLick mMovieClickListener;
+    private final Context mContext;
+    private final String tmdb_image_url;
 
     /*Listener used to detect the position of the Movie that is clicked in the Adapter*/
     public interface onMostPopularMovieCLick {

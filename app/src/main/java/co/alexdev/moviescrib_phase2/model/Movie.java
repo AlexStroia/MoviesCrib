@@ -8,17 +8,17 @@ import com.google.gson.annotations.SerializedName;
 public final class Movie implements Parcelable {
     /*Used SerializedName so that Retrofit will know what type of data to extract if our params name are differnet*/
     @SerializedName("id")
-    final int id;
+    private final int id;
     @SerializedName("title")
-    final String title;
+    private final String title;
     @SerializedName("vote_average")
-    final double vote_average;
+    private final double vote_average;
     @SerializedName("release_date")
-    final String release_date;
+    private final String release_date;
     @SerializedName("poster_path")
-    final String poster_path;
+    private final String poster_path;
     @SerializedName("overview")
-    final String overview;
+    private final String overview;
 
     /*Parcel in to get the converted stream into our data*/
     protected Movie(Parcel in) {

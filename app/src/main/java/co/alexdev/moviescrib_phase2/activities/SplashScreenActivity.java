@@ -11,13 +11,13 @@ import co.alexdev.moviescrib_phase2.R;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
-    ImageView iv_popcorn_splash;
-    ImageView iv_splash_logo;
-    ImageView iv_glasses_big;
+    private ImageView iv_popcorn_splash;
+    private ImageView iv_splash_logo;
+    private ImageView iv_glasses_big;
 
-    Animation alpha;
-    Animation fromBottom;
-    Animation fromTop;
+    private Animation alpha;
+    private Animation fromBottom;
+    private Animation fromTop;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +60,6 @@ public class SplashScreenActivity extends AppCompatActivity {
             public void onAnimationEnd(Animation animation) {
                 Intent intent = new Intent(SplashScreenActivity.this, BaseActivity.class);
                 startActivity(intent);
-                finish();
             }
 
             @Override

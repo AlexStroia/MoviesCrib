@@ -14,7 +14,7 @@ import co.alexdev.moviescrib_phase2.model.Reviews;
 
 public class ReviewsMoviesAdapter extends RecyclerView.Adapter<ReviewsMoviesAdapter.ReviewsViewHolder> {
 
-    List<Reviews> mReviewsList;
+    private List<Reviews> mReviewsList;
 
     public ReviewsMoviesAdapter(List<Reviews> mReviewsList) {
         this.mReviewsList = mReviewsList;

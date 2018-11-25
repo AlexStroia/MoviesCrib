@@ -7,7 +7,7 @@ import java.util.List;
 public class TrailerResponse {
 
     @SerializedName("results")
-    List<Trailer> response;
+    private List<Trailer> response;
 
     public List<Trailer> getResponse() {
         return response;

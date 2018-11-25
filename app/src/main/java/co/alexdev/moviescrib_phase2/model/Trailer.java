@@ -6,21 +6,21 @@ import com.google.gson.annotations.SerializedName;
 public class Trailer {
 
     @SerializedName("id")
-    final String id;
+    private final String id;
     @SerializedName("iso_639_1")
-    final String iso_639_1;
+    private final String iso_639_1;
     @SerializedName("iso_3166_1")
-    final String iso_3166_1;
+    private final String iso_3166_1;
     @SerializedName("key")
-    final String key;
+    private final String key;
     @SerializedName("name")
-    final String name;
+    private final String name;
     @SerializedName("site")
-    final String site;
+    private final String site;
     @SerializedName("size")
-    final int size;
+    private final int size;
     @SerializedName("type")
-    final String type;
+    private final String type;
 
     public Trailer(String id, String iso_639_1, String iso_3166_1, String key, String name, String site, int size, String type) {
         this.id = id;
