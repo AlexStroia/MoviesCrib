@@ -37,6 +37,11 @@ public class ReviewsMoviesAdapter extends RecyclerView.Adapter<ReviewsMoviesAdap
         return ((mReviewsList != null && mReviewsList.size() > 0) ? mReviewsList.size() : 0);
     }
 
+    public void setReviewsList(List<Reviews> reviewsList) {
+        mReviewsList = reviewsList;
+        notifyDataSetChanged();
+    }
+
     static class ReviewsViewHolder extends RecyclerView.ViewHolder {
 
         TextView tv_reviewer_name;

@@ -20,6 +20,7 @@ import co.alexdev.moviescrib_phase2.activities.DetailActivity;
 import co.alexdev.moviescrib_phase2.adapter.MostPopularMoviesAdapter;
 import co.alexdev.moviescrib_phase2.model.Movie;
 import co.alexdev.moviescrib_phase2.model.MovieRequest;
+import co.alexdev.moviescrib_phase2.model.Reviews;
 import co.alexdev.moviescrib_phase2.model.Trailer;
 
 /**
@@ -62,7 +63,7 @@ public class MostPopularFragment extends Fragment implements MostPopularMoviesAd
     @Override
     public void onMovieClick(int position) {
         final Movie movie = mMovieList.get(position);
-        if(movie != null) {
+        if (movie != null) {
             showDetailActivity(movie);
         }
         Log.d(TAG, "onMovieClick: " + movie.toString());
@@ -89,6 +90,11 @@ public class MostPopularFragment extends Fragment implements MostPopularMoviesAd
 
     @Override
     public void onTrailerListReceivedListener(List<Trailer> trailerList) {
+
+    }
+
+    @Override
+    public void onReviewsListReceivedListener(List<Reviews> reviewsList) {
 
     }
 }

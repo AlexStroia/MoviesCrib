@@ -2,6 +2,8 @@ package co.alexdev.moviescrib_phase2.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
@@ -19,9 +21,11 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
+import co.alexdev.moviescrib_phase2.adapter.ReviewsMoviesAdapter;
 import co.alexdev.moviescrib_phase2.model.Movie;
 import co.alexdev.moviescrib_phase2.R;
 import co.alexdev.moviescrib_phase2.model.MovieRequest;
+import co.alexdev.moviescrib_phase2.model.Reviews;
 import co.alexdev.moviescrib_phase2.model.Trailer;
 
 public class DetailActivity extends YouTubeBaseActivity implements MovieRequest.MovieListListener {
@@ -35,10 +39,13 @@ public class DetailActivity extends YouTubeBaseActivity implements MovieRequest.
     TextView tv_vote_average;
     LinearLayout ll_add_to_favorites;
     YouTubePlayerView youTubePlayerView;
+    RecyclerView rv_reviews;
     String YOUTUBE_API_KEY = "";
 
-    private Movie movie;
-    private List<Trailer> trailerList = new ArrayList<>();
+    ReviewsMoviesAdapter reviewsMoviesAdapter;
+    Movie movie;
+    List<Trailer> trailerList = new ArrayList<>();
+    List<Reviews> reviewsList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +62,7 @@ public class DetailActivity extends YouTubeBaseActivity implements MovieRequest.
         tv_vote_average = findViewById(R.id.tv_vote_average);
         ll_add_to_favorites = findViewById(R.id.ll_add_to_favorites);
         youTubePlayerView = findViewById(R.id.youtube_player);
+        rv_reviews = findViewById(R.id.rv_reviews);
 
         YOUTUBE_API_KEY = getResources().getString(R.string.YOUTUBE_PLAYER_API_KEY);
 
@@ -70,14 +78,15 @@ public class DetailActivity extends YouTubeBaseActivity implements MovieRequest.
             movie = intent.getParcelableExtra(movieKey);
             displayData();
             getTrailerForCurrentMovie();
+            getReviewsForCurrentMovie();
             setTrailerMovieAdapter();
         }
     }
 
     private void setTrailerMovieAdapter() {
-        //trailerMoviesAdapter = new TrailerMoviesAdapter(this, trailerList, this);
-        //  rv_trailers.setLayoutManager(new LinearLayoutManager(this));
-        //    rv_trailers.setAdapter(trailerMoviesAdapter);
+        reviewsMoviesAdapter = new ReviewsMoviesAdapter(reviewsList);
+        rv_reviews.setLayoutManager(new LinearLayoutManager(this));
+        rv_reviews.setAdapter(reviewsMoviesAdapter);
     }
 
     private void getTrailerForCurrentMovie() {
@@ -87,8 +96,8 @@ public class DetailActivity extends YouTubeBaseActivity implements MovieRequest.
     }
 
     private void getReviewsForCurrentMovie() {
-        if(movie != null) {
-
+        if (movie != null) {
+            MovieRequest.getMovieReviews(this, movie.getId());
         }
     }
 
@@ -178,6 +187,14 @@ public class DetailActivity extends YouTubeBaseActivity implements MovieRequest.
             this.trailerList = trailerList;
             final String YOUTUBE_PATH = this.trailerList.get(0).getKey();
             setYoutubeTrailer(YOUTUBE_PATH);
+        }
+    }
+
+    @Override
+    public void onReviewsListReceivedListener(List<Reviews> reviewsList) {
+        if (reviewsList != null && reviewsList.size() > 0) {
+            this.reviewsList = reviewsList;
+            reviewsMoviesAdapter.setReviewsList(reviewsList);
         }
     }
 }

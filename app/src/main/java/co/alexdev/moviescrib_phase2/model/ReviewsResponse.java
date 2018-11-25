@@ -8,13 +8,13 @@ import java.util.List;
 public class ReviewsResponse {
 
     @SerializedName("results")
-    List<Trailer> response;
+    List<Reviews> response;
 
-    public List<Trailer> getResponse() {
+    public List<Reviews> getResponse() {
         return response;
     }
 
-    public void setResponse(List<Trailer> response) {
+    public void setResponse(List<Reviews> response) {
         this.response = response;
     }
 

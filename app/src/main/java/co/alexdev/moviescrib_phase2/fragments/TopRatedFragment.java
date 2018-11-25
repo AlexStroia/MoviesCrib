@@ -19,6 +19,7 @@ import co.alexdev.moviescrib_phase2.activities.DetailActivity;
 import co.alexdev.moviescrib_phase2.adapter.TopRatedMoviesAdapter;
 import co.alexdev.moviescrib_phase2.model.Movie;
 import co.alexdev.moviescrib_phase2.model.MovieRequest;
+import co.alexdev.moviescrib_phase2.model.Reviews;
 import co.alexdev.moviescrib_phase2.model.Trailer;
 
 public class TopRatedFragment extends Fragment implements TopRatedMoviesAdapter.onTopRatedMovieClick, MovieRequest.MovieListListener {
@@ -83,6 +84,11 @@ public class TopRatedFragment extends Fragment implements TopRatedMoviesAdapter.
 
     @Override
     public void onTrailerListReceivedListener(List<Trailer> trailerList) {
+
+    }
+
+    @Override
+    public void onReviewsListReceivedListener(List<Reviews> reviewsList) {
 
     }
 

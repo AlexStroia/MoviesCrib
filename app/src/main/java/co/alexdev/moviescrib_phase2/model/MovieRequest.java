@@ -102,10 +102,11 @@ public class MovieRequest {
         reviewsCall.enqueue(new Callback<ReviewsResponse>() {
             @Override
             public void onResponse(Call<ReviewsResponse> call, Response<ReviewsResponse> response) {
-                if(!response.isSuccessful()) {
+                if (!response.isSuccessful()) {
                     return;
                 }
 
+                mMovieListListener.onReviewsListReceivedListener(response.body().getResponse());
             }
 
             @Override
