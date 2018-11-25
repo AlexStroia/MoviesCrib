@@ -7,7 +7,7 @@
     tools:context=".fragments.TopRatedFragment">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_movies2"
+        android:id="@+id/rv_top_rated"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="@dimen/_8dp"

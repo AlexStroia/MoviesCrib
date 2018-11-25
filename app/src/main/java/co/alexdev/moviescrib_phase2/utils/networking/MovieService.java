@@ -1,6 +1,7 @@
 package co.alexdev.moviescrib_phase2.utils.networking;
 
 import co.alexdev.moviescrib_phase2.model.MovieResponse;
+import co.alexdev.moviescrib_phase2.model.ReviewsResponse;
 import co.alexdev.moviescrib_phase2.model.TrailerResponse;
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -16,6 +17,9 @@ public interface MovieService {
     Call<MovieResponse> topRatedMovieList();
 
     /*Add id parameter to the request*/
-    @GET("movie/{id}/videos ")
-    Call<TrailerResponse> movieTrailers(@Path("id") String id);
+    @GET("movie/{id}/videos")
+    Call<TrailerResponse> movieTrailers(@Path("id") int id);
+
+    @GET("movie/{id}/reviews")
+    Call<ReviewsResponse> movieReviews(@Path("id") int id);
 }

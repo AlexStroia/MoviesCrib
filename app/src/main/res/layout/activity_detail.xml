@@ -82,6 +82,7 @@
 
 
             <LinearLayout
+                android:id="@+id/ll_movie_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_8dp"
@@ -133,6 +134,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_vote"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_8dp"
@@ -199,6 +201,11 @@
                 android:layout_marginTop="@dimen/_8dp"
                 android:layout_marginEnd="@dimen/_8dp"
                 android:layout_marginBottom="@dimen/_8dp"></com.google.android.youtube.player.YouTubePlayerView>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_reviews"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
         </LinearLayout>
 
     </android.support.constraint.ConstraintLayout>

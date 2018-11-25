@@ -20,6 +20,8 @@ public class MovieRequest {
         void onTopRatedListReceivedListener(final List<Movie> movieList);
 
         void onTrailerListReceivedListener(final List<Trailer> trailerList);
+
+        void onReviewsListReceivedListener(final List<Reviews> reviewsList);
     }
 
     private static MovieListListener mMovieListListener;
@@ -70,9 +72,9 @@ public class MovieRequest {
         });
     }
 
-    public static void getVideoTrailers(final MovieListListener movieListListener, final int movieTrailerId) {
+    public static void getMovieTrailer(final MovieListListener movieListListener, final int movieTrailerId) {
         mMovieListListener = movieListListener;
-        Call<TrailerResponse> trailerCall = RetrofitClient.shared().getMovieApi().movieTrailers(String.valueOf(movieTrailerId));
+        Call<TrailerResponse> trailerCall = RetrofitClient.shared().getMovieApi().movieTrailers(movieTrailerId);
 
         trailerCall.enqueue(new Callback<TrailerResponse>() {
             @Override
@@ -90,5 +92,27 @@ public class MovieRequest {
 
             }
         });
+    }
+
+    /*Call to get the reviews for the current movie*/
+    public static void getMovieReviews(final MovieListListener movieListListener, final int movieId) {
+        mMovieListListener = movieListListener;
+
+        Call<ReviewsResponse> reviewsCall = RetrofitClient.shared().getMovieApi().movieReviews(movieId);
+        reviewsCall.enqueue(new Callback<ReviewsResponse>() {
+            @Override
+            public void onResponse(Call<ReviewsResponse> call, Response<ReviewsResponse> response) {
+                if(!response.isSuccessful()) {
+                    return;
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ReviewsResponse> call, Throwable t) {
+
+            }
+        });
+
     }
 }

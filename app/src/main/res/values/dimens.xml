@@ -1,23 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--DP's-->
     <dimen name="_24sp">24sp</dimen>
     <dimen name="_8dp">8dp</dimen>
     <dimen name="poster_height">300dp</dimen>
     <dimen name="poster_width">200dp</dimen>
-    <dimen name="_22sp">22sp</dimen>
-    <dimen name="_32sp">32sp</dimen>
-    <dimen name="_30sp">30sp</dimen>
     <dimen name="_10dp">10dp</dimen>
     <dimen name="_5dp">5dp</dimen>
     <dimen name="_15dp">15dp</dimen>
     <dimen name="spinner_size">25dp</dimen>
     <dimen name="_32dp">32dp</dimen>
     <dimen name="_100dp">100dp</dimen>
-    <dimen name="const_horizontal_bias">0.5</dimen>
-    <dimen name="rb_step_size">0.5</dimen>
     <dimen name="_80dp">80dp</dimen>
     <dimen name="_150dp">150dp</dimen>
     <dimen name="_50dp">50dp</dimen>
+
+    <!--SP's-->
+    <dimen name="_22sp">22sp</dimen>
+    <dimen name="_18sp">18sp</dimen>
+    <dimen name="_32sp">32sp</dimen>
+    <dimen name="_30sp">30sp</dimen>
+    <dimen name="const_horizontal_bias">0.5</dimen>
+    <dimen name="rb_step_size">0.5</dimen>
 
     <!--Made it item to work when adding it to the rating bar-->
     <item name="_rb_small" format="float" type="dimen">0.75</item>

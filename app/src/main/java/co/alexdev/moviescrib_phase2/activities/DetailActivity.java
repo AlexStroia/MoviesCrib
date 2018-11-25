@@ -2,7 +2,6 @@ package co.alexdev.moviescrib_phase2.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
@@ -83,7 +82,13 @@ public class DetailActivity extends YouTubeBaseActivity implements MovieRequest.
 
     private void getTrailerForCurrentMovie() {
         if (movie != null) {
-            MovieRequest.getVideoTrailers(this, movie.getId());
+            MovieRequest.getMovieTrailer(this, movie.getId());
+        }
+    }
+
+    private void getReviewsForCurrentMovie() {
+        if(movie != null) {
+
         }
     }
 

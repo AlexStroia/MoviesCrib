@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="YOUTUBE_PLAYER_API_KEY">AIzaSyCDeiEvB_QetlPg2GPlmsUOZ7bBYRHs0so</string>
-    <string name="MOVIES_DB_API_KEY">ed54cea63b99ab9822ad2510c09d1c0c</string>
+    <string name="YOUTUBE_PLAYER_API_KEY"></string>
+    <string name="MOVIES_DB_API_KEY"></string>
 </resources>

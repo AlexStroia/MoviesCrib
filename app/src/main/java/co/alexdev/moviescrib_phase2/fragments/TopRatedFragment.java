@@ -36,7 +36,7 @@ public class TopRatedFragment extends Fragment implements TopRatedMoviesAdapter.
                              Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_top_rated, container, false);
 
-        rv_movies = rootView.findViewById(R.id.rv_movies2);
+        rv_movies = rootView.findViewById(R.id.rv_top_rated);
 
         setupRecyclerView();
 
