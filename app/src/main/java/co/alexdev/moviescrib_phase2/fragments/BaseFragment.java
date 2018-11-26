@@ -1,11 +1,13 @@
 package co.alexdev.moviescrib_phase2.fragments;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,21 +15,32 @@ import android.view.ViewGroup;
 import co.alexdev.moviescrib_phase2.R;
 import co.alexdev.moviescrib_phase2.activities.BaseActivity;
 import co.alexdev.moviescrib_phase2.adapter.PagerAdapter;
+import co.alexdev.moviescrib_phase2.utils.networking.listener.BaseListener;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class BaseFragment extends Fragment implements BaseActivity.onViewPagerPositionChangedListener {
-
+public class BaseFragment extends Fragment implements BaseListener.onNavigationViewPositionChangedListener {
+    private static final String TAG = "BaseFragment";
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private PagerAdapter pagerAdapter;
+    private BaseListener.onViewPagerPositionChangedListener mListener;
+
 
     public BaseFragment() {
-        // Required empty public constructor
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            mListener = (BaseListener.onViewPagerPositionChangedListener) context;
+        } catch (ClassCastException e) {
+            Log.d(TAG, "BaseFragment: " + e.getMessage());
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,11 +58,13 @@ public class BaseFragment extends Fragment implements BaseActivity.onViewPagerPo
         return rootView;
     }
 
+    /*Initialize the view*/
     private void initView() {
         setupViewPager();
         setupTabLayout();
     }
 
+    /*Setup the view pager*/
     private void setupViewPager() {
         FragmentManager fragmentManager = getChildFragmentManager();
         pagerAdapter = new PagerAdapter(fragmentManager, tabLayout.getTabCount());
@@ -66,6 +81,7 @@ public class BaseFragment extends Fragment implements BaseActivity.onViewPagerPo
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
+                mListener.onViewPagerPositionChanged(tab.getPosition());
             }
 
             @Override
@@ -78,12 +94,13 @@ public class BaseFragment extends Fragment implements BaseActivity.onViewPagerPo
 
             }
         });
+        /*Sync the view pager listener with the tab layout listener*/
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
     }
 
     /*Check if is not the same position */
     @Override
-    public void onViewPagerPositionChanged(int position) {
+    public void onNavigationViewPositionChanged(int position) {
         if (position != viewPager.getCurrentItem()) {
             viewPager.setCurrentItem(position);
         }

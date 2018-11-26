@@ -11,11 +11,10 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
-
 import co.alexdev.moviescrib_phase2.R;
-import co.alexdev.moviescrib_phase2.fragments.BaseFragment;
+import co.alexdev.moviescrib_phase2.utils.networking.listener.BaseListener;
 
-public class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, BaseListener.onViewPagerPositionChangedListener {
 
     private static final String TAG = "BaseActivity";
     private DrawerLayout mDrawerLayout;
@@ -28,11 +27,8 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
     private static final int FAVORITES_POS = 2;
     private static final int SETTINGS_POS = 3;
 
-    private onViewPagerPositionChangedListener onViewPagerPositionChangedListener;
+    private BaseListener.onNavigationViewPositionChangedListener mOnNavigationViewPositionChangedListener;
 
-    public interface onViewPagerPositionChangedListener {
-        void onViewPagerPositionChanged(final int position);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,17 +41,21 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         setActionBar();
     }
 
+    /*Set the action bar to the toolbar custom
+     * enable the home button
+     * set the home button with the burger icon*/
     private void setActionBar() {
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.getMenu().getItem(MOST_POPULAR_POS).setChecked(true);
         navigationView.bringToFront();
     }
 
-    public void setViewPagerPositionListener(onViewPagerPositionChangedListener onViewPagerPositionChangedListener) {
-        this.onViewPagerPositionChangedListener = onViewPagerPositionChangedListener;
+    public void setViewPagerPositionListener(BaseListener.onNavigationViewPositionChangedListener onNavigationViewPositionChangedListener) {
+        this.mOnNavigationViewPositionChangedListener = onNavigationViewPositionChangedListener;
     }
 
     @Override
@@ -98,8 +98,17 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
                 break;
         }
 
-        onViewPagerPositionChangedListener.onViewPagerPositionChanged(menuItemPosition);
+        mOnNavigationViewPositionChangedListener.onNavigationViewPositionChanged(menuItemPosition);
         return true;
+    }
+
+    @Override
+    public void onViewPagerPositionChanged(int position) {
+        Log.d(TAG, "onViewPagerPositionChanged: " + position);
+        int currentCheckedItem = navigationView.getMenu().getItem(position).getItemId();
+        if (currentCheckedItem != position) {
+            navigationView.getMenu().getItem(position).setChecked(true);
+        }
     }
 }
 

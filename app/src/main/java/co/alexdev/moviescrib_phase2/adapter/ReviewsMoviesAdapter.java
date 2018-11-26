@@ -29,7 +29,9 @@ public class ReviewsMoviesAdapter extends RecyclerView.Adapter<ReviewsMoviesAdap
 
     @Override
     public void onBindViewHolder(@NonNull ReviewsViewHolder reviewsViewHolder, int i) {
-
+        final Reviews reviews = mReviewsList.get(i);
+        reviewsViewHolder.tv_reviewer_name.setText(reviews.getAuthor());
+        reviewsViewHolder.tv_reviewer_comment.setText(reviews.getContent());
     }
 
     @Override

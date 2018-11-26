@@ -16,8 +16,7 @@
         <activity
             android:name=".activities.DetailActivity"
             android:parentActivityName=".activities.BaseActivity" />
-        <activity android:name=".activities.SplashScreenActivity"
-            android:launchMode="singleTask">
+        <activity android:name=".activities.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

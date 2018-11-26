@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/tx_toolbar_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/robotica"
+        android:text="@string/toolbar_title"
+        android:textColor="@color/custom_red"
+        android:textSize="@dimen/_24sp" />
+
+    <ImageView
+        android:id="@+id/iv_popcorn_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/cd_popcorn"
+        android:src="@drawable/popcorn" />
+</LinearLayout>

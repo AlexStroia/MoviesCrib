@@ -11,18 +11,10 @@
         android:background="@color/colorBlack"
         android:minHeight="?attr/actionBarSize">
 
-        <TextView
-            android:id="@+id/tx_toolbar_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:drawableEnd="@drawable/popcorn"
-            android:drawablePadding="5dp"
-            android:fontFamily="@font/robotica"
-            android:gravity="center"
-            android:text="@string/toolbar_title"
-            android:textColor="@color/custom_red"
-            android:textSize="@dimen/_24sp" />
+        <include
+            layout="@layout/logo_movies_crib"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
     </android.support.v7.widget.Toolbar>
 </LinearLayout>

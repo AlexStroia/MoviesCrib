@@ -5,6 +5,7 @@ import android.util.Log;
 import java.util.List;
 
 import co.alexdev.moviescrib_phase2.utils.networking.RetrofitClient;
+import co.alexdev.moviescrib_phase2.utils.networking.listener.BaseListener;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -13,21 +14,10 @@ import retrofit2.Response;
 public class MovieRequest {
     private static final String TAG = "MovieRequest";
 
-    /*Listener implemented in mainActivity*/
-    public interface MovieListListener {
-        void onMostPopularListReceivedListener(final List<Movie> movieList);
-
-        void onTopRatedListReceivedListener(final List<Movie> movieList);
-
-        void onTrailerListReceivedListener(final List<Trailer> trailerList);
-
-        void onReviewsListReceivedListener(final List<Reviews> reviewsList);
-    }
-
-    private static MovieListListener mMovieListListener;
+    private static BaseListener.MovieListListener mMovieListListener;
 
     /*Static function that is getting the popular movies*/
-    static public void getPopularMovies(MovieListListener movieListListener) {
+    static public void getPopularMovies(BaseListener.MovieListListener movieListListener) {
         mMovieListListener = movieListListener;
 
         /*Initiate a call by getting the top rates movies and after that pass it to the listener
@@ -50,7 +40,7 @@ public class MovieRequest {
     }
 
     /*Static function that is getting the top rated movies movies*/
-    public static void getTopRatedMovies(MovieListListener movieListListener) {
+    public static void getTopRatedMovies(BaseListener.MovieListListener movieListListener) {
         mMovieListListener = movieListListener;
         /*Initiate a call by getting the top rates movies and after that pass it to the listener
          * Definied MovieResponse which is the type of the response that we initially get*/
@@ -72,7 +62,7 @@ public class MovieRequest {
         });
     }
 
-    public static void getMovieTrailer(final MovieListListener movieListListener, final int movieTrailerId) {
+    public static void getMovieTrailer(final BaseListener.MovieListListener movieListListener, final int movieTrailerId) {
         mMovieListListener = movieListListener;
         Call<TrailerResponse> trailerCall = RetrofitClient.shared().getMovieApi().movieTrailers(movieTrailerId);
 
@@ -95,7 +85,7 @@ public class MovieRequest {
     }
 
     /*Call to get the reviews for the current movie*/
-    public static void getMovieReviews(final MovieListListener movieListListener, final int movieId) {
+    public static void getMovieReviews(final BaseListener.MovieListListener movieListListener, final int movieId) {
         mMovieListListener = movieListListener;
 
         Call<ReviewsResponse> reviewsCall = RetrofitClient.shared().getMovieApi().movieReviews(movieId);

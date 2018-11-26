@@ -27,8 +27,9 @@ import co.alexdev.moviescrib_phase2.R;
 import co.alexdev.moviescrib_phase2.model.MovieRequest;
 import co.alexdev.moviescrib_phase2.model.Reviews;
 import co.alexdev.moviescrib_phase2.model.Trailer;
+import co.alexdev.moviescrib_phase2.utils.networking.listener.BaseListener;
 
-public class DetailActivity extends YouTubeBaseActivity implements MovieRequest.MovieListListener {
+public class DetailActivity extends YouTubeBaseActivity implements BaseListener.MovieListListener {
 
     private Toolbar customToolbar;
     private ImageView iv_poster;
