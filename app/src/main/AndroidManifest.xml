@@ -12,16 +12,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/DarkTheme">
-        <activity android:name=".activities.BaseActivity"></activity>
+        <activity
+            android:name=".activities.BaseActivity"
+            android:launchMode="singleTop" />
         <activity
             android:name=".activities.DetailActivity"
             android:parentActivityName=".activities.BaseActivity" />
         <activity android:name=".activities.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activities.SettingsActivity"></activity>
     </application>
 
 </manifest>

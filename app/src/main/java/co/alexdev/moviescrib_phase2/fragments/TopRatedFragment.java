@@ -21,9 +21,9 @@ import co.alexdev.moviescrib_phase2.model.Movie;
 import co.alexdev.moviescrib_phase2.model.MovieRequest;
 import co.alexdev.moviescrib_phase2.model.Reviews;
 import co.alexdev.moviescrib_phase2.model.Trailer;
-import co.alexdev.moviescrib_phase2.utils.networking.listener.BaseListener;
+import co.alexdev.moviescrib_phase2.utils.listener.MoviesListener;
 
-public class TopRatedFragment extends Fragment implements TopRatedMoviesAdapter.onTopRatedMovieClick, BaseListener.MovieListListener {
+public class TopRatedFragment extends Fragment implements TopRatedMoviesAdapter.onTopRatedMovieClick, MoviesListener.MovieListListener {
 
     private static final String TAG = "TopRatedFragment";
     private static final int GRID_COLUMN_SPAN = 2;

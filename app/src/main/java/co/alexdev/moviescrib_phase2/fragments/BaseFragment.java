@@ -15,19 +15,19 @@ import android.view.ViewGroup;
 import co.alexdev.moviescrib_phase2.R;
 import co.alexdev.moviescrib_phase2.activities.BaseActivity;
 import co.alexdev.moviescrib_phase2.adapter.PagerAdapter;
-import co.alexdev.moviescrib_phase2.utils.networking.listener.BaseListener;
+import co.alexdev.moviescrib_phase2.utils.listener.MoviesListener;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class BaseFragment extends Fragment implements BaseListener.onNavigationViewPositionChangedListener {
+public class BaseFragment extends Fragment implements MoviesListener.onNavigationViewPositionChangedListener {
     private static final String TAG = "BaseFragment";
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private PagerAdapter pagerAdapter;
-    private BaseListener.onViewPagerPositionChangedListener mListener;
-
+    private int viewPagerPosition = 0;
+    private MoviesListener.onViewPagerPositionChangedListener mListener;
 
     public BaseFragment() {
     }
@@ -36,7 +36,7 @@ public class BaseFragment extends Fragment implements BaseListener.onNavigationV
     public void onAttach(Context context) {
         super.onAttach(context);
         try {
-            mListener = (BaseListener.onViewPagerPositionChangedListener) context;
+            mListener = (MoviesListener.onViewPagerPositionChangedListener) context;
         } catch (ClassCastException e) {
             Log.d(TAG, "BaseFragment: " + e.getMessage());
         }
@@ -58,6 +58,13 @@ public class BaseFragment extends Fragment implements BaseListener.onNavigationV
         return rootView;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        /*Update the menu from BaseActivity with the position*/
+        mListener.onViewPagerPositionChanged(viewPagerPosition);
+    }
+
     /*Initialize the view*/
     private void initView() {
         setupViewPager();
@@ -69,6 +76,8 @@ public class BaseFragment extends Fragment implements BaseListener.onNavigationV
         FragmentManager fragmentManager = getChildFragmentManager();
         pagerAdapter = new PagerAdapter(fragmentManager, tabLayout.getTabCount());
         viewPager.setAdapter(pagerAdapter);
+        /*Prevent from making multiple calls to the first fragment*/
+        viewPager.setOffscreenPageLimit(tabLayout.getTabCount());
     }
 
     /*Setup the tab layout
@@ -81,6 +90,7 @@ public class BaseFragment extends Fragment implements BaseListener.onNavigationV
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
+                viewPagerPosition = tab.getPosition();
                 mListener.onViewPagerPositionChanged(tab.getPosition());
             }
 

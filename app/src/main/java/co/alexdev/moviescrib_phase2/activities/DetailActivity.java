@@ -27,9 +27,9 @@ import co.alexdev.moviescrib_phase2.R;
 import co.alexdev.moviescrib_phase2.model.MovieRequest;
 import co.alexdev.moviescrib_phase2.model.Reviews;
 import co.alexdev.moviescrib_phase2.model.Trailer;
-import co.alexdev.moviescrib_phase2.utils.networking.listener.BaseListener;
+import co.alexdev.moviescrib_phase2.utils.listener.MoviesListener;
 
-public class DetailActivity extends YouTubeBaseActivity implements BaseListener.MovieListListener {
+public class DetailActivity extends YouTubeBaseActivity implements MoviesListener.MovieListListener {
 
     private Toolbar customToolbar;
     private ImageView iv_poster;
@@ -111,7 +111,7 @@ public class DetailActivity extends YouTubeBaseActivity implements BaseListener.
                     youTubePlayer.setFullscreen(true);
                 }
                 youTubePlayer.cueVideo(id);
-                youTubePlayer.setPlayerStyle(YouTubePlayer.PlayerStyle.DEFAULT);
+                youTubePlayer.setPlayerStyle(YouTubePlayer.PlayerStyle.MINIMAL);
             }
 
             @Override

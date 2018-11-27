@@ -1,8 +1,10 @@
 package co.alexdev.moviescrib_phase2.activities;
 
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -11,10 +13,11 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
-import co.alexdev.moviescrib_phase2.R;
-import co.alexdev.moviescrib_phase2.utils.networking.listener.BaseListener;
 
-public class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, BaseListener.onViewPagerPositionChangedListener {
+import co.alexdev.moviescrib_phase2.R;
+import co.alexdev.moviescrib_phase2.utils.listener.MoviesListener;
+
+public class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, MoviesListener.onViewPagerPositionChangedListener {
 
     private static final String TAG = "BaseActivity";
     private DrawerLayout mDrawerLayout;
@@ -26,9 +29,9 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
     private static final int TOP_RATED_POS = 1;
     private static final int FAVORITES_POS = 2;
     private static final int SETTINGS_POS = 3;
+    private int menuItemPosition = 0;
 
-    private BaseListener.onNavigationViewPositionChangedListener mOnNavigationViewPositionChangedListener;
-
+    private MoviesListener.onNavigationViewPositionChangedListener mOnNavigationViewPositionChangedListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +42,15 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         toolbar = findViewById(R.id.toolbar);
         navigationView = findViewById(R.id.nav_view);
         setActionBar();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        /*Used when user navigates back from Settings Activity*/
+        if(menuItemPosition == SETTINGS_POS) {
+            navigationView.getMenu().getItem(SETTINGS_POS).setChecked(false);
+        }
     }
 
     /*Set the action bar to the toolbar custom
@@ -54,7 +66,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         navigationView.bringToFront();
     }
 
-    public void setViewPagerPositionListener(BaseListener.onNavigationViewPositionChangedListener onNavigationViewPositionChangedListener) {
+    public void setViewPagerPositionListener(MoviesListener.onNavigationViewPositionChangedListener onNavigationViewPositionChangedListener) {
         this.mOnNavigationViewPositionChangedListener = onNavigationViewPositionChangedListener;
     }
 
@@ -70,11 +82,9 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        int menuItemPosition = 0;
         // set item as selected to persist highlight
         menuItem.setChecked(true);
-        // close drawer when item is tapped
-        mDrawerLayout.closeDrawers();
+
         switch (menuItem.getItemId()) {
 
             case R.id.nav_most_popular:
@@ -95,13 +105,23 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_settings:
                 Log.d(TAG, "onOptionsItemSelected: nav_settings");
                 menuItemPosition = SETTINGS_POS;
+                startSettingsActivity();
                 break;
         }
-
-        mOnNavigationViewPositionChangedListener.onNavigationViewPositionChanged(menuItemPosition);
-        return true;
+        if (menuItemPosition != SETTINGS_POS) {
+            mOnNavigationViewPositionChangedListener.onNavigationViewPositionChanged(menuItemPosition);
+        }
+        mDrawerLayout.closeDrawer(GravityCompat.START);
+        return false;
     }
 
+    private void startSettingsActivity() {
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
+    }
+
+    /*Triggered when the view pager position changes
+     * This way it will sync with our menu*/
     @Override
     public void onViewPagerPositionChanged(int position) {
         Log.d(TAG, "onViewPagerPositionChanged: " + position);

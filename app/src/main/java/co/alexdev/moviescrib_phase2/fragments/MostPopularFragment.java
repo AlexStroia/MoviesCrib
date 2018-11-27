@@ -22,12 +22,12 @@ import co.alexdev.moviescrib_phase2.model.Movie;
 import co.alexdev.moviescrib_phase2.model.MovieRequest;
 import co.alexdev.moviescrib_phase2.model.Reviews;
 import co.alexdev.moviescrib_phase2.model.Trailer;
-import co.alexdev.moviescrib_phase2.utils.networking.listener.BaseListener;
+import co.alexdev.moviescrib_phase2.utils.listener.MoviesListener;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MostPopularFragment extends Fragment implements MostPopularMoviesAdapter.onMostPopularMovieCLick, BaseListener.MovieListListener {
+public class MostPopularFragment extends Fragment implements MostPopularMoviesAdapter.onMostPopularMovieCLick, MoviesListener.MovieListListener {
 
     private static final String TAG = "MostPopularFragment";
     private static final int GRID_COLUMN_SPAN = 2;

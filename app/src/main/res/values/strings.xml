@@ -1,36 +1,46 @@
 <resources>
+    <!--App info-->
     <string name="app_name">MoviesCrib - Phase 2</string>
-
     <string name="toolbar_title">Movies Crib</string>
     <string name="toolbar_content_description">Custom toolbar used in the application</string>
 
-    <string name="poster_title">Avengers</string>
-    <string name="poster_content_description">Poster of the movie</string>
-
-    <string name="poster_release_date">11.10.2016</string>
-    <string name="poster_info">Thanos is coming</string>
-    <string name="poster_vote_average">8.0</string>
-
+    <!--Base links-->
     <string name="tmdb_image_url">https://image.tmdb.org/t/p/w342/</string>
     <string name="tmdb_image_url_large">https://image.tmdb.org/t/p/w500/</string>
     <string name="tmdb_image_url_original">https://image.tmdb.org/t/p/original/</string>
 
+    <!--Keys-->
     <string name="selected_movie_key">SELECTED_MOVIE</string>
     <string name="selected_view_pager_position_key">SELECTED_VIEW_PAGER_POSITION</string>
+    <string name="store_offline_key">STORE_OFFLINE_DATA</string>
 
     <string name="no_movies_error">There are no movies to display.</string>
+
+    <!--View pager & Navigation View titles -->
     <string name="title_most_popular">Most Popular</string>
     <string name="title_top_rated">Top Rated</string>
     <string name="title_favourites">Favourites</string>
+    <string name="title_settings">Settings</string>
+    <string name="nav_make_selection">Make a selection</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="get_started">GET STARTED</string>
+
+    <!--Detail Activity-->
     <string name="add_to_favorites">Add to favorites</string>
     <string name="heart_icon">Heart icon</string>
     <string name="review_comment_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley</string>
     <string name="review_comment_name">John Bobby:</string>
-    <string name="title_settings">Settings</string>
-    <string name="nav_make_selection">Make a selection</string>
     <string name="cd_popcorn">Popcorn Image View</string>
+    <!--Default data to populate the UI on Detail Activity-->
+    <string name="poster_title">Avengers</string>
+    <string name="poster_content_description">Poster of the movie</string>
+    <string name="poster_release_date">11.10.2016</string>
+    <string name="poster_info">Thanos is coming</string>
+    <string name="poster_vote_average">8.0</string>
+
+    <!--Settings Activity-->
+    <string name="store_offline_title">View Offline Data</string>
+    <string name="store_offline_check">Activated</string>
+    <string name="store_offline_uncheck">Dezactivated</string>
 </resources>

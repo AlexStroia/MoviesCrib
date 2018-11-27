@@ -6,7 +6,7 @@ import co.alexdev.moviescrib_phase2.model.Movie;
 import co.alexdev.moviescrib_phase2.model.Reviews;
 import co.alexdev.moviescrib_phase2.model.Trailer;
 
-public final class BaseListener {
+public final class MoviesListener {
     /*Listener used when the view pager position is changed
     * used to update the position of the menu */
     public interface onViewPagerPositionChangedListener {

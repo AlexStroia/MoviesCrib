@@ -13,6 +13,10 @@
         <item name="colorPrimaryDark">@color/colorBlack</item>
         <item name="android:windowBackground">@color/colorDarkGrey</item>
         <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textColorSecondary">@color/custom_red</item>
+        <!--When box is not checked-->
+        <item name="colorControlNormal">@color/colorWhite</item>
+        <item name="colorControlActivated">@color/colorWhite</item>
     </style>
 
 </resources>

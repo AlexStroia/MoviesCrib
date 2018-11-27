@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <CheckBoxPreference
+        android:defaultValue="@bool/store_offline_default_value"
+        android:key="@string/store_offline_key"
+        app:itemTextColor="@drawable/selector_navigation_color"
+        android:summaryOff="@string/store_offline_uncheck"
+        android:summaryOn="@string/store_offline_check"
+        android:title="@string/store_offline_title" />
+</PreferenceScreen>
