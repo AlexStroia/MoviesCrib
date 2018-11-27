@@ -1,8 +1,10 @@
-package co.alexdev.moviescrib_phase2.model;
+package co.alexdev.moviescrib_phase2.model.response;
 
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
+
+import co.alexdev.moviescrib_phase2.model.Trailer;
 
 public class TrailerResponse {
 

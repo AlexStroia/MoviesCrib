@@ -22,7 +22,9 @@ import co.alexdev.moviescrib_phase2.model.Movie;
 import co.alexdev.moviescrib_phase2.model.MovieRequest;
 import co.alexdev.moviescrib_phase2.model.Reviews;
 import co.alexdev.moviescrib_phase2.model.Trailer;
-import co.alexdev.moviescrib_phase2.utils.listener.MoviesListener;
+import co.alexdev.moviescrib_phase2.model.MoviesListener;
+import co.alexdev.moviescrib_phase2.utils.Enums;
+import co.alexdev.moviescrib_phase2.utils.ImageUtils;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -80,8 +82,9 @@ public class MostPopularFragment extends Fragment implements MostPopularMoviesAd
     /*Set da adapter with the populated list*/
     @Override
     public void onMostPopularListReceivedListener(List<Movie> movieList) {
-        mMovieList = movieList;
-        mMostPopularMoviesAdapter.setmMovieList(movieList);
+        List<Movie> formatedList = ImageUtils.formatMoviesList(movieList, Enums.MovieType.MOST_POPULAR);
+        mMovieList = formatedList;
+        mMostPopularMoviesAdapter.setmMovieList(mMovieList);
     }
 
     @Override

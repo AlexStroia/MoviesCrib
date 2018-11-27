@@ -1,8 +1,8 @@
-package co.alexdev.moviescrib_phase2.utils.networking;
+package co.alexdev.moviescrib_phase2.networking;
 
-import co.alexdev.moviescrib_phase2.model.MovieResponse;
-import co.alexdev.moviescrib_phase2.model.ReviewsResponse;
-import co.alexdev.moviescrib_phase2.model.TrailerResponse;
+import co.alexdev.moviescrib_phase2.model.response.MovieResponse;
+import co.alexdev.moviescrib_phase2.model.response.ReviewsResponse;
+import co.alexdev.moviescrib_phase2.model.response.TrailerResponse;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;

@@ -96,51 +96,27 @@
                     android:layout_marginTop="@dimen/_8dp"
                     android:layout_marginBottom="@dimen/_8dp"
                     android:fadeScrollbars="true"
-                    android:fontFamily="@font/movietitle"
+                    android:fontFamily="@font/walkwayblack"
                     android:scrollbarStyle="insideOverlay"
                     android:scrollbars="vertical"
                     android:text="@string/poster_info"
-                    android:textSize="@dimen/_30sp" />
+                    android:textSize="@dimen/_18sp" />
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/ll_vote"
-                android:layout_width="match_parent"
+            <RatingBar
+                android:id="@+id/rb_vote_average"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_8dp"
-                android:layout_marginEnd="@dimen/_8dp"
-                android:layout_marginBottom="@dimen/_8dp"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:paddingTop="@dimen/_5dp">
-
-                <RatingBar
-                    android:id="@+id/rb_vote_average"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:isIndicator="true"
-                    android:outlineAmbientShadowColor="@color/custom_red"
-                    android:outlineSpotShadowColor="@color/custom_red"
-                    android:progressBackgroundTint="@android:color/transparent"
-                    android:progressTint="@color/custom_red"
-                    android:scaleX="@dimen/_rb_small"
-                    android:scaleY="@dimen/_rb_small"
-                    android:secondaryProgressTint="@android:color/transparent"
-                    android:stepSize="@dimen/rb_step_size" />
-
-                <TextView
-                    android:id="@+id/tv_vote_average"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:fontFamily="@font/movietitle"
-                    android:paddingStart="@dimen/_5dp"
-                    android:paddingEnd="@dimen/_5dp"
-                    android:text="@string/poster_vote_average"
-                    android:textSize="@dimen/_30sp"
-                    android:visibility="gone" />
-            </LinearLayout>
+                android:layout_gravity="center"
+                android:isIndicator="true"
+                android:outlineAmbientShadowColor="@color/custom_red"
+                android:outlineSpotShadowColor="@color/custom_red"
+                android:progressBackgroundTint="@android:color/transparent"
+                android:progressTint="@color/custom_red"
+                android:scaleX="@dimen/_rb_small"
+                android:scaleY="@dimen/_rb_small"
+                android:secondaryProgressTint="@android:color/transparent"
+                android:stepSize="@dimen/rb_step_size" />
 
             <LinearLayout
                 android:id="@+id/ll_add_to_favorites"
@@ -153,12 +129,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_50dp"
                     android:background="@null"
+                    android:fontFamily="@font/robotoboldcondensed"
                     android:text="@string/add_to_favorites"
                     android:textColor="@color/colorWhite" />
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_width="@dimen/_40dp"
+                    android:layout_height="@dimen/_40dp"
+                    android:layout_marginStart="@dimen/_5dp"
                     android:contentDescription="@string/heart_icon"
                     android:src="@drawable/ic_heart_full" />
             </LinearLayout>

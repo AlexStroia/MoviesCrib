@@ -40,7 +40,7 @@
     <string name="poster_vote_average">8.0</string>
 
     <!--Settings Activity-->
-    <string name="store_offline_title">View Offline Data</string>
+    <string name="store_offline_title">Offline Storage</string>
     <string name="store_offline_check">Activated</string>
     <string name="store_offline_uncheck">Dezactivated</string>
 </resources>

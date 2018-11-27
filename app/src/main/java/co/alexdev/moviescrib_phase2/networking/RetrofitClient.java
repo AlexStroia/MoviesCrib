@@ -1,4 +1,4 @@
-package co.alexdev.moviescrib_phase2.utils.networking;
+package co.alexdev.moviescrib_phase2.networking;
 
 import android.net.Uri;
 

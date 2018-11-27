@@ -1,8 +1,10 @@
-package co.alexdev.moviescrib_phase2.model;
+package co.alexdev.moviescrib_phase2.model.response;
 
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
+
+import co.alexdev.moviescrib_phase2.model.Reviews;
 
 /*Response class for reviews*/
 public class ReviewsResponse {
@@ -12,10 +14,6 @@ public class ReviewsResponse {
 
     public List<Reviews> getResponse() {
         return response;
-    }
-
-    public void setResponse(List<Reviews> response) {
-        this.response = response;
     }
 
     @Override

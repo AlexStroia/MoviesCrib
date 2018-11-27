@@ -21,7 +21,9 @@ import co.alexdev.moviescrib_phase2.model.Movie;
 import co.alexdev.moviescrib_phase2.model.MovieRequest;
 import co.alexdev.moviescrib_phase2.model.Reviews;
 import co.alexdev.moviescrib_phase2.model.Trailer;
-import co.alexdev.moviescrib_phase2.utils.listener.MoviesListener;
+import co.alexdev.moviescrib_phase2.model.MoviesListener;
+import co.alexdev.moviescrib_phase2.utils.Enums;
+import co.alexdev.moviescrib_phase2.utils.ImageUtils;
 
 public class TopRatedFragment extends Fragment implements TopRatedMoviesAdapter.onTopRatedMovieClick, MoviesListener.MovieListListener {
 
@@ -78,9 +80,9 @@ public class TopRatedFragment extends Fragment implements TopRatedMoviesAdapter.
 
     @Override
     public void onTopRatedListReceivedListener(List<Movie> movieList) {
-        Log.d(TAG, "onTopRatedListReceivedListener: " + movieList.toString());
-        mMovieList = movieList;
-        mTopRatedMoviesAdapter.setmMovieList(movieList);
+        List<Movie> formatedList = ImageUtils.formatMoviesList(movieList, Enums.MovieType.TOP_RATED);
+        mMovieList = formatedList;
+        mTopRatedMoviesAdapter.setMovieList(mMovieList);
     }
 
     @Override

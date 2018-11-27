@@ -15,7 +15,7 @@ import android.view.Gravity;
 import android.view.MenuItem;
 
 import co.alexdev.moviescrib_phase2.R;
-import co.alexdev.moviescrib_phase2.utils.listener.MoviesListener;
+import co.alexdev.moviescrib_phase2.model.MoviesListener;
 
 public class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, MoviesListener.onViewPagerPositionChangedListener {
 

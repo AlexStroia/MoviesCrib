@@ -1,10 +1,6 @@
-package co.alexdev.moviescrib_phase2.utils.listener;
+package co.alexdev.moviescrib_phase2.model;
 
 import java.util.List;
-
-import co.alexdev.moviescrib_phase2.model.Movie;
-import co.alexdev.moviescrib_phase2.model.Reviews;
-import co.alexdev.moviescrib_phase2.model.Trailer;
 
 public final class MoviesListener {
     /*Listener used when the view pager position is changed

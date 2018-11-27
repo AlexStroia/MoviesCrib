@@ -1,14 +1,21 @@
 package co.alexdev.moviescrib_phase2.model;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import co.alexdev.moviescrib_phase2.utils.Enums;
+
+@Entity(tableName = "movies")
 public final class Movie implements Parcelable {
     /*Used SerializedName so that Retrofit will know what type of data to extract if our params name are differnet*/
     @SerializedName("id")
-    private final int id;
+    @PrimaryKey(autoGenerate = true)
+    private int id;
     @SerializedName("title")
     private final String title;
     @SerializedName("vote_average")
@@ -19,6 +26,21 @@ public final class Movie implements Parcelable {
     private final String poster_path;
     @SerializedName("overview")
     private final String overview;
+    @Ignore
+    private Enums.MovieType mMovieType = Enums.MovieType.NOT_SET;
+    @SerializedName("movie_type")
+    private String movieType;
+
+    public Movie(String title, double vote_average, String release_date, String poster_path, String overview) {
+        this.title = title;
+        this.vote_average = vote_average;
+        this.release_date = release_date;
+        this.poster_path = poster_path;
+        this.overview = overview;
+        /*This will be formated when we make the request*/
+        movieType = mMovieType.toString();
+    }
+
 
     /*Parcel in to get the converted stream into our data*/
     protected Movie(Parcel in) {
@@ -66,6 +88,10 @@ public final class Movie implements Parcelable {
 
     public String getOverview() {
         return overview;
+    }
+
+    public void setMovieType(String movieType) {
+        this.movieType = movieType;
     }
 
     @Override

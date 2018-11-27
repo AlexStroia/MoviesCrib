@@ -27,7 +27,7 @@ import co.alexdev.moviescrib_phase2.R;
 import co.alexdev.moviescrib_phase2.model.MovieRequest;
 import co.alexdev.moviescrib_phase2.model.Reviews;
 import co.alexdev.moviescrib_phase2.model.Trailer;
-import co.alexdev.moviescrib_phase2.utils.listener.MoviesListener;
+import co.alexdev.moviescrib_phase2.model.MoviesListener;
 
 public class DetailActivity extends YouTubeBaseActivity implements MoviesListener.MovieListListener {
 
@@ -37,7 +37,6 @@ public class DetailActivity extends YouTubeBaseActivity implements MoviesListene
     private TextView tv_release_date;
     private TextView tv_plot_synopsis;
     private RatingBar rb_vote_average;
-    private TextView tv_vote_average;
     private LinearLayout ll_add_to_favorites;
     private YouTubePlayerView youTubePlayerView;
     private RecyclerView rv_reviews;
@@ -60,7 +59,6 @@ public class DetailActivity extends YouTubeBaseActivity implements MoviesListene
         tv_plot_synopsis = findViewById(R.id.tv_plot_synopsis);
         tv_plot_synopsis.setMovementMethod(new ScrollingMovementMethod());
         rb_vote_average = findViewById(R.id.rb_vote_average);
-        tv_vote_average = findViewById(R.id.tv_vote_average);
         ll_add_to_favorites = findViewById(R.id.ll_add_to_favorites);
         youTubePlayerView = findViewById(R.id.youtube_player);
         rv_reviews = findViewById(R.id.rv_reviews);
@@ -142,7 +140,6 @@ public class DetailActivity extends YouTubeBaseActivity implements MoviesListene
             tv_detail_title.setText((movie.getTitle() != null && movie.getTitle().length() > 0) ? movie.getTitle() : "");
             tv_plot_synopsis.setText((movie.getOverview() != null && movie.getOverview().length() > 0) ? movie.getOverview() : "");
             tv_release_date.setText((movie.getRelease_date() != null && movie.getRelease_date().length() != 0) ? movie.getRelease_date() : "");
-            tv_vote_average.setText(String.valueOf(vote_average));
             rb_vote_average.setRating(ratingStars);
         }
     }

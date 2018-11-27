@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import co.alexdev.moviescrib_phase2.R;
 import co.alexdev.moviescrib_phase2.activities.BaseActivity;
 import co.alexdev.moviescrib_phase2.adapter.PagerAdapter;
-import co.alexdev.moviescrib_phase2.utils.listener.MoviesListener;
+import co.alexdev.moviescrib_phase2.model.MoviesListener;
 
 
 /**

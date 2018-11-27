@@ -2,8 +2,13 @@ package co.alexdev.moviescrib_phase2.model;
 
 import android.util.Log;
 
-import co.alexdev.moviescrib_phase2.utils.networking.RetrofitClient;
-import co.alexdev.moviescrib_phase2.utils.listener.MoviesListener;
+import java.util.List;
+
+import co.alexdev.moviescrib_phase2.model.response.MovieResponse;
+import co.alexdev.moviescrib_phase2.model.response.ReviewsResponse;
+import co.alexdev.moviescrib_phase2.model.response.TrailerResponse;
+import co.alexdev.moviescrib_phase2.networking.RetrofitClient;
+import co.alexdev.moviescrib_phase2.utils.Enums;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -93,7 +98,6 @@ public class MovieRequest {
                 if (!response.isSuccessful()) {
                     return;
                 }
-
                 mMovieListListener.onReviewsListReceivedListener(response.body().getResponse());
             }
 
@@ -102,6 +106,5 @@ public class MovieRequest {
 
             }
         });
-
     }
 }
