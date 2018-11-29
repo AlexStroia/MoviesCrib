@@ -6,26 +6,38 @@ import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
+import android.arch.persistence.room.Update;
 
 import java.util.List;
 
+import co.alexdev.moviescrib_phase2.model.Favorite;
 import co.alexdev.moviescrib_phase2.model.Movie;
 
 @Dao
 public interface MovieDao {
 
-    @Query("SELECT * from movies")
+    @Query("SELECT * FROM movies WHERE movieType LIKE 'MOST_POPULAR'")
     LiveData<List<Movie>> getMostPopularMovies();
 
+    @Query("SELECT * FROM movies where movieType LIKE 'TOP_RATED'")
     LiveData<List<Movie>> getTopRatedMovies();
 
-    LiveData<List<Movie>>getFavoritesMovies();
+    /*Query all the selected movies that are stored as favorite*/
+    @Query("SELECT * from movie_favorites")
+    LiveData<List<Favorite>> getFavoritesMovies();
 
-    //TODO MAke 3 more list for toprated, most popular, favorites
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertMovieToFavorites(Movie movie);
-
+    /*Delete movie that is currently stored as favorite*/
     @Delete
-    void deleteMovieFromFavorites(Movie movie);
+    void deleteMovieFromFavorites(Favorite favorite);
+
+    /*Insert a movie into the favorite database*/
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertToFavorite(Favorite favorite);
+
+    @Query("Select * from movies WHERE id = :id")
+    LiveData<Movie> loadMovieById(int id);
+
+    /*Check if movie is markedAsFavorite*/
+    @Update
+    void updateMovie(Movie movie);
 }

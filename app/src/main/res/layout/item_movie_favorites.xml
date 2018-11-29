@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_8dp"
+        android:layout_marginTop="@dimen/_8dp"
+        android:layout_marginEnd="@dimen/_8dp"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/iv_poster_fav"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:contentDescription="@string/poster_content_description"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_title_fav"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8dp"
+                android:layout_marginTop="@dimen/_8dp"
+                android:fontFamily="@font/robotoboldcondensed"
+                android:text="@string/poster_title"
+                android:textSize="@dimen/_22sp" />
+
+            <TextView
+                android:id="@+id/tv_plot_synopsis_fav"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/_8dp"
+                android:layout_marginTop="@dimen/_8dp"
+                android:layout_marginEnd="@dimen/_8dp"
+                android:layout_marginBottom="@dimen/_8dp"
+                android:ellipsize="end"
+                android:fadeScrollbars="true"
+                android:fontFamily="@font/walkwayblack"
+                android:lines="5"
+                android:scrollbarStyle="insideOverlay"
+                android:scrollbars="vertical"
+                android:text="@string/poster_info"
+                android:textSize="@dimen/_18sp" />
+
+            <RatingBar
+                android:id="@+id/rb_vote_average_fav"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:isIndicator="true"
+                android:numStars="5"
+                android:outlineAmbientShadowColor="@color/custom_red"
+                android:outlineSpotShadowColor="@color/custom_red"
+                android:progressBackgroundTint="@android:color/transparent"
+                android:progressTint="@color/custom_red"
+                android:scaleX="@dimen/_rb_small"
+                android:scaleY="@dimen/_rb_small"
+                android:secondaryProgressTint="@android:color/transparent"
+                android:stepSize="@dimen/rb_step_size" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

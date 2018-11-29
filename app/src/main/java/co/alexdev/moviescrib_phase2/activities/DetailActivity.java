@@ -1,20 +1,26 @@
 package co.alexdev.moviescrib_phase2.activities;
 
+import android.arch.lifecycle.LifecycleOwner;
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
+import com.google.android.youtube.player.YouTubePlayerSupportFragment;
 import com.google.android.youtube.player.YouTubePlayerView;
 import com.squareup.picasso.Picasso;
 
@@ -22,15 +28,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import co.alexdev.moviescrib_phase2.adapter.ReviewsMoviesAdapter;
+import co.alexdev.moviescrib_phase2.database.MovieDatabase;
+import co.alexdev.moviescrib_phase2.model.Favorite;
 import co.alexdev.moviescrib_phase2.model.Movie;
 import co.alexdev.moviescrib_phase2.R;
 import co.alexdev.moviescrib_phase2.model.MovieRequest;
 import co.alexdev.moviescrib_phase2.model.Reviews;
 import co.alexdev.moviescrib_phase2.model.Trailer;
 import co.alexdev.moviescrib_phase2.model.MoviesListener;
+import co.alexdev.moviescrib_phase2.utils.ImageUtils;
 
-public class DetailActivity extends YouTubeBaseActivity implements MoviesListener.MovieListListener {
-
+public class DetailActivity extends AppCompatActivity implements MoviesListener.MovieListListener {
+    private static final String TAG = "DetailActivity";
     private Toolbar customToolbar;
     private ImageView iv_poster;
     private TextView tv_detail_title;
@@ -38,14 +47,16 @@ public class DetailActivity extends YouTubeBaseActivity implements MoviesListene
     private TextView tv_plot_synopsis;
     private RatingBar rb_vote_average;
     private LinearLayout ll_add_to_favorites;
-    private YouTubePlayerView youTubePlayerView;
     private RecyclerView rv_reviews;
     private String YOUTUBE_API_KEY = "";
+    private String imageString;
 
+    private YouTubePlayerSupportFragment youTubePlayerSupportFragment;
     private ReviewsMoviesAdapter reviewsMoviesAdapter;
     private Movie movie;
     private List<Trailer> trailerList = new ArrayList<>();
     private List<Reviews> reviewsList = new ArrayList<>();
+    private MovieDatabase mDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,16 +71,16 @@ public class DetailActivity extends YouTubeBaseActivity implements MoviesListene
         tv_plot_synopsis.setMovementMethod(new ScrollingMovementMethod());
         rb_vote_average = findViewById(R.id.rb_vote_average);
         ll_add_to_favorites = findViewById(R.id.ll_add_to_favorites);
-        youTubePlayerView = findViewById(R.id.youtube_player);
         rv_reviews = findViewById(R.id.rv_reviews);
 
         YOUTUBE_API_KEY = getResources().getString(R.string.YOUTUBE_PLAYER_API_KEY);
 
         setCustomToolbar();
-        setRatingBar();
 
         final Intent intent = getIntent();
         final String movieKey = getString(R.string.selected_movie_key);
+
+        mDb = MovieDatabase.getInstance(getApplicationContext());
 
         /*Check if there is a intent who has the SELECTED_MOVIE key
          * SELECTED_MOVIE is the key that we use to check if the intent has the movie that we want*/
@@ -78,11 +89,19 @@ public class DetailActivity extends YouTubeBaseActivity implements MoviesListene
             displayData();
             getTrailerForCurrentMovie();
             getReviewsForCurrentMovie();
-            setTrailerMovieAdapter();
+            setReviewsMovieAdapter();
+
+            ll_add_to_favorites.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    imageString = ImageUtils.encode(iv_poster);
+                    mDb.movieDao().insertToFavorite(new Favorite(movie.getTitle(), movie.getOverview(), imageString, (float) movie.getVote_average()));
+                }
+            });
         }
     }
 
-    private void setTrailerMovieAdapter() {
+    private void setReviewsMovieAdapter() {
         reviewsMoviesAdapter = new ReviewsMoviesAdapter(reviewsList);
         rv_reviews.setLayoutManager(new LinearLayoutManager(this));
         rv_reviews.setAdapter(reviewsMoviesAdapter);
@@ -101,8 +120,14 @@ public class DetailActivity extends YouTubeBaseActivity implements MoviesListene
     }
 
     /*When the device is rotated, play the video on full screen*/
-    private void setYoutubeTrailer(final String id) {
-        youTubePlayerView.initialize(YOUTUBE_API_KEY, new YouTubePlayer.OnInitializedListener() {
+    private void initializeYoutubePlayerView(final String id) {
+        youTubePlayerSupportFragment = (YouTubePlayerSupportFragment)
+                getSupportFragmentManager().findFragmentById(R.id.youtube_fragment);
+
+        if (youTubePlayerSupportFragment == null) {
+            return;
+        }
+        youTubePlayerSupportFragment.initialize(YOUTUBE_API_KEY, new YouTubePlayer.OnInitializedListener() {
             @Override
             public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean wasRotated) {
                 if (wasRotated) {
@@ -160,14 +185,6 @@ public class DetailActivity extends YouTubeBaseActivity implements MoviesListene
         return imageUri;
     }
 
-    /*Set rating bar to step size
-     * 0.5 - We can view half of a star not only a full star
-     * 5 - Maximum number of stars */
-    private void setRatingBar() {
-        rb_vote_average.setStepSize(0.5f);
-        rb_vote_average.setMax(5);
-    }
-
     /*Calculate the rating stars*/
     private float getRatingBarStars(final float vote_average) {
         return vote_average / 2;
@@ -188,7 +205,7 @@ public class DetailActivity extends YouTubeBaseActivity implements MoviesListene
         if (trailerList != null && trailerList.size() > 0) {
             this.trailerList = trailerList;
             final String YOUTUBE_PATH = this.trailerList.get(0).getKey();
-            setYoutubeTrailer(YOUTUBE_PATH);
+            initializeYoutubePlayerView(YOUTUBE_PATH);
         }
     }
 

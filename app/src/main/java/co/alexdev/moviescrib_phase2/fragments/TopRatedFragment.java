@@ -3,7 +3,6 @@ package co.alexdev.moviescrib_phase2.fragments;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -25,7 +24,7 @@ import co.alexdev.moviescrib_phase2.model.MoviesListener;
 import co.alexdev.moviescrib_phase2.utils.Enums;
 import co.alexdev.moviescrib_phase2.utils.ImageUtils;
 
-public class TopRatedFragment extends Fragment implements TopRatedMoviesAdapter.onTopRatedMovieClick, MoviesListener.MovieListListener {
+public class TopRatedFragment extends BaseFragment implements TopRatedMoviesAdapter.onTopRatedMovieClick, MoviesListener.MovieListListener {
 
     private static final String TAG = "TopRatedFragment";
     private static final int GRID_COLUMN_SPAN = 2;

@@ -26,6 +26,8 @@ public final class Movie implements Parcelable {
     private final String poster_path;
     @SerializedName("overview")
     private final String overview;
+    /*Initialy the movies are not added to favorites*/
+    private boolean isAddedToFavorite = false;
     @Ignore
     private Enums.MovieType mMovieType = Enums.MovieType.NOT_SET;
     @SerializedName("movie_type")
@@ -50,6 +52,7 @@ public final class Movie implements Parcelable {
         release_date = in.readString();
         poster_path = in.readString();
         overview = in.readString();
+        isAddedToFavorite = (in.readByte() == 0);
     }
 
     /*Creator of the parcel that let us to send data between activity
@@ -65,6 +68,10 @@ public final class Movie implements Parcelable {
             return new Movie[size];
         }
     };
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public int getId() {
         return id;
@@ -90,8 +97,20 @@ public final class Movie implements Parcelable {
         return overview;
     }
 
+    public String getMovieType() {
+        return movieType;
+    }
+
     public void setMovieType(String movieType) {
         this.movieType = movieType;
+    }
+
+    public void setAddedToFavorite(boolean addedToFavorite) {
+        this.isAddedToFavorite = addedToFavorite;
+    }
+
+    public boolean isAddedToFavorite() {
+        return isAddedToFavorite;
     }
 
     @Override
@@ -103,6 +122,9 @@ public final class Movie implements Parcelable {
                 ", release_date='" + release_date + '\'' +
                 ", poster_path='" + poster_path + '\'' +
                 ", overview='" + overview + '\'' +
+                ", isAddedToFavorite=" + isAddedToFavorite +
+                ", mMovieType=" + mMovieType +
+                ", movieType='" + movieType + '\'' +
                 '}';
     }
 
@@ -119,5 +141,6 @@ public final class Movie implements Parcelable {
         parcel.writeString(release_date);
         parcel.writeString(poster_path);
         parcel.writeString(overview);
+        parcel.writeByte((byte) (isAddedToFavorite ? 1 : 0));
     }
 }

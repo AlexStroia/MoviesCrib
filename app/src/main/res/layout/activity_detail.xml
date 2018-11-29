@@ -141,19 +141,16 @@
                     android:src="@drawable/ic_heart_full" />
             </LinearLayout>
 
-            <com.google.android.youtube.player.YouTubePlayerView
-                android:id="@+id/youtube_player"
+            <fragment
+                android:id="@+id/youtube_fragment"
+                android:name="com.google.android.youtube.player.YouTubePlayerSupportFragment"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_8dp"
-                android:layout_marginTop="@dimen/_8dp"
-                android:layout_marginEnd="@dimen/_8dp"
-                android:layout_marginBottom="@dimen/_8dp"></com.google.android.youtube.player.YouTubePlayerView>
+                android:layout_height="wrap_content" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_reviews"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
     </android.support.constraint.ConstraintLayout>

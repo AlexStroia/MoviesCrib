@@ -29,7 +29,7 @@ import co.alexdev.moviescrib_phase2.utils.ImageUtils;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MostPopularFragment extends Fragment implements MostPopularMoviesAdapter.onMostPopularMovieCLick, MoviesListener.MovieListListener {
+public class MostPopularFragment extends BaseFragment implements MostPopularMoviesAdapter.onMostPopularMovieCLick, MoviesListener.MovieListListener {
 
     private static final String TAG = "MostPopularFragment";
     private static final int GRID_COLUMN_SPAN = 2;

@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import co.alexdev.moviescrib_phase2.R;
 import co.alexdev.moviescrib_phase2.activities.BaseActivity;
 import co.alexdev.moviescrib_phase2.adapter.PagerAdapter;
+import co.alexdev.moviescrib_phase2.database.MovieDatabase;
 import co.alexdev.moviescrib_phase2.model.MoviesListener;
 
 
@@ -22,11 +23,14 @@ import co.alexdev.moviescrib_phase2.model.MoviesListener;
  * A simple {@link Fragment} subclass.
  */
 public class BaseFragment extends Fragment implements MoviesListener.onNavigationViewPositionChangedListener {
+
     private static final String TAG = "BaseFragment";
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private PagerAdapter pagerAdapter;
     private int viewPagerPosition = 0;
+    public MovieDatabase mDb;
+
     private MoviesListener.onViewPagerPositionChangedListener mListener;
 
     public BaseFragment() {
@@ -35,6 +39,9 @@ public class BaseFragment extends Fragment implements MoviesListener.onNavigatio
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+
+        mDb = MovieDatabase.getInstance(getActivity().getApplicationContext());
+
         try {
             mListener = (MoviesListener.onViewPagerPositionChangedListener) context;
         } catch (ClassCastException e) {
