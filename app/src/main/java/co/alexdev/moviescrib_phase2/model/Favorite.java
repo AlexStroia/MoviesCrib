@@ -8,14 +8,15 @@ import android.arch.persistence.room.PrimaryKey;
 @Entity(tableName = "movie_favorites", indices = {@Index(value = "title", unique = true)})
 public class Favorite {
 
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey()
     private int id;
     private final String title;
     private final String synopsis;
     private final String image;
     private final float rating;
 
-    public Favorite(String title, String synopsis, String image, float rating) {
+    public Favorite(int id, String title, String synopsis, String image, float rating) {
+        this.id = id;
         this.title = title;
         this.synopsis = synopsis;
         this.image = image;

@@ -33,13 +33,4 @@ public class ImageUtils {
         Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
         return bitmap;
     }
-
-    //TODO this will be added to the view model later
-    /*When adding a movie to the database, set type of movie to view it offline*/
-    public static List<Movie> formatMoviesList(List<Movie> movieList, Enums.MovieType movieType) {
-        for (Movie movie : movieList) {
-            movie.setMovieType(movieType.toString());
-        }
-        return movieList;
-    }
 }

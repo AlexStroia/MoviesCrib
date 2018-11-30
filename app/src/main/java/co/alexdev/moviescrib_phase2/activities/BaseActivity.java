@@ -18,7 +18,7 @@ import android.view.MenuItem;
 import co.alexdev.moviescrib_phase2.R;
 import co.alexdev.moviescrib_phase2.model.MoviesListener;
 
-public class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, MoviesListener.onViewPagerPositionChangedListener {
+public class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, MoviesListener.onViewPagerPositionChangedListener, MoviesListener.onNoFavoritesAdded {
 
     private static final String TAG = "BaseActivity";
     private DrawerLayout mDrawerLayout;
@@ -49,7 +49,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
     protected void onResume() {
         super.onResume();
         /*Used when user navigates back from Settings Activity*/
-        if(menuItemPosition == SETTINGS_POS) {
+        if (menuItemPosition == SETTINGS_POS) {
             navigationView.getMenu().getItem(SETTINGS_POS).setChecked(false);
         }
     }
@@ -67,6 +67,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         navigationView.bringToFront();
     }
 
+    /*Used in the BaseFragment class to set the listener*/
     public void setViewPagerPositionListener(MoviesListener.onNavigationViewPositionChangedListener onNavigationViewPositionChangedListener) {
         this.mOnNavigationViewPositionChangedListener = onNavigationViewPositionChangedListener;
     }
@@ -130,6 +131,12 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         if (currentCheckedItem != position) {
             navigationView.getMenu().getItem(position).setChecked(true);
         }
+    }
+
+    @Override
+    public void onNoFavoritesMoviesAdded() {
+        Log.d(TAG, "onNoFavoritesMoviesAdded: called");
+        mOnNavigationViewPositionChangedListener.onNavigationViewPositionChanged(MOST_POPULAR_POS);
     }
 }
 

@@ -6,7 +6,7 @@
         android:defaultValue="@bool/store_offline_default_value"
         android:key="@string/store_offline_key"
         app:itemTextColor="@drawable/selector_navigation_color"
-        android:summaryOff="@string/store_offline_uncheck"
-        android:summaryOn="@string/store_offline_check"
-        android:title="@string/store_offline_title" />
+        android:summaryOff="@string/store_data_uncheck"
+        android:summaryOn="@string/store_data_check"
+        android:title="@string/store_data_title" />
 </PreferenceScreen>

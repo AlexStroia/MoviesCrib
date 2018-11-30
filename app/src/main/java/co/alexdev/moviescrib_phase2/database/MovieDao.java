@@ -16,15 +16,21 @@ import co.alexdev.moviescrib_phase2.model.Movie;
 @Dao
 public interface MovieDao {
 
-    @Query("SELECT * FROM movies WHERE movieType LIKE 'MOST_POPULAR'")
+    @Query("SELECT * FROM movies WHERE movieType LIKE 'MOST_POPULAR' ORDER BY title")
     LiveData<List<Movie>> getMostPopularMovies();
 
-    @Query("SELECT * FROM movies where movieType LIKE 'TOP_RATED'")
+    @Query("SELECT * FROM movies where movieType LIKE 'TOP_RATED' ORDER BY title")
     LiveData<List<Movie>> getTopRatedMovies();
 
     /*Query all the selected movies that are stored as favorite*/
     @Query("SELECT * from movie_favorites")
     LiveData<List<Favorite>> getFavoritesMovies();
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insert(List<Movie> movieList);
+
+    @Query("Select * FROM movies WHERE id = :id")
+    LiveData<Movie> loadMovieById(int id);
 
     /*Delete movie that is currently stored as favorite*/
     @Delete
@@ -34,10 +40,10 @@ public interface MovieDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertToFavorite(Favorite favorite);
 
-    @Query("Select * from movies WHERE id = :id")
-    LiveData<Movie> loadMovieById(int id);
+    @Query("Select * from movie_favorites WHERE id = :id")
+    Favorite loadMovieFromFavoritesById(int id);
 
     /*Check if movie is markedAsFavorite*/
-    @Update
+    @Update(onConflict = OnConflictStrategy.REPLACE)
     void updateMovie(Movie movie);
 }

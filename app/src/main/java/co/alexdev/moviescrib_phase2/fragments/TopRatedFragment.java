@@ -1,8 +1,11 @@
 package co.alexdev.moviescrib_phase2.fragments;
 
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -22,7 +25,7 @@ import co.alexdev.moviescrib_phase2.model.Reviews;
 import co.alexdev.moviescrib_phase2.model.Trailer;
 import co.alexdev.moviescrib_phase2.model.MoviesListener;
 import co.alexdev.moviescrib_phase2.utils.Enums;
-import co.alexdev.moviescrib_phase2.utils.ImageUtils;
+import co.alexdev.moviescrib_phase2.utils.MovieUtils;
 
 public class TopRatedFragment extends BaseFragment implements TopRatedMoviesAdapter.onTopRatedMovieClick, MoviesListener.MovieListListener {
 
@@ -67,9 +70,43 @@ public class TopRatedFragment extends BaseFragment implements TopRatedMoviesAdap
 
     @Override
     public void onMovieClick(int position) {
-        final Movie movie = mMovieList.get(position);
-        showDetailActivity(movie);
-        Log.d(TAG, "onMovieClick: " + movie.toString());
+        if (mMovieList != null) {
+            final Movie movie = mMovieList.get(position);
+            showDetailActivity(movie);
+            Log.d(TAG, "onMovieClick: " + movie.toString());
+        }
+    }
+
+    private void initView() {
+        final LiveData<List<Movie>> topRatedMovies = mDb.movieDao().getTopRatedMovies();
+        if (MovieUtils.isNetworkAvailable(getContext())) {
+            getTopRatedMovies();
+        } else {
+            topRatedMovies.observe(getActivity(), new Observer<List<Movie>>() {
+                @Override
+                public void onChanged(@Nullable List<Movie> movieList) {
+                    if (movieList != null && movieList.size() != 0) {
+                        mMovieList = movieList;
+                        mTopRatedMoviesAdapter.setMovieList(movieList);
+                    }
+                }
+            });
+        }
+    }
+
+    private void getTopRatedMoviesFromDatabase() {
+        mDb.movieDao().getTopRatedMovies().observe(this, new Observer<List<Movie>>() {
+            @Override
+            public void onChanged(@Nullable List<Movie> movieList) {
+                mMovieList = movieList;
+                mTopRatedMoviesAdapter.setMovieList(movieList);
+            }
+        });
+    }
+
+    private List<Movie> syncMoviesWithFavorites(final List<Movie> formatedList) {
+        MovieUtils.syncWithFavorites(mDb, getActivity(), formatedList);
+        return formatedList;
     }
 
     /*Set da adapter with the populated list*/
@@ -79,9 +116,12 @@ public class TopRatedFragment extends BaseFragment implements TopRatedMoviesAdap
 
     @Override
     public void onTopRatedListReceivedListener(List<Movie> movieList) {
-        List<Movie> formatedList = ImageUtils.formatMoviesList(movieList, Enums.MovieType.TOP_RATED);
-        mMovieList = formatedList;
-        mTopRatedMoviesAdapter.setMovieList(mMovieList);
+        List<Movie> formatedList = MovieUtils.formatMoviesList(movieList, Enums.MovieType.TOP_RATED);
+        /*When data is received from the server, insert it into the database*/
+        mDb.movieDao().insert(formatedList);
+
+        syncMoviesWithFavorites(formatedList);
+        getTopRatedMoviesFromDatabase();
     }
 
     @Override
@@ -99,7 +139,7 @@ public class TopRatedFragment extends BaseFragment implements TopRatedMoviesAdap
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (this.isVisible() && !hasBeenVisibleOnce) {
-            getTopRatedMovies();
+            initView();
             hasBeenVisibleOnce = true;
         }
     }

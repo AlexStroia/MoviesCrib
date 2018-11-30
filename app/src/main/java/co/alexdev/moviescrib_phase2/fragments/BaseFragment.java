@@ -2,7 +2,9 @@ package co.alexdev.moviescrib_phase2.fragments;
 
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -22,14 +24,15 @@ import co.alexdev.moviescrib_phase2.model.MoviesListener;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class BaseFragment extends Fragment implements MoviesListener.onNavigationViewPositionChangedListener {
+public class BaseFragment extends Fragment implements MoviesListener.onNavigationViewPositionChangedListener, SharedPreferences.OnSharedPreferenceChangeListener {
 
     private static final String TAG = "BaseFragment";
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
+    public TabLayout tabLayout;
+    public ViewPager viewPager;
     private PagerAdapter pagerAdapter;
     private int viewPagerPosition = 0;
     public MovieDatabase mDb;
+    boolean canStoreOfflineData = false;
 
     private MoviesListener.onViewPagerPositionChangedListener mListener;
 
@@ -66,6 +69,12 @@ public class BaseFragment extends Fragment implements MoviesListener.onNavigatio
     }
 
     @Override
+    public void onDetach() {
+        super.onDetach();
+        unregisterSharedPreferences();
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         /*Update the menu from BaseActivity with the position*/
@@ -76,6 +85,17 @@ public class BaseFragment extends Fragment implements MoviesListener.onNavigatio
     private void initView() {
         setupViewPager();
         setupTabLayout();
+        registerSharedPreferences();
+    }
+
+    private void registerSharedPreferences() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        sharedPreferences.registerOnSharedPreferenceChangeListener(this);
+    }
+
+    private void unregisterSharedPreferences() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        sharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
     }
 
     /*Setup the view pager*/
@@ -113,6 +133,7 @@ public class BaseFragment extends Fragment implements MoviesListener.onNavigatio
         });
         /*Sync the view pager listener with the tab layout listener*/
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        Log.d(TAG, "setupTabLayout: " + viewPager.getCurrentItem());
     }
 
     /*Check if is not the same position */
@@ -120,6 +141,13 @@ public class BaseFragment extends Fragment implements MoviesListener.onNavigatio
     public void onNavigationViewPositionChanged(int position) {
         if (position != viewPager.getCurrentItem()) {
             viewPager.setCurrentItem(position);
+        }
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if (key.equals(getString(R.string.store_offline_key))) {
+            canStoreOfflineData = sharedPreferences.getBoolean(key, false);
         }
     }
 }

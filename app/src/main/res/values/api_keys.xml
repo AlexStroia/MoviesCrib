@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="YOUTUBE_PLAYER_API_KEY"></string>
-    <string name="MOVIES_DB_API_KEY"></string>
 </resources>

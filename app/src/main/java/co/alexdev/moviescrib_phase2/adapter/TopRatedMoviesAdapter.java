@@ -22,7 +22,7 @@ public class TopRatedMoviesAdapter extends RecyclerView.Adapter<TopRatedMoviesAd
     private List<Movie> mMovieList;
     private static onTopRatedMovieClick mMovieClickListener;
     private final Context mContext;
-     final String tmdb_image_url;
+    final String tmdb_image_url;
 
     /*Listener used to detect the position of the Movie that is clicked in the Adapter*/
     public interface onTopRatedMovieClick {

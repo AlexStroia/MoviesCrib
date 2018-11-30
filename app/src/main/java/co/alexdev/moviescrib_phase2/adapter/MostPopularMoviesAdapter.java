@@ -60,7 +60,7 @@ public class MostPopularMoviesAdapter extends RecyclerView.Adapter<MostPopularMo
     }
 
     /*Function used to set the movie list with the movie data that came from the API*/
-    public void setmMovieList(List<Movie> mMovieList) {
+    public void setMovieList(List<Movie> mMovieList) {
         this.mMovieList = mMovieList;
         notifyDataSetChanged();
     }
