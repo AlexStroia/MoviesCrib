@@ -17,21 +17,22 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public final class MovieApplicationRepository {
+public final class MovieAppRepo {
 
-    private static MovieApplicationRepository movieApplicationRepository;
+    private static MovieAppRepo movieAppRepo;
     private static MovieDatabase mDb;
     private static MovieExecutor mMovieExecutor;
 
-    public static MovieApplicationRepository getInstance(Application application) {
-        if (movieApplicationRepository == null) {
-            movieApplicationRepository = new MovieApplicationRepository();
+    public static MovieAppRepo getInstance(Application application) {
+        if (movieAppRepo == null) {
+            movieAppRepo = new MovieAppRepo();
         }
         mMovieExecutor = MovieExecutor.getInstance();
         mDb = MovieDatabase.getInstance(application);
-        return movieApplicationRepository;
+        return movieAppRepo;
     }
 
+    /*******************NETWORKING CALLS*********************/
     public LiveData<List<Movie>> getPopularMoviesCall() {
         final MutableLiveData<List<Movie>> movieList = new MutableLiveData<>();
 
@@ -126,7 +127,7 @@ public final class MovieApplicationRepository {
         return reviewsList;
     }
 
-    /*Database Operations for Movies */
+    /********************DATABASE CALLS********************/
     public LiveData<List<Movie>> getMostPopularMoviesFromDatabase() {
         return mDb.movieDao().getMostPopularMovies();
     }
@@ -180,7 +181,7 @@ public final class MovieApplicationRepository {
         });
     }
 
-    public Favorite loadMovieFromFavoritesById(int id) {
+    public LiveData<Favorite> loadMovieFromFavoritesById(final int id) {
         return mDb.movieDao().loadMovieFromFavoritesById(id);
     }
 

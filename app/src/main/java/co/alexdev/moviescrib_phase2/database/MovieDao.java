@@ -41,7 +41,7 @@ public interface MovieDao {
         void insertToFavorite(Favorite favorite);
 
         @Query("Select * from movie_favorites WHERE id = :id")
-        Favorite loadMovieFromFavoritesById(int id);
+        LiveData<Favorite> loadMovieFromFavoritesById(int id);
 
         /*Check if movie is markedAsFavorite*/
         @Update(onConflict = OnConflictStrategy.REPLACE)

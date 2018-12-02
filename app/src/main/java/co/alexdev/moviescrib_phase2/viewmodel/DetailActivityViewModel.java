@@ -5,9 +5,9 @@ import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
-import android.content.SharedPreferences;
+import android.content.Intent;
 import android.content.res.Resources;
-import android.preference.PreferenceManager;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -18,66 +18,50 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import co.alexdev.moviescrib_phase2.R;
-import co.alexdev.moviescrib_phase2.activities.DetailActivity;
 import co.alexdev.moviescrib_phase2.model.Favorite;
 import co.alexdev.moviescrib_phase2.model.Movie;
-import co.alexdev.moviescrib_phase2.model.MovieApplicationRepository;
+import co.alexdev.moviescrib_phase2.model.MovieAppRepo;
 import co.alexdev.moviescrib_phase2.model.Reviews;
 import co.alexdev.moviescrib_phase2.model.Trailer;
-import co.alexdev.moviescrib_phase2.utils.Enums;
 import co.alexdev.moviescrib_phase2.utils.ImageUtils;
-import co.alexdev.moviescrib_phase2.utils.MovieUtils;
 
-public class DetailActivityViewModel extends AndroidViewModel implements SharedPreferences.OnSharedPreferenceChangeListener {
+public class DetailActivityViewModel extends AndroidViewModel {
+
     private static final String TAG = "DetailActivityViewModel";
+    private final static String YOUTUBE_SCHEME = "https";
+    private final static String YOUTUBE_AUTHORITY = "youtube.com";
+
     public boolean canStoreOfflineData = false;
-    private Resources resources;
-    private SharedPreferences sharedPreferences;
     public boolean isAddedToFavorite = false;
     private String imageString;
-
-    public Movie movie;
+    private Movie movie;
+    private Resources resources;
 
     public DetailActivityViewModel(@NonNull Application application) {
-
         super(application);
-
-        initVM();
-    }
-
-    private void initVM() {
         resources = this.getApplication().getResources();
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getApplication());
-        canStoreOfflineData = sharedPreferences.getBoolean(resources.getString(R.string.store_offline_key), false);
     }
 
     public void onFavoriteButtonClick(ImageView imageView) {
         Favorite favorite;
-        if (!canStoreOfflineData) {
-            MovieUtils.showDialog(this.getApplication(), Enums.DialogType.NO_OFFLINE_ENABLED, null);
-            return;
-        }
         if (canStoreOfflineData) {
             if (!isAddedToFavorite) {
                 imageString = ImageUtils.encode(imageView);
                 favorite = new Favorite(movie.getId(), movie.getTitle(), movie.getOverview(), imageString, (float) movie.getVote_average());
                 insertToFavorite(favorite);
             } else {
-                favorite = MovieApplicationRepository.getInstance(this.getApplication()).loadMovieFromFavoritesById(movie.getId());
-                if (favorite != null) {
-                    deleteFromFavorites(favorite);
-                }
+                deleteFromFavorites();
             }
-            movie.setAddedToFavorite(!isAddedToFavorite);
-            updateMovie(movie);
         }
+        movie.setAddedToFavorite(!isAddedToFavorite);
+        updateMovie(movie);
     }
 
     /*Make a call to get the reviews from the repository and when the call is done, pass the values to movie reviews*/
     public LiveData<List<Reviews>> getReviewsForCurrentMovie() {
         final MutableLiveData<List<Reviews>> movieReviews = new MutableLiveData<>();
         if (movie != null) {
-            final LiveData<List<Reviews>> reviewsForCurrentMovie = MovieApplicationRepository
+            final LiveData<List<Reviews>> reviewsForCurrentMovie = MovieAppRepo
                     .getInstance(this.getApplication())
                     .getMovieReviewsCall(movie.getId());
             reviewsForCurrentMovie.observeForever(new Observer<List<Reviews>>() {
@@ -95,7 +79,9 @@ public class DetailActivityViewModel extends AndroidViewModel implements SharedP
     public LiveData<String> getTrailerPath() {
         final MutableLiveData<String> youtube_path = new MutableLiveData<>();
         if (movie != null) {
-            final LiveData<List<Trailer>> liveTrailerList = MovieApplicationRepository.getInstance(this.getApplication()).getMovieTrailerCall(movie.getId());
+            final LiveData<List<Trailer>> liveTrailerList = MovieAppRepo
+                    .getInstance(this.getApplication())
+                    .getMovieTrailerCall(movie.getId());
             liveTrailerList.observeForever(new Observer<List<Trailer>>() {
                 @Override
                 public void onChanged(@Nullable List<Trailer> trailers) {
@@ -107,31 +93,48 @@ public class DetailActivityViewModel extends AndroidViewModel implements SharedP
         return youtube_path;
     }
 
+    /*Load movie by the given id*/
     public LiveData<Movie> loadMovieById(int id) {
-        return MovieApplicationRepository.getInstance(this.getApplication()).loadMovieById(id);
+        return MovieAppRepo.getInstance(this.getApplication()).loadMovieById(id);
     }
 
-    public void insertToFavorite(Favorite favorite) {
+    /*Insert the movie to favorite*/
+    private void insertToFavorite(Favorite favorite) {
         if (favorite != null) {
-            MovieApplicationRepository.getInstance(this.getApplication()).insertToFavorite(favorite);
+            MovieAppRepo.getInstance(this.getApplication()).insertToFavorite(favorite);
         }
     }
 
-    public void deleteFromFavorites(Favorite favorite) {
+    /*Delete movie from favorites*/
+    private void deleteFromFavorites(Favorite favorite) {
         if (favorite != null) {
-            MovieApplicationRepository.getInstance(this.getApplication()).deleteFromFavorite(favorite);
+            MovieAppRepo.getInstance(this.getApplication()).deleteFromFavorite(favorite);
         }
     }
 
-    private void updateMovie(Movie movie) {
+    public void updateMovie(Movie movie) {
         if (movie != null) {
-            MovieApplicationRepository.getInstance(this.getApplication()).updateMovie(movie);
+            MovieAppRepo.getInstance(this.getApplication()).updateMovie(movie);
         }
     }
 
     /*Calculate the rating stars*/
     public float getRatingBarStars(final float vote_average) {
-        return vote_average / 2;
+        if (vote_average != 0) {
+            return vote_average / 2;
+        }
+        return 0;
+    }
+
+    private void deleteFromFavorites() {
+        final LiveData<Favorite> favoriteLiveData = MovieAppRepo.getInstance(this.getApplication()).loadMovieFromFavoritesById(movie.getId());
+        favoriteLiveData.observeForever(new Observer<Favorite>() {
+            @Override
+            public void onChanged(@Nullable Favorite favorite) {
+                favoriteLiveData.removeObserver(this);
+                deleteFromFavorites(favorite);
+            }
+        });
     }
 
     /*Helper function that help us to build the URI for our image
@@ -155,10 +158,19 @@ public class DetailActivityViewModel extends AndroidViewModel implements SharedP
         }
     }
 
-    @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if (key.equals(resources.getString(R.string.store_offline_key))) {
-            canStoreOfflineData = sharedPreferences.getBoolean(resources.getString(R.string.store_offline_key), false);
-        }
+    public void setMovie(Movie movie) {
+        this.movie = new Movie();
+        this.movie.setId(movie.getId());
+        this.movie.setTitle(movie.getTitle());
+        this.movie.setOverview(movie.getOverview());
+        this.movie.setMovieType(movie.getMovieType());
+        this.movie.setVote_average(movie.getVote_average());
+        this.movie.setRelease_date(movie.getRelease_date());
+        this.movie.setPoster_path(movie.getPoster_path());
+        isAddedToFavorite = movie.isAddedToFavorite();
+    }
+
+    public Movie getMovie() {
+        return movie = movie != null ? movie : new Movie();
     }
 }

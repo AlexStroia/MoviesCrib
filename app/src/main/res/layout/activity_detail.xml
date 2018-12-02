@@ -1,159 +1,167 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <data>
+
+        <variable
+            name="vm"
+            type="co.alexdev.moviescrib_phase2.viewmodel.DetailActivityViewModel" />
+
+    </data>
+
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".activities.DetailActivity">
+        android:layout_height="match_parent">
 
-        <include
-            android:id="@+id/include"
-            layout="@layout/custom_toolbar"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <LinearLayout
-            android:id="@+id/linearLayout"
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_8dp"
-            android:layout_marginTop="@dimen/_8dp"
-            android:layout_marginEnd="@dimen/_8dp"
-            android:layout_marginBottom="8dp"
-            android:gravity="center"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/include">
+            android:layout_height="match_parent"
+            tools:context=".activities.DetailActivity">
 
-            <ImageView
-                android:id="@+id/iv_detail_poster"
-                android:layout_width="match_parent"
+            <include
+                android:id="@+id/include"
+                layout="@layout/custom_toolbar"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_8dp"
-                android:layout_marginTop="@dimen/_8dp"
-                android:layout_marginEnd="@dimen/_8dp"
-                android:contentDescription="@string/poster_content_description"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/include" />
-
+                app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
-                android:id="@+id/ll_movie_info"
+                android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_8dp"
                 android:layout_marginTop="@dimen/_8dp"
                 android:layout_marginEnd="@dimen/_8dp"
+                android:layout_marginBottom="8dp"
                 android:gravity="center"
                 android:orientation="vertical"
-                app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/frameLayout"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/include">
 
-                <TextView
-                    android:id="@+id/tv_detail_title"
-                    android:layout_width="wrap_content"
+                <ImageView
+                    android:id="@+id/iv_detail_poster"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_8dp"
                     android:layout_marginTop="@dimen/_8dp"
                     android:layout_marginEnd="@dimen/_8dp"
-                    android:fontFamily="@font/robotoboldcondensed"
-                    android:gravity="center"
-                    android:text="@string/poster_title"
-                    android:textSize="@dimen/_22sp" />
+                    android:contentDescription="@string/poster_content_description"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/include" />
 
-                <TextView
-                    android:id="@+id/tv_release_date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                <LinearLayout
+                    android:id="@+id/ll_movie_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_8dp"
                     android:layout_marginTop="@dimen/_8dp"
                     android:layout_marginEnd="@dimen/_8dp"
-                    android:fontFamily="@font/robotoboldcondensed"
                     android:gravity="center"
-                    android:text="@string/poster_release_date"
-                    android:textSize="@dimen/_22sp" />
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/frameLayout"
+                    app:layout_constraintTop_toBottomOf="@+id/include">
 
-                <TextView
-                    android:id="@+id/tv_plot_synopsis"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="@dimen/_8dp"
-                    android:layout_marginBottom="@dimen/_8dp"
-                    android:fadeScrollbars="true"
-                    android:fontFamily="@font/walkwayblack"
-                    android:scrollbarStyle="insideOverlay"
-                    android:scrollbars="vertical"
-                    android:text="@string/poster_info"
-                    android:textSize="@dimen/_18sp" />
-            </LinearLayout>
+                    <TextView
+                        android:id="@+id/tv_detail_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_8dp"
+                        android:layout_marginTop="@dimen/_8dp"
+                        android:layout_marginEnd="@dimen/_8dp"
+                        android:fontFamily="@font/robotoboldcondensed"
+                        android:gravity="center"
+                        android:text="@{vm.movie.title}"
+                        android:textSize="@dimen/_22sp" />
 
-            <RatingBar
-                android:id="@+id/rb_vote_average"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:isIndicator="true"
-                android:outlineAmbientShadowColor="@color/custom_red"
-                android:outlineSpotShadowColor="@color/custom_red"
-                android:progressBackgroundTint="@android:color/transparent"
-                android:progressTint="@color/custom_red"
-                android:scaleX="@dimen/_rb_small"
-                android:scaleY="@dimen/_rb_small"
-                android:secondaryProgressTint="@android:color/transparent"
-                android:stepSize="@dimen/rb_step_size" />
+                    <TextView
+                        android:id="@+id/tv_release_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/_8dp"
+                        android:layout_marginTop="@dimen/_8dp"
+                        android:layout_marginEnd="@dimen/_8dp"
+                        android:fontFamily="@font/robotoboldcondensed"
+                        android:gravity="center"
+                        android:text="@{vm.movie.release_date}"
+                        android:textSize="@dimen/_22sp" />
 
-            <LinearLayout
-                android:id="@+id/ll_add_to_favorites"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/tv_plot_synopsis"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/_8dp"
+                        android:layout_marginBottom="@dimen/_8dp"
+                        android:fadeScrollbars="true"
+                        android:fontFamily="@font/walkwayblack"
+                        android:scrollbarStyle="insideOverlay"
+                        android:scrollbars="vertical"
+                        android:text="@{vm.movie.overview}"
+                        android:textSize="@dimen/_18sp" />
+                </LinearLayout>
 
-                <Button
-                    android:id="@+id/btn_add_to_fav"
+                <RatingBar
+                    android:id="@+id/rb_vote_average"
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/_50dp"
-                    android:background="@null"
-                    android:fontFamily="@font/robotoboldcondensed"
-                    android:text="@string/add_to_favorites"
-                    android:textColor="@color/colorWhite" />
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:isIndicator="true"
+                    android:outlineAmbientShadowColor="@color/custom_red"
+                    android:outlineSpotShadowColor="@color/custom_red"
+                    android:progressBackgroundTint="@android:color/transparent"
+                    android:progressTint="@color/custom_red"
+                    android:rating="@{vm.getRatingBarStars((float)vm.movie.vote_average)}"
+                    android:scaleX="@dimen/_rb_small"
+                    android:scaleY="@dimen/_rb_small"
+                    android:secondaryProgressTint="@android:color/transparent"
+                    android:stepSize="@dimen/rb_step_size" />
 
-                <ImageView
-                    android:id="@+id/iv_heart"
-                    android:layout_width="@dimen/_40dp"
-                    android:layout_height="@dimen/_40dp"
-                    android:layout_marginStart="@dimen/_5dp"
-                    android:contentDescription="@string/heart_icon"
-                    android:src="@drawable/ic_heart_full" />
+                <LinearLayout
+                    android:id="@+id/ll_add_to_favorites"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btn_add_to_fav"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/_50dp"
+                        android:background="@null"
+                        android:fontFamily="@font/robotoboldcondensed"
+                        android:text="@string/add_to_favorites"
+                        android:textColor="@color/colorWhite" />
+
+                    <ImageView
+                        android:id="@+id/iv_heart"
+                        android:layout_width="@dimen/_40dp"
+                        android:layout_height="@dimen/_40dp"
+                        android:layout_marginStart="@dimen/_5dp"
+                        android:contentDescription="@string/heart_icon"
+                        android:src="@drawable/ic_heart_full" />
+                </LinearLayout>
+
+                <fragment
+                    android:id="@+id/youtube_fragment"
+                    android:name="com.google.android.youtube.player.YouTubePlayerSupportFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_reviews"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
-            <fragment
-                android:id="@+id/youtube_fragment"
-                android:name="com.google.android.youtube.player.YouTubePlayerSupportFragment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_reviews"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
-    </android.support.constraint.ConstraintLayout>
-</android.support.v4.widget.NestedScrollView>
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v4.widget.NestedScrollView>
+</layout>

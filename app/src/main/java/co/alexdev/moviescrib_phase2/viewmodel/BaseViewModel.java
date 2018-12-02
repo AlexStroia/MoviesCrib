@@ -9,7 +9,7 @@ import java.util.List;
 
 import co.alexdev.moviescrib_phase2.model.Favorite;
 import co.alexdev.moviescrib_phase2.model.Movie;
-import co.alexdev.moviescrib_phase2.model.MovieApplicationRepository;
+import co.alexdev.moviescrib_phase2.model.MovieAppRepo;
 
 public class BaseViewModel extends AndroidViewModel {
 
@@ -20,19 +20,19 @@ public class BaseViewModel extends AndroidViewModel {
     }
 
     private void getData() {
-        MovieApplicationRepository.getInstance(this.getApplication()).getPopularMoviesCall();
-        MovieApplicationRepository.getInstance(this.getApplication()).getTopRatedMoviesCall();
+        MovieAppRepo.getInstance(this.getApplication()).getPopularMoviesCall();
+        MovieAppRepo.getInstance(this.getApplication()).getTopRatedMoviesCall();
     }
 
     public LiveData<List<Movie>> getMostPopularMoviesFromDatabase() {
-        return MovieApplicationRepository.getInstance(this.getApplication()).getMostPopularMoviesFromDatabase();
+        return MovieAppRepo.getInstance(this.getApplication()).getMostPopularMoviesFromDatabase();
     }
 
     public LiveData<List<Movie>> getTopRatedMoviesFromDatabase() {
-        return MovieApplicationRepository.getInstance(this.getApplication()).getTopRatedMoviesFromDatabase();
+        return MovieAppRepo.getInstance(this.getApplication()).getTopRatedMoviesFromDatabase();
     }
 
     public LiveData<List<Favorite>> getFavoritesMoviesFromDatabase() {
-        return MovieApplicationRepository.getInstance(this.getApplication()).getFavoritesMoviesFromDatabase();
+        return MovieAppRepo.getInstance(this.getApplication()).getFavoritesMoviesFromDatabase();
     }
 }

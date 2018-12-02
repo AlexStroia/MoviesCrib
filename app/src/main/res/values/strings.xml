@@ -30,6 +30,8 @@
     <string name="review_comment_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley</string>
     <string name="review_comment_name">John Bobby:</string>
     <string name="cd_popcorn">Popcorn Image View</string>
+    <string name="share">SHARE</string>
+    <string name="text_plain">text/plain</string>
     <!--Default data to populate the UI on Detail Activity-->
     <string name="poster_title">Avengers</string>
     <string name="poster_content_description">Poster of the movie</string>
@@ -44,8 +46,8 @@
 
     <!--Error message-->
     <string name="string_ok">Ok</string>
-    <string name="string_error_msg">You are not connected to the internet. Try to reconnect to the internet and after come back again.</string>
-    <string name="string_no_offline_enabled">Please enable Store Data from settings and after came back again.</string>
+    <string name="string_error_msg">You are not connected to the internet. Try to reconnect to the internet and after come back again. After you connect, go to settings and check STORE DATA to view data when you are offline.</string>
+    <string name="string_no_offline_enabled">Please enable STORE DATA from settings and after came back again.</string>
     <string name="string_no_fav_message">Add some movies to favorites and after come back again.</string>
     <string name="string_error_title">Error</string>
     <string name="string_no_fav_title">No favorites</string>
