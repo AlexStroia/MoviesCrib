@@ -1,7 +1,10 @@
+
 package co.alexdev.moviescrib_phase2.activities;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProvider;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -33,15 +36,13 @@ import co.alexdev.moviescrib_phase2.database.MovieDatabase;
 import co.alexdev.moviescrib_phase2.model.Favorite;
 import co.alexdev.moviescrib_phase2.model.Movie;
 import co.alexdev.moviescrib_phase2.R;
-import co.alexdev.moviescrib_phase2.model.MovieRequest;
 import co.alexdev.moviescrib_phase2.model.Reviews;
-import co.alexdev.moviescrib_phase2.model.Trailer;
-import co.alexdev.moviescrib_phase2.model.MoviesListener;
 import co.alexdev.moviescrib_phase2.utils.Enums;
 import co.alexdev.moviescrib_phase2.utils.ImageUtils;
 import co.alexdev.moviescrib_phase2.utils.MovieUtils;
+import co.alexdev.moviescrib_phase2.viewmodel.DetailActivityViewModel;
 
-public class DetailActivity extends AppCompatActivity implements MoviesListener.MovieListListener, SharedPreferences.OnSharedPreferenceChangeListener {
+public class DetailActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
     private static final String TAG = "DetailActivity";
     private Toolbar customToolbar;
     private ImageView iv_poster;
@@ -58,18 +59,18 @@ public class DetailActivity extends AppCompatActivity implements MoviesListener.
     private boolean isAddedToFavorite = false;
     private boolean canStoreOfflineData = false;
     private SharedPreferences mSharedPreferences;
+    private DetailActivityViewModel vm;
 
     private YouTubePlayerSupportFragment youTubePlayerSupportFragment;
     private ReviewsMoviesAdapter reviewsMoviesAdapter;
-    private Movie movie;
-    private List<Trailer> trailerList = new ArrayList<>();
-    private List<Reviews> reviewsList = new ArrayList<>();
-    private MovieDatabase mDb;
+    private int movieId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+
+        vm = ViewModelProviders.of(this).get(DetailActivityViewModel.class);
 
         customToolbar = findViewById(R.id.toolbar);
         iv_poster = findViewById(R.id.iv_detail_poster);
@@ -82,6 +83,7 @@ public class DetailActivity extends AppCompatActivity implements MoviesListener.
         rv_reviews = findViewById(R.id.rv_reviews);
         btn_favorites = findViewById(R.id.btn_add_to_fav);
         iv_heart = findViewById(R.id.iv_heart);
+        reviewsMoviesAdapter = new ReviewsMoviesAdapter(new ArrayList<Reviews>());
 
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         canStoreOfflineData = mSharedPreferences.getBoolean(getString(R.string.store_offline_key), false);
@@ -93,48 +95,31 @@ public class DetailActivity extends AppCompatActivity implements MoviesListener.
         final Intent intent = getIntent();
         final String movieKey = getString(R.string.selected_movie_key);
 
-        mDb = MovieDatabase.getInstance(getApplicationContext());
-
         /*Check if there is a intent who has the SELECTED_MOVIE key
-         * SELECTED_MOVIE is the key that we use to check if the intent has the movie that we want*/
+         * SELECTED_MOVIE is the key that we use to check if the intent has the movieId that we want*/
         if (intent.hasExtra(movieKey)) {
-            movie = intent.getParcelableExtra(movieKey);
-            getTrailerForCurrentMovie();
-            getReviewsForCurrentMovie();
-            setReviewsMovieAdapter();
+            movieId = intent.getIntExtra(getString(R.string.selected_movie_key), 0);
+            final LiveData<Movie> liveMovie = vm.loadMovieById(movieId);
 
-            final LiveData<Movie> extractedMovie = mDb.movieDao().loadMovieById(movie.getId());
-
-            extractedMovie.observe(DetailActivity.this, new Observer<Movie>() {
+            liveMovie.observe(DetailActivity.this, new Observer<Movie>() {
                 @Override
                 public void onChanged(@Nullable Movie movie) {
-                    displayData(movie);
-                    isAddedToFavorite = movie.isAddedToFavorite();
-                    setFavoritesLayout(isAddedToFavorite);
+                    vm.movie = movie;
+                    setReviewsMovieAdapter();
+                    displayData(vm.movie);
+                    setTrailerForCurrentMovie(vm.getTrailerPath());
+                    vm.isAddedToFavorite = movie.isAddedToFavorite();
+                    setFavoritesLayout(vm.isAddedToFavorite);
                 }
             });
 
             btn_favorites.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (canStoreOfflineData) {
-                        if (!isAddedToFavorite) {
-                            // Add the movie to favorites if is not
-                            imageString = ImageUtils.encode(iv_poster);
-                            Favorite favorite = new Favorite(movie.getId(), movie.getTitle(), movie.getOverview(), imageString, (float) movie.getVote_average());
-                            insertToFavorite(favorite);
-                        } else {
-                            Favorite favorite = mDb.movieDao().loadMovieFromFavoritesById(movie.getId());
-                            if (favorite != null) {
-                                deleteFromFavorites(favorite);
-                            }
-                        }
-                        // Set the state to added to favorite or to not added to favorite
-                        movie.setAddedToFavorite(!isAddedToFavorite);
-                        setFavoritesLayout(!isAddedToFavorite);
-                        updateMovie(movie);
+                    if (vm.canStoreOfflineData) {
+                        vm.onFavoriteButtonClick(iv_poster);
+                        setFavoritesLayout(!vm.isAddedToFavorite);
                     } else {
-                        /*It means that Store Offline From Settings was not enabled */
                         MovieUtils.showDialog(DetailActivity.this, Enums.DialogType.NO_OFFLINE_ENABLED, null);
                     }
                 }
@@ -143,27 +128,30 @@ public class DetailActivity extends AppCompatActivity implements MoviesListener.
     }
 
     private void setReviewsMovieAdapter() {
-        reviewsMoviesAdapter = new ReviewsMoviesAdapter(reviewsList);
-        rv_reviews.setLayoutManager(new LinearLayoutManager(this));
-        rv_reviews.setAdapter(reviewsMoviesAdapter);
+        vm.getReviewsForCurrentMovie().observe(this, new Observer<List<Reviews>>() {
+            @Override
+            public void onChanged(@Nullable List<Reviews> reviewsList) {
+                rv_reviews.setLayoutManager(new LinearLayoutManager(DetailActivity.this));
+                rv_reviews.setAdapter(reviewsMoviesAdapter);
+            }
+        });
     }
 
-    private void getTrailerForCurrentMovie() {
-        if (movie != null) {
-            MovieRequest.getMovieTrailer(this, movie.getId());
-        }
-    }
-
-    private void getReviewsForCurrentMovie() {
-        if (movie != null) {
-            MovieRequest.getMovieReviews(this, movie.getId());
-        }
+    private void setTrailerForCurrentMovie(final LiveData<String> liveYoutubePath) {
+        liveYoutubePath.observe(DetailActivity.this, new Observer<String>() {
+            @Override
+            public void onChanged(@Nullable String s) {
+                liveYoutubePath.removeObserver(this);
+                initializeYoutubePlayerView(s);
+            }
+        });
     }
 
     /*When the device is rotated, play the video on full screen*/
     private void initializeYoutubePlayerView(final String id) {
         youTubePlayerSupportFragment = (YouTubePlayerSupportFragment)
                 getSupportFragmentManager().findFragmentById(R.id.youtube_fragment);
+        youTubePlayerSupportFragment.setRetainInstance(true);
 
         if (youTubePlayerSupportFragment == null) {
             return;
@@ -197,12 +185,12 @@ public class DetailActivity extends AppCompatActivity implements MoviesListener.
         });
     }
 
-    /*First check if we have a movie, if we have populate the view with the specific detail*/
+    /*First check if we have a movieId, if we have populate the view with the specific detail*/
     private void displayData(Movie movie) {
         if (movie != null) {
-            loadImage();
+            vm.loadImage(iv_poster);
             final float vote_average = (float) (movie.getVote_average() != 0 ? movie.getVote_average() : 0);
-            final float ratingStars = getRatingBarStars(vote_average);
+            final float ratingStars = vm.getRatingBarStars(vote_average);
             tv_detail_title.setText((movie.getTitle() != null && movie.getTitle().length() > 0) ? movie.getTitle() : "");
             tv_plot_synopsis.setText((movie.getOverview() != null && movie.getOverview().length() > 0) ? movie.getOverview() : "");
             tv_release_date.setText((movie.getRelease_date() != null && movie.getRelease_date().length() != 0) ? movie.getRelease_date() : "");
@@ -210,46 +198,15 @@ public class DetailActivity extends AppCompatActivity implements MoviesListener.
         }
     }
 
-    /*Load the image with Picasso into our image*/
-    private void loadImage() {
-        final String imageUri = buildImageUri();
-        Picasso.get().load(imageUri)
-                .into(iv_poster);
-    }
-
-    /*Helper function that help us to build the URI for our image
-     * pathForLargeImage - the basic path that every image has
-     * imageUri - the unique URI that every image has */
-    private String buildImageUri() {
-        final String pathForLargeImage = getString(R.string.tmdb_image_url_large);
-        final String imageUri = new StringBuilder().append(pathForLargeImage).append(movie.getPoster_path()).toString();
-        return imageUri;
-    }
-
     /*Set the favorite button and icon bassed on the isAddedToFavorite
-     * isAddedToFavorite = True, movie is added to favorite
-     * isAddedToFavorite = False, movie is not added to favorite
+     * isAddedToFavorite = True, movieId is added to favorite
+     * isAddedToFavorite = False, movieId is not added to favorite
      * */
     private void setFavoritesLayout(boolean isAddedToFavorite) {
         final String addToFav = getString(R.string.add_to_favorites);
         final String removeFromFav = getString(R.string.remove_from_favorites);
         btn_favorites.setText(isAddedToFavorite ? removeFromFav : addToFav);
         iv_heart.setVisibility(isAddedToFavorite ? View.GONE : View.VISIBLE);
-    }
-
-    private void insertToFavorite(Favorite favorite) {
-        mDb.movieDao().insertToFavorite(favorite);
-    }
-
-    /*Update the movie in the movies table
-     * Used to update it here especially for the isAddedToFavorites value where we check if this movie was added to favorite or not*/
-    private void updateMovie(Movie movie) {
-        Log.d(TAG, "updateMovie: id " + movie.getId());
-        mDb.movieDao().updateMovie(movie);
-    }
-
-    private void deleteFromFavorites(Favorite favorite) {
-        mDb.movieDao().deleteMovieFromFavorites(favorite);
     }
 
     private void registerSharedPreferences() {
@@ -260,38 +217,6 @@ public class DetailActivity extends AppCompatActivity implements MoviesListener.
     private void unregisterSharedPreferences() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         sharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
-    }
-
-    /*Calculate the rating stars*/
-    private float getRatingBarStars(final float vote_average) {
-        return vote_average / 2;
-    }
-
-    @Override
-    public void onMostPopularListReceivedListener(List<Movie> movieList) {
-
-    }
-
-    @Override
-    public void onTopRatedListReceivedListener(List<Movie> movieList) {
-
-    }
-
-    @Override
-    public void onTrailerListReceivedListener(List<Trailer> trailerList) {
-        if (trailerList != null && trailerList.size() > 0) {
-            this.trailerList = trailerList;
-            final String YOUTUBE_PATH = this.trailerList.get(0).getKey();
-            initializeYoutubePlayerView(YOUTUBE_PATH);
-        }
-    }
-
-    @Override
-    public void onReviewsListReceivedListener(List<Reviews> reviewsList) {
-        if (reviewsList != null && reviewsList.size() > 0) {
-            this.reviewsList = reviewsList;
-            reviewsMoviesAdapter.setReviewsList(reviewsList);
-        }
     }
 
     @Override

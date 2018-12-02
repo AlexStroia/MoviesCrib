@@ -17,6 +17,7 @@ import co.alexdev.moviescrib_phase2.R;
 import co.alexdev.moviescrib_phase2.database.MovieDatabase;
 import co.alexdev.moviescrib_phase2.model.Favorite;
 import co.alexdev.moviescrib_phase2.model.Movie;
+import co.alexdev.moviescrib_phase2.model.MovieExecutor;
 import co.alexdev.moviescrib_phase2.model.MoviesListener;
 
 public class MovieUtils {
@@ -41,17 +42,22 @@ public class MovieUtils {
      * check if we have an id match between favorites and movies
      * if yes, update current movie with the updated value
      * if we have a match it means that movie was added to favorite*/
-    public static List<Movie> syncWithFavorites(final MovieDatabase mDb, final Context context, final List<Movie> formatedList) {
+    public static List<Movie> syncWithFavorites(final MovieDatabase mDb,final List<Movie> formatedList) {
         final LiveData<List<Favorite>> favoritesMovieList = mDb.movieDao().getFavoritesMovies();
-        favoritesMovieList.observe((LifecycleOwner) context, new Observer<List<Favorite>>() {
+        favoritesMovieList.observeForever(new Observer<List<Favorite>>() {
             @Override
             public void onChanged(@Nullable List<Favorite> favorites) {
-                favoritesMovieList.removeObservers((LifecycleOwner) context);
+                favoritesMovieList.removeObserver(this);
                 for (Favorite favorite : favorites) {
-                    for (Movie movie : formatedList)
+                    for (final Movie movie : formatedList)
                         if (favorite.getId() == movie.getId()) {
                             movie.setAddedToFavorite(true);
-                            mDb.movieDao().updateMovie(movie);
+                            MovieExecutor.getInstance().getMovieIO().execute(new Runnable() {
+                                @Override
+                                public void run() {
+                                    mDb.movieDao().updateMovie(movie);
+                                }
+                            });
                         }
                 }
             }

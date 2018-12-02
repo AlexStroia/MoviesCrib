@@ -1,6 +1,5 @@
 package co.alexdev.moviescrib_phase2.fragments;
 
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -20,14 +19,10 @@ import co.alexdev.moviescrib_phase2.R;
 import co.alexdev.moviescrib_phase2.activities.DetailActivity;
 import co.alexdev.moviescrib_phase2.adapter.TopRatedMoviesAdapter;
 import co.alexdev.moviescrib_phase2.model.Movie;
-import co.alexdev.moviescrib_phase2.model.MovieRequest;
-import co.alexdev.moviescrib_phase2.model.Reviews;
-import co.alexdev.moviescrib_phase2.model.Trailer;
-import co.alexdev.moviescrib_phase2.model.MoviesListener;
 import co.alexdev.moviescrib_phase2.utils.Enums;
 import co.alexdev.moviescrib_phase2.utils.MovieUtils;
 
-public class TopRatedFragment extends BaseFragment implements TopRatedMoviesAdapter.onTopRatedMovieClick, MoviesListener.MovieListListener {
+public class TopRatedFragment extends BaseFragment implements TopRatedMoviesAdapter.onTopRatedMovieClick {
 
     private static final String TAG = "TopRatedFragment";
     private static final int GRID_COLUMN_SPAN = 2;
@@ -56,15 +51,10 @@ public class TopRatedFragment extends BaseFragment implements TopRatedMoviesAdap
         rv_movies.setLayoutManager(mGridLayoutManager);
     }
 
-    /*Get top rated movies*/
-    private void getTopRatedMovies() {
-        MovieRequest.getTopRatedMovies(this);
-    }
-
-    private void showDetailActivity(final Movie movie) {
+    private void showDetailActivity(final int movieId) {
         final Resources resources = getResources();
         Intent intent = new Intent(getActivity(), DetailActivity.class);
-        intent.putExtra(resources.getString(R.string.selected_movie_key), movie);
+        intent.putExtra(resources.getString(R.string.selected_movie_key), movieId);
         startActivity(intent);
     }
 
@@ -72,66 +62,29 @@ public class TopRatedFragment extends BaseFragment implements TopRatedMoviesAdap
     public void onMovieClick(int position) {
         if (mMovieList != null) {
             final Movie movie = mMovieList.get(position);
-            showDetailActivity(movie);
+            showDetailActivity(movie.getId());
             Log.d(TAG, "onMovieClick: " + movie.toString());
         }
     }
 
     private void initView() {
-        final LiveData<List<Movie>> topRatedMovies = mDb.movieDao().getTopRatedMovies();
-        if (MovieUtils.isNetworkAvailable(getContext())) {
-            getTopRatedMovies();
+        if (MovieUtils.isNetworkAvailable(getActivity())) {
+            getData();
+        } else if (canStoreOfflineData) {
+            getData();
         } else {
-            topRatedMovies.observe(getActivity(), new Observer<List<Movie>>() {
-                @Override
-                public void onChanged(@Nullable List<Movie> movieList) {
-                    if (movieList != null && movieList.size() != 0) {
-                        mMovieList = movieList;
-                        mTopRatedMoviesAdapter.setMovieList(movieList);
-                    }
-                }
-            });
+            MovieUtils.showDialog(getActivity(), Enums.DialogType.NO_INTERNET, null);
         }
     }
 
-    private void getTopRatedMoviesFromDatabase() {
-        mDb.movieDao().getTopRatedMovies().observe(this, new Observer<List<Movie>>() {
+    private void getData() {
+        baseViewModel.getTopRatedMoviesFromDatabase().observe(this, new Observer<List<Movie>>() {
             @Override
             public void onChanged(@Nullable List<Movie> movieList) {
                 mMovieList = movieList;
                 mTopRatedMoviesAdapter.setMovieList(movieList);
             }
         });
-    }
-
-    private List<Movie> syncMoviesWithFavorites(final List<Movie> formatedList) {
-        MovieUtils.syncWithFavorites(mDb, getActivity(), formatedList);
-        return formatedList;
-    }
-
-    /*Set da adapter with the populated list*/
-    @Override
-    public void onMostPopularListReceivedListener(List<Movie> movieList) {
-    }
-
-    @Override
-    public void onTopRatedListReceivedListener(List<Movie> movieList) {
-        List<Movie> formatedList = MovieUtils.formatMoviesList(movieList, Enums.MovieType.TOP_RATED);
-        /*When data is received from the server, insert it into the database*/
-        mDb.movieDao().insert(formatedList);
-
-        syncMoviesWithFavorites(formatedList);
-        getTopRatedMoviesFromDatabase();
-    }
-
-    @Override
-    public void onTrailerListReceivedListener(List<Trailer> trailerList) {
-
-    }
-
-    @Override
-    public void onReviewsListReceivedListener(List<Reviews> reviewsList) {
-
     }
 
     /*Load data in the fragment only after it gets visible to the user*/

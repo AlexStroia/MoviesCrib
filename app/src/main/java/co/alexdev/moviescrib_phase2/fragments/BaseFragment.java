@@ -1,6 +1,7 @@
 package co.alexdev.moviescrib_phase2.fragments;
 
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import co.alexdev.moviescrib_phase2.activities.BaseActivity;
 import co.alexdev.moviescrib_phase2.adapter.PagerAdapter;
 import co.alexdev.moviescrib_phase2.database.MovieDatabase;
 import co.alexdev.moviescrib_phase2.model.MoviesListener;
+import co.alexdev.moviescrib_phase2.viewmodel.BaseViewModel;
 
 
 /**
@@ -32,9 +34,12 @@ public class BaseFragment extends Fragment implements MoviesListener.onNavigatio
     private PagerAdapter pagerAdapter;
     private int viewPagerPosition = 0;
     public MovieDatabase mDb;
-    boolean canStoreOfflineData = false;
-
     private MoviesListener.onViewPagerPositionChangedListener mListener;
+
+    boolean canStoreOfflineData = false;
+    BaseViewModel baseViewModel;
+    SharedPreferences mSharedPreferences;
+
 
     public BaseFragment() {
     }
@@ -42,6 +47,9 @@ public class BaseFragment extends Fragment implements MoviesListener.onNavigatio
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        baseViewModel = ViewModelProviders.of(getActivity()).get(BaseViewModel.class);
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        canStoreOfflineData = mSharedPreferences.getBoolean(getString(R.string.store_offline_key), false);
 
         mDb = MovieDatabase.getInstance(getActivity().getApplicationContext());
 
@@ -89,13 +97,11 @@ public class BaseFragment extends Fragment implements MoviesListener.onNavigatio
     }
 
     private void registerSharedPreferences() {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        sharedPreferences.registerOnSharedPreferenceChangeListener(this);
+        mSharedPreferences.registerOnSharedPreferenceChangeListener(this);
     }
 
     private void unregisterSharedPreferences() {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        sharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
+        mSharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
     }
 
     /*Setup the view pager*/

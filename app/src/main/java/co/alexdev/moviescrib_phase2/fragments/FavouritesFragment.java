@@ -63,7 +63,7 @@ public class FavouritesFragment extends BaseFragment {
     }
 
     private void retrieveFavorites() {
-        final LiveData<List<Favorite>> favoriteList = mDb.movieDao().getFavoritesMovies();
+        final LiveData<List<Favorite>> favoriteList = baseViewModel.getFavoritesMoviesFromDatabase();
         favoriteList.observe(this, new Observer<List<Favorite>>() {
             @Override
             public void onChanged(@Nullable List<Favorite> favorites) {
