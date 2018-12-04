@@ -1,15 +1,7 @@
 # MoviesCrib | Phase 1
 
-    Present the user with a grid arrangement of movie posters upon launch.
-    Allow your user to change sort order via a setting:
-    The sort order can be by most popular or by highest-rated
-    Allow the user to tap on a movie poster and transition to a details screen with additional information such as:
-        • original title
-        • movie poster image thumbnail
-        • A plot synopsis 
-        • user rating 
-        • release date
-![movie_gif](https://user-images.githubusercontent.com/35500199/47961340-5bb66980-dfc6-11e8-85a3-eb1ac3b3f43c.gif)
-
-# MoviesCrib | Phase 2 - Ongoing
-
+![crib1](https://user-images.githubusercontent.com/35500199/49423233-9fc69680-f74b-11e8-854d-b76d35c67c37.jpg)
+![crib2](https://user-images.githubusercontent.com/35500199/49423234-a05f2d00-f74b-11e8-9792-df5dbd8943ab.jpg)
+![crib3](https://user-images.githubusercontent.com/35500199/49423235-a05f2d00-f74b-11e8-9d15-26ac762b37b9.jpg)
+![crib4](https://user-images.githubusercontent.com/35500199/49423236-a05f2d00-f74b-11e8-8ade-01a01d814693.jpg)
+![crib5](https://user-images.githubusercontent.com/35500199/49423232-9fc69680-f74b-11e8-8ada-6503af51bd75.jpg)
