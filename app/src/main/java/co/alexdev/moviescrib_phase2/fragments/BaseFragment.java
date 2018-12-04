@@ -40,14 +40,10 @@ public class BaseFragment extends Fragment implements MoviesListener.onNavigatio
     BaseViewModel baseViewModel;
     SharedPreferences mSharedPreferences;
 
-
-    public BaseFragment() {
-    }
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        baseViewModel = ViewModelProviders.of(getActivity()).get(BaseViewModel.class);
+        baseViewModel = ViewModelProviders.of(this.getActivity()).get(BaseViewModel.class);
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         canStoreOfflineData = mSharedPreferences.getBoolean(getString(R.string.store_offline_key), false);
 

@@ -30,7 +30,8 @@
     <string name="review_comment_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley</string>
     <string name="review_comment_name">John Bobby:</string>
     <string name="cd_popcorn">Popcorn Image View</string>
-    <string name="share">SHARE</string>
+    <string name="watch">WATCH ON BROWSER</string>
+    <string name="youtube_url">http://www.youtube.com/watch?v=</string>
     <string name="text_plain">text/plain</string>
     <!--Default data to populate the UI on Detail Activity-->
     <string name="poster_title">Avengers</string>

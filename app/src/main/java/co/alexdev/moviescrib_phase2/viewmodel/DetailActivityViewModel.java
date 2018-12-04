@@ -57,6 +57,20 @@ public class DetailActivityViewModel extends AndroidViewModel {
         updateMovie(movie);
     }
 
+    public void onWatchTrailerClick() {
+        final Application app = this.getApplication();
+        final LiveData<String> path = getTrailerPath();
+        getTrailerPath().observeForever(new Observer<String>() {
+            @Override
+            public void onChanged(@Nullable String s) {
+                path.removeObserver(this);
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(app.getString(R.string.youtube_url) + s));
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                app.startActivity(intent);
+            }
+        });
+    }
+
     /*Make a call to get the reviews from the repository and when the call is done, pass the values to movie reviews*/
     public LiveData<List<Reviews>> getReviewsForCurrentMovie() {
         final MutableLiveData<List<Reviews>> movieReviews = new MutableLiveData<>();

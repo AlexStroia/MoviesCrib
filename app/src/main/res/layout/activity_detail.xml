@@ -137,6 +137,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/_50dp"
                         android:background="@null"
+                        android:gravity="center"
                         android:fontFamily="@font/robotoboldcondensed"
                         android:text="@string/add_to_favorites"
                         android:textColor="@color/colorWhite" />
@@ -155,6 +156,16 @@
                     android:name="com.google.android.youtube.player.YouTubePlayerSupportFragment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
+
+                <Button
+                    android:id="@+id/btn_watch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:fontFamily="@font/robotoboldcondensed"
+                    android:gravity="center"
+                    android:text="@string/watch" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_reviews"

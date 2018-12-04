@@ -7,6 +7,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
@@ -47,9 +48,7 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         initView();
-
         YOUTUBE_API_KEY = getResources().getString(R.string.YOUTUBE_PLAYER_API_KEY);
-
         setCustomToolbar();
 
         final Intent intent = getIntent();
@@ -81,10 +80,18 @@ public class DetailActivity extends AppCompatActivity {
                     setFavoritesLayout(!vm.isAddedToFavorite);
                 }
             });
+
+            activityDetailBinding.btnWatch.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    vm.onWatchTrailerClick();
+                }
+            });
         }
     }
 
     private void initView() {
+
         activityDetailBinding = DataBindingUtil.setContentView(this, R.layout.activity_detail);
         activityDetailBinding.setLifecycleOwner(this);
         vm = ViewModelProviders.of(this).get(DetailActivityViewModel.class);
@@ -95,6 +102,7 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void populateView() {
+
         setReviewsMovieAdapter();
         setTrailerForCurrentMovie(vm.getTrailerPath());
         setFavoritesLayout(vm.isAddedToFavorite);
@@ -102,6 +110,7 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void setReviewsMovieAdapter() {
+
         vm.getReviewsForCurrentMovie().observe(this, new Observer<List<Reviews>>() {
             @Override
             public void onChanged(@Nullable List<Reviews> reviewsList) {
@@ -113,6 +122,7 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void setTrailerForCurrentMovie(final LiveData<String> liveYoutubePath) {
+
         liveYoutubePath.observe(DetailActivity.this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
@@ -124,6 +134,7 @@ public class DetailActivity extends AppCompatActivity {
 
     /*When the device is rotated, play the video on full screen*/
     private void initializeYoutubePlayerView(final String id) {
+
         youTubePlayerSupportFragment = (YouTubePlayerSupportFragment)
                 getSupportFragmentManager().findFragmentById(R.id.youtube_fragment);
         youTubePlayerSupportFragment.setRetainInstance(true);
