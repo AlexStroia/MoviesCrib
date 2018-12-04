@@ -8,4 +8,10 @@ public class Enums {
     public enum DialogType {
         NO_INTERNET, NO_FAVORITES, NO_OFFLINE_ENABLED
     }
+
+    public enum Status {
+        SUCCESS,
+        ERROR,
+        LOADING
+    }
 }
