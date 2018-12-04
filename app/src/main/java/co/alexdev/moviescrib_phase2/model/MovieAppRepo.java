@@ -3,6 +3,7 @@ package co.alexdev.moviescrib_phase2.model;
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
+import android.util.Log;
 
 import java.util.List;
 
@@ -18,7 +19,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public final class MovieAppRepo {
-
     private static MovieAppRepo movieAppRepo;
     private static MovieDatabase mDb;
     private static MovieExecutor mMovieExecutor;
@@ -121,6 +121,7 @@ public final class MovieAppRepo {
 
             @Override
             public void onFailure(Call<ReviewsResponse> call, Throwable t) {
+
                 return;
             }
         });

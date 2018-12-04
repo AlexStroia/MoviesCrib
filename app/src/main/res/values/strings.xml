@@ -39,6 +39,7 @@
     <string name="poster_release_date">11.10.2016</string>
     <string name="poster_info">Thanos is coming</string>
     <string name="poster_vote_average">8.0</string>
+    <string name="youtube_icon">Youtube Icon</string>
 
     <!--Settings Activity-->
     <string name="store_data_title">Store Data</string>
@@ -52,4 +53,5 @@
     <string name="string_no_fav_message">Add some movies to favorites and after come back again.</string>
     <string name="string_error_title">Error</string>
     <string name="string_no_fav_title">No favorites</string>
+    <string name="reviews">Reviews:</string>
 </resources>

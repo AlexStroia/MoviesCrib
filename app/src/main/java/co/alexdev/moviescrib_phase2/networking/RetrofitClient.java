@@ -4,6 +4,7 @@ import android.net.Uri;
 
 import java.io.IOException;
 
+import co.alexdev.moviescrib_phase2.BuildConfig;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -19,7 +20,7 @@ public class RetrofitClient {
     static final String URL_SCHEME = "https";
     static final String BASE_URL = "api.tmdb.org";
     static final String PATH = "/3/";
-    static final String API_KEY = "";
+    static final String API_KEY = BuildConfig.Movie_DB_API_KEY;
     static final String API_KEY_IDENTIFIER = "api_key";
 
     final Retrofit retrofit;

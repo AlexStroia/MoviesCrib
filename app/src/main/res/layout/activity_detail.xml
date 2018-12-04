@@ -109,46 +109,45 @@
                         android:textSize="@dimen/_18sp" />
                 </LinearLayout>
 
-                <RatingBar
-                    android:id="@+id/rb_vote_average"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:isIndicator="true"
-                    android:outlineAmbientShadowColor="@color/custom_red"
-                    android:outlineSpotShadowColor="@color/custom_red"
-                    android:progressBackgroundTint="@android:color/transparent"
-                    android:progressTint="@color/custom_red"
-                    android:rating="@{vm.getRatingBarStars((float)vm.movie.vote_average)}"
-                    android:scaleX="@dimen/_rb_small"
-                    android:scaleY="@dimen/_rb_small"
-                    android:secondaryProgressTint="@android:color/transparent"
-                    android:stepSize="@dimen/rb_step_size" />
-
-                <LinearLayout
-                    android:id="@+id/ll_add_to_favorites"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:orientation="horizontal">
 
-                    <Button
-                        android:id="@+id/btn_add_to_fav"
+                    <RatingBar
+                        android:id="@+id/rb_vote_average"
                         android:layout_width="wrap_content"
-                        android:layout_height="@dimen/_50dp"
-                        android:background="@null"
-                        android:gravity="center"
-                        android:fontFamily="@font/robotoboldcondensed"
-                        android:text="@string/add_to_favorites"
-                        android:textColor="@color/colorWhite" />
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:isIndicator="true"
+                        android:outlineAmbientShadowColor="@color/custom_red"
+                        android:outlineSpotShadowColor="@color/custom_red"
+                        android:progressBackgroundTint="@android:color/transparent"
+                        android:progressTint="@color/custom_red"
+                        android:rating="@{vm.getRatingBarStars((float)vm.movie.vote_average)}"
+                        android:scaleX="@dimen/_rb_small"
+                        android:scaleY="@dimen/_rb_small"
+                        android:secondaryProgressTint="@android:color/transparent"
+                        android:stepSize="@dimen/rb_step_size" />
 
-                    <ImageView
-                        android:id="@+id/iv_heart"
-                        android:layout_width="@dimen/_40dp"
-                        android:layout_height="@dimen/_40dp"
-                        android:layout_marginStart="@dimen/_5dp"
-                        android:contentDescription="@string/heart_icon"
-                        android:src="@drawable/ic_heart_full" />
+                    <LinearLayout
+                        android:id="@+id/ll_add_to_favorites"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/btn_add_to_fav"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/button_border"
+                            android:fontFamily="@font/robotoboldcondensed"
+                            android:gravity="center"
+                            android:text="@string/add_to_favorites"
+                            android:textColor="@color/colorWhite" />
+
+                    </LinearLayout>
                 </LinearLayout>
 
                 <fragment
@@ -157,15 +156,20 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
-                <Button
-                    android:id="@+id/btn_watch"
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_more_trailers"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_192dp" />
+
+                <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:background="@null"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
                     android:fontFamily="@font/robotoboldcondensed"
-                    android:gravity="center"
-                    android:text="@string/watch" />
+                    android:paddingStart="@dimen/_8dp"
+                    android:paddingEnd="@dimen/_8dp"
+                    android:text="@string/reviews"
+                    android:textSize="@dimen/_22sp" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_reviews"

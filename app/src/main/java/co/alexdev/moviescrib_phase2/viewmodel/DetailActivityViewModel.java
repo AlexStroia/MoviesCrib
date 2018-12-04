@@ -24,6 +24,7 @@ import co.alexdev.moviescrib_phase2.model.MovieAppRepo;
 import co.alexdev.moviescrib_phase2.model.Reviews;
 import co.alexdev.moviescrib_phase2.model.Trailer;
 import co.alexdev.moviescrib_phase2.utils.ImageUtils;
+import co.alexdev.moviescrib_phase2.utils.MovieUtils;
 
 public class DetailActivityViewModel extends AndroidViewModel {
 
@@ -57,16 +58,18 @@ public class DetailActivityViewModel extends AndroidViewModel {
         updateMovie(movie);
     }
 
-    public void onWatchTrailerClick() {
+    public void onWatchTrailerClick(String youtubePath) {
         final Application app = this.getApplication();
-        final LiveData<String> path = getTrailerPath();
-        getTrailerPath().observeForever(new Observer<String>() {
+        final LiveData<List<Trailer>> path = getTrailerPath();
+        getTrailerPath().observeForever(new Observer<List<Trailer>>() {
             @Override
-            public void onChanged(@Nullable String s) {
-                path.removeObserver(this);
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(app.getString(R.string.youtube_url) + s));
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                app.startActivity(intent);
+            public void onChanged(@Nullable List<Trailer> trailers) {
+                if (trailers != null && !trailers.isEmpty()) {
+                    path.removeObserver(this::onChanged);
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(MovieUtils.buildYoutubeUrl(app,youtubePath)));
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    app.startActivity(intent);
+                }
             }
         });
     }
@@ -75,14 +78,15 @@ public class DetailActivityViewModel extends AndroidViewModel {
     public LiveData<List<Reviews>> getReviewsForCurrentMovie() {
         final MutableLiveData<List<Reviews>> movieReviews = new MutableLiveData<>();
         if (movie != null) {
-            final LiveData<List<Reviews>> reviewsForCurrentMovie = MovieAppRepo
-                    .getInstance(this.getApplication())
-                    .getMovieReviewsCall(movie.getId());
+            final LiveData<List<Reviews>> reviewsForCurrentMovie = MovieAppRepo.getInstance(this.getApplication()).getMovieReviewsCall(movie.getId());
             reviewsForCurrentMovie.observeForever(new Observer<List<Reviews>>() {
                 @Override
                 public void onChanged(@Nullable List<Reviews> reviewsList) {
-                    reviewsForCurrentMovie.removeObserver(this);
-                    movieReviews.setValue(reviewsList);
+                    if (reviewsList != null && !reviewsList.isEmpty()) {
+                        Log.d(TAG, "onChanged: " + reviewsList.get(0).getContent());
+                        reviewsForCurrentMovie.removeObserver(this);
+                        movieReviews.setValue(reviewsList);
+                    }
                 }
             });
         }
@@ -90,8 +94,8 @@ public class DetailActivityViewModel extends AndroidViewModel {
     }
 
     /*Check the observer for the trailer, and when a list of trailer is received, get the key for the first one and return it */
-    public LiveData<String> getTrailerPath() {
-        final MutableLiveData<String> youtube_path = new MutableLiveData<>();
+    public LiveData<List<Trailer>> getTrailerPath() {
+        final MutableLiveData<List<Trailer>> youtube_path = new MutableLiveData<>();
         if (movie != null) {
             final LiveData<List<Trailer>> liveTrailerList = MovieAppRepo
                     .getInstance(this.getApplication())
@@ -100,7 +104,7 @@ public class DetailActivityViewModel extends AndroidViewModel {
                 @Override
                 public void onChanged(@Nullable List<Trailer> trailers) {
                     liveTrailerList.removeObserver(this);
-                    youtube_path.setValue(trailers.get(0).getKey());
+                    youtube_path.setValue(trailers);
                 }
             });
         }

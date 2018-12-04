@@ -18,10 +18,16 @@ import co.alexdev.moviescrib_phase2.utils.ImageUtils;
 /*Adapter used to display data from the Favorites*/
 public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.FavoritesViewHolder> {
 
-    private List<Favorite> favoriteList;
+    public interface OnFavoritesClickListener {
+        void onFavoritesItemClick(int position);
+    }
 
-    public FavoritesAdapter(List<Favorite> favoriteList) {
+    private List<Favorite> favoriteList;
+    private static OnFavoritesClickListener mListener;
+
+    public FavoritesAdapter(List<Favorite> favoriteList, OnFavoritesClickListener listener) {
         this.favoriteList = favoriteList;
+        this.mListener = listener;
     }
 
     @NonNull
@@ -58,7 +64,7 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Favo
         return vote_average / 2;
     }
 
-    static class FavoritesViewHolder extends RecyclerView.ViewHolder {
+    static class FavoritesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private ImageView iv_poster_fav;
         private TextView tv_title_fav;
@@ -73,6 +79,14 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Favo
             tv_title_fav = itemView.findViewById(R.id.tv_title_fav);
             tv_plot_synopsis_fav = itemView.findViewById(R.id.tv_plot_synopsis_fav);
             rb_vote_average_fav = itemView.findViewById(R.id.rb_vote_average_fav);
+
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            int position = getAdapterPosition();
+            mListener.onFavoritesItemClick(position);
         }
     }
 }
