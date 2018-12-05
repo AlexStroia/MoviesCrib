@@ -13,7 +13,7 @@
     <string name="selected_movie_key">SELECTED_MOVIE</string>
     <string name="selected_view_pager_position_key">SELECTED_VIEW_PAGER_POSITION</string>
     <string name="store_offline_key">STORE_OFFLINE_DATA</string>
-
+    <string name ="LIST_STATE_KEY">LIST_STATE_KEY</string>
     <string name="no_movies_error">There are no movies to display.</string>
 
     <!--View pager & Navigation View titles -->

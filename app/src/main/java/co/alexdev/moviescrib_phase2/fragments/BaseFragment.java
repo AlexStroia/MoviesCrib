@@ -5,7 +5,9 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -36,6 +38,10 @@ public class BaseFragment extends Fragment implements MoviesListener.onNavigatio
     public MovieDatabase mDb;
     private MoviesListener.onViewPagerPositionChangedListener mListener;
 
+    /*Used to retain the current position between configuration changes*/
+    Parcelable listState;
+    final static String LIST_STATE_KEY = "recycler_list_state";
+
     boolean canStoreOfflineData = false;
     BaseViewModel baseViewModel;
     SharedPreferences mSharedPreferences;
@@ -54,6 +60,12 @@ public class BaseFragment extends Fragment implements MoviesListener.onNavigatio
         } catch (ClassCastException e) {
             Log.d(TAG, "BaseFragment: " + e.getMessage());
         }
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setRetainInstance(true);
     }
 
     @Override

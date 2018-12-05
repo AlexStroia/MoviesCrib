@@ -35,6 +35,7 @@ import co.alexdev.moviescrib_phase2.viewmodel.DetailActivityViewModel;
 
 public class DetailActivity extends AppCompatActivity implements TrailerAdapter.OnTrailerClickListener {
     private static final String TAG = "DetailActivity";
+    private static final String SCROLL_POSITION = "SCROLL_POSITION";
     private Toolbar customToolbar;
     private String YOUTUBE_API_KEY = "";
     private SharedPreferences mSharedPreferences;
@@ -45,8 +46,30 @@ public class DetailActivity extends AppCompatActivity implements TrailerAdapter.
     private List<Trailer> trailerList = new ArrayList<>();
     private TrailerAdapter trailerAdapter;
     private int movieId;
+    private int[] scrollPositions = new int[2];
 
     ActivityDetailBinding activityDetailBinding;
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        scrollPositions[0] = activityDetailBinding.scrollView.getScrollX();
+        scrollPositions[1] = activityDetailBinding.scrollView.getScrollY();
+
+        outState.putIntArray(SCROLL_POSITION, scrollPositions);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        scrollPositions = savedInstanceState.getIntArray(SCROLL_POSITION);
+
+        if(scrollPositions != null) {
+            activityDetailBinding.scrollView.scrollTo(scrollPositions[0], scrollPositions[1]);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -158,9 +181,6 @@ public class DetailActivity extends AppCompatActivity implements TrailerAdapter.
         youTubePlayerSupportFragment.initialize(YOUTUBE_API_KEY, new YouTubePlayer.OnInitializedListener() {
             @Override
             public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean wasRotated) {
-                if (wasRotated) {
-                    youTubePlayer.setFullscreen(true);
-                }
                 youTubePlayer.cueVideo(id);
                 youTubePlayer.setPlayerStyle(YouTubePlayer.PlayerStyle.DEFAULT);
             }

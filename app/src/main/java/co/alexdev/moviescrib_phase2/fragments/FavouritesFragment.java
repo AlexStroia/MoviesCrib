@@ -9,11 +9,11 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +40,7 @@ public class FavouritesFragment extends BaseFragment implements FavoritesAdapter
     private int favoritesListSize = 0;
     private List<Favorite> mFavorites = new ArrayList<>();
     private MoviesListener.onNoFavoritesAdded mNoFavoritesAddedListener;
+    private LinearLayoutManager mLinearLayout;
 
     @Override
     public void onAttach(Context context) {
@@ -53,13 +54,43 @@ public class FavouritesFragment extends BaseFragment implements FavoritesAdapter
     }
 
     @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        listState = rv_favorites.getLayoutManager().onSaveInstanceState();
+        outState.putParcelable(LIST_STATE_KEY, listState);
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            listState = savedInstanceState.getParcelable(LIST_STATE_KEY);
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (listState != null) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mLinearLayout.onRestoreInstanceState(listState);
+                }
+            }, 250);
+        }
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_favourites, container, false);
 
         rv_favorites = view.findViewById(R.id.rv_favorites);
-        rv_favorites.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mLinearLayout = new LinearLayoutManager(getActivity());
+        rv_favorites.setLayoutManager(mLinearLayout);
         favoritesAdapter = new FavoritesAdapter(new ArrayList<Favorite>(), this);
         rv_favorites.setAdapter(favoritesAdapter);
 
