@@ -31,7 +31,6 @@ import co.alexdev.moviescrib_phase2.utils.MovieUtils;
  */
 public class MostPopularFragment extends BaseFragment implements MostPopularMoviesAdapter.onMostPopularMovieCLick {
 
-    private static final String TAG = "MostPopularFragment";
     private static final int GRID_COLUMN_SPAN = 2;
     private RecyclerView rv_movies;
     private MostPopularMoviesAdapter mMostPopularMoviesAdapter;
@@ -119,6 +118,5 @@ public class MostPopularFragment extends BaseFragment implements MostPopularMovi
             final int movieId = movie.getId();
             showDetailActivity(movieId);
         }
-        Log.d(TAG, "onMovieClick: " + movie.toString());
     }
 }

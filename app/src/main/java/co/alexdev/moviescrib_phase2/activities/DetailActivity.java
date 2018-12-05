@@ -34,7 +34,6 @@ import co.alexdev.moviescrib_phase2.utils.MovieUtils;
 import co.alexdev.moviescrib_phase2.viewmodel.DetailActivityViewModel;
 
 public class DetailActivity extends AppCompatActivity implements TrailerAdapter.OnTrailerClickListener {
-    private static final String TAG = "DetailActivity";
     private static final String SCROLL_POSITION = "SCROLL_POSITION";
     private Toolbar customToolbar;
     private String YOUTUBE_API_KEY = "";
@@ -66,8 +65,13 @@ public class DetailActivity extends AppCompatActivity implements TrailerAdapter.
 
         scrollPositions = savedInstanceState.getIntArray(SCROLL_POSITION);
 
-        if(scrollPositions != null) {
-            activityDetailBinding.scrollView.scrollTo(scrollPositions[0], scrollPositions[1]);
+        if (scrollPositions != null) {
+            activityDetailBinding.scrollView.post(new Runnable() {
+                @Override
+                public void run() {
+                    activityDetailBinding.scrollView.scrollTo(scrollPositions[0], scrollPositions[1]);
+                }
+            });
         }
     }
 

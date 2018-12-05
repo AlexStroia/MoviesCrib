@@ -25,7 +25,6 @@ import co.alexdev.moviescrib_phase2.utils.MovieUtils;
 
 public class TopRatedFragment extends BaseFragment implements TopRatedMoviesAdapter.onTopRatedMovieClick {
 
-    private static final String TAG = "TopRatedFragment";
     private static final int GRID_COLUMN_SPAN = 2;
     private RecyclerView rv_movies;
     private TopRatedMoviesAdapter mTopRatedMoviesAdapter;
@@ -89,7 +88,6 @@ public class TopRatedFragment extends BaseFragment implements TopRatedMoviesAdap
         if (mMovieList != null) {
             final Movie movie = mMovieList.get(position);
             showDetailActivity(movie.getId());
-            Log.d(TAG, "onMovieClick: " + movie.toString());
         }
     }
 

@@ -28,10 +28,6 @@ import co.alexdev.moviescrib_phase2.utils.MovieUtils;
 
 public class DetailActivityViewModel extends AndroidViewModel {
 
-    private static final String TAG = "DetailActivityViewModel";
-    private final static String YOUTUBE_SCHEME = "https";
-    private final static String YOUTUBE_AUTHORITY = "youtube.com";
-
     public boolean canStoreOfflineData = false;
     public boolean isAddedToFavorite = false;
     private String imageString;
@@ -83,7 +79,6 @@ public class DetailActivityViewModel extends AndroidViewModel {
                 @Override
                 public void onChanged(@Nullable List<Reviews> reviewsList) {
                     if (reviewsList != null && !reviewsList.isEmpty()) {
-                        Log.d(TAG, "onChanged: " + reviewsList.get(0).getContent());
                         reviewsForCurrentMovie.removeObserver(this);
                         movieReviews.setValue(reviewsList);
                     }

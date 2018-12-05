@@ -30,7 +30,6 @@ import co.alexdev.moviescrib_phase2.viewmodel.BaseViewModel;
  */
 public class BaseFragment extends Fragment implements MoviesListener.onNavigationViewPositionChangedListener, SharedPreferences.OnSharedPreferenceChangeListener {
 
-    private static final String TAG = "BaseFragment";
     public TabLayout tabLayout;
     public ViewPager viewPager;
     private PagerAdapter pagerAdapter;
@@ -58,7 +57,7 @@ public class BaseFragment extends Fragment implements MoviesListener.onNavigatio
         try {
             mListener = (MoviesListener.onViewPagerPositionChangedListener) context;
         } catch (ClassCastException e) {
-            Log.d(TAG, "BaseFragment: " + e.getMessage());
+            e.getMessage();
         }
     }
 
@@ -147,7 +146,6 @@ public class BaseFragment extends Fragment implements MoviesListener.onNavigatio
         });
         /*Sync the view pager listener with the tab layout listener*/
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        Log.d(TAG, "setupTabLayout: " + viewPager.getCurrentItem());
     }
 
     /*Check if is not the same position */
