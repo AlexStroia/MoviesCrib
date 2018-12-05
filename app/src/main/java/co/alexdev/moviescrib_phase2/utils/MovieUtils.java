@@ -42,7 +42,7 @@ public class MovieUtils {
      * check if we have an id match between favorites and movies
      * if yes, update current movie with the updated value
      * if we have a match it means that movie was added to favorite*/
-    public static List<Movie> syncWithFavorites(final MovieDatabase mDb,final List<Movie> formatedList) {
+    public static List<Movie> syncWithFavorites(final MovieDatabase mDb, final List<Movie> formatedList) {
         final LiveData<List<Favorite>> favoritesMovieList = mDb.movieDao().getFavoritesMovies();
         favoritesMovieList.observeForever(new Observer<List<Favorite>>() {
             @Override
@@ -107,5 +107,9 @@ public class MovieUtils {
         dialog = builder.create();
         dialog.show();
         dialog.getButton(dialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(context, R.color.colorBlack));
+    }
+
+    public static String buildYoutubeUrl(Context context, String path) {
+        return new StringBuilder().append(context.getResources().getString(R.string.youtube_url)).append(path).toString();
     }
 }

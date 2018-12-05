@@ -7,9 +7,11 @@
     <color name="colorBlack">#000000</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorDarkGrey">#0E1717</color>
+    <color name="black">#0e1111</color>
     <color name="colorTransparent">#D9FFFFFF</color>
     <color name="golden_yellow">#ffdf00</color>
     <color name="custom_red">#d6030c</color>
+    <color name="silver">#C0C0C0</color>
 
 
 </resources>

@@ -20,7 +20,6 @@ import co.alexdev.moviescrib_phase2.model.MoviesListener;
 
 public class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, MoviesListener.onViewPagerPositionChangedListener, MoviesListener.onNoFavoritesAdded {
 
-    private static final String TAG = "BaseActivity";
     private DrawerLayout mDrawerLayout;
     private NavigationView navigationView;
     private Toolbar toolbar;
@@ -90,22 +89,18 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         switch (menuItem.getItemId()) {
 
             case R.id.nav_most_popular:
-                Log.d(TAG, "onOptionsItemSelected: nav_most_popular");
                 menuItemPosition = MOST_POPULAR_POS;
                 break;
 
             case R.id.nav_top_rated:
-                Log.d(TAG, "onOptionsItemSelected: nav_top_rated");
                 menuItemPosition = TOP_RATED_POS;
                 break;
 
             case R.id.nav_favourites:
-                Log.d(TAG, "onOptionsItemSelected: nav_favorites");
                 menuItemPosition = FAVORITES_POS;
                 break;
 
             case R.id.nav_settings:
-                Log.d(TAG, "onOptionsItemSelected: nav_settings");
                 menuItemPosition = SETTINGS_POS;
                 startSettingsActivity();
                 break;
@@ -126,7 +121,6 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
      * This way it will sync with our menu*/
     @Override
     public void onViewPagerPositionChanged(int position) {
-        Log.d(TAG, "onViewPagerPositionChanged: " + position);
         int currentCheckedItem = navigationView.getMenu().getItem(position).getItemId();
         if (currentCheckedItem != position) {
             navigationView.getMenu().getItem(position).setChecked(true);
@@ -135,7 +129,6 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onNoFavoritesMoviesAdded() {
-        Log.d(TAG, "onNoFavoritesMoviesAdded: called");
         mOnNavigationViewPositionChangedListener.onNavigationViewPositionChanged(MOST_POPULAR_POS);
     }
 }

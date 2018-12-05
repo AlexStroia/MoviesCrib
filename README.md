@@ -1,15 +1,26 @@
-# MoviesCrib | Phase 1
+# MoviesCrib
 
-    Present the user with a grid arrangement of movie posters upon launch.
-    Allow your user to change sort order via a setting:
-    The sort order can be by most popular or by highest-rated
-    Allow the user to tap on a movie poster and transition to a details screen with additional information such as:
-        • original title
-        • movie poster image thumbnail
-        • A plot synopsis 
-        • user rating 
-        • release date
-![movie_gif](https://user-images.githubusercontent.com/35500199/47961340-5bb66980-dfc6-11e8-85a3-eb1ac3b3f43c.gif)
+Movies Crib is an app to allow users to discover the most popular & top rated movies.
 
-# MoviesCrib | Phase 2 - Ongoing
+![fotojet](https://user-images.githubusercontent.com/35500199/49510001-e1366f00-f83b-11e8-9ef6-f59ac4ea002d.jpg)
+![fotojet 1](https://user-images.githubusercontent.com/35500199/49510002-e2679c00-f83b-11e8-96f3-403b500dca97.jpg)
+![fotojet](https://user-images.githubusercontent.com/35500199/49510013-e98eaa00-f83b-11e8-82e5-94a158ce40c6.png)
 
+**Features**: 
+```
+• allow users to view and play trailers (either in the youtube app or a web browser).
+• allow users to read reviews of a selected movie.
+• allow users to mark a movie as a favorite in the details view by tapping a button (star).
+• use of Android Architecture Components (Room, LiveData, ViewModel and Lifecycle) to create a robust an efficient application.
+• create a database using Room to store the names and ids of the user's favorite movies (and optionally, the rest of the information    needed to display their favorites collection while offline).
+```
+Arhitecture: : 
+```
+ • MVVM
+ • ROOM 
+ • Livedata
+ • Data Binding
+ • Retrofit
+ • YoutubeApi 
+ 
+```

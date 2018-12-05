@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 public class Reviews {
 
     @SerializedName("id")
-    private final int id;
+    private final String id;
     @SerializedName("author")
     private final String author;
     @SerializedName("content")
@@ -14,14 +14,14 @@ public class Reviews {
     @SerializedName("url")
     private final String url;
 
-    public Reviews(int id, String author, String content, String url) {
+    public Reviews(String id, String author, String content, String url) {
         this.id = id;
         this.author = author;
         this.content = content;
         this.url = url;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 

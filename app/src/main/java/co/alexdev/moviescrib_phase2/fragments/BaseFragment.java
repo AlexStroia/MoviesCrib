@@ -5,7 +5,9 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -28,13 +30,16 @@ import co.alexdev.moviescrib_phase2.viewmodel.BaseViewModel;
  */
 public class BaseFragment extends Fragment implements MoviesListener.onNavigationViewPositionChangedListener, SharedPreferences.OnSharedPreferenceChangeListener {
 
-    private static final String TAG = "BaseFragment";
     public TabLayout tabLayout;
     public ViewPager viewPager;
     private PagerAdapter pagerAdapter;
     private int viewPagerPosition = 0;
     public MovieDatabase mDb;
     private MoviesListener.onViewPagerPositionChangedListener mListener;
+
+    /*Used to retain the current position between configuration changes*/
+    Parcelable listState;
+    final static String LIST_STATE_KEY = "recycler_list_state";
 
     boolean canStoreOfflineData = false;
     BaseViewModel baseViewModel;
@@ -52,8 +57,14 @@ public class BaseFragment extends Fragment implements MoviesListener.onNavigatio
         try {
             mListener = (MoviesListener.onViewPagerPositionChangedListener) context;
         } catch (ClassCastException e) {
-            Log.d(TAG, "BaseFragment: " + e.getMessage());
+            e.getMessage();
         }
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setRetainInstance(true);
     }
 
     @Override
@@ -135,7 +146,6 @@ public class BaseFragment extends Fragment implements MoviesListener.onNavigatio
         });
         /*Sync the view pager listener with the tab layout listener*/
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        Log.d(TAG, "setupTabLayout: " + viewPager.getCurrentItem());
     }
 
     /*Check if is not the same position */

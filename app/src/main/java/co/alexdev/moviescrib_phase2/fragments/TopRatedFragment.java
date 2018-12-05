@@ -4,6 +4,7 @@ import android.arch.lifecycle.Observer;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -24,13 +25,37 @@ import co.alexdev.moviescrib_phase2.utils.MovieUtils;
 
 public class TopRatedFragment extends BaseFragment implements TopRatedMoviesAdapter.onTopRatedMovieClick {
 
-    private static final String TAG = "TopRatedFragment";
     private static final int GRID_COLUMN_SPAN = 2;
     private RecyclerView rv_movies;
     private TopRatedMoviesAdapter mTopRatedMoviesAdapter;
     private GridLayoutManager mGridLayoutManager;
     private List<Movie> mMovieList = new ArrayList<>();
     private boolean hasBeenVisibleOnce = false;
+
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        listState = mGridLayoutManager.onSaveInstanceState();
+        outState.putParcelable(LIST_STATE_KEY, listState);
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            listState = savedInstanceState.getParcelable(LIST_STATE_KEY);
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (listState != null) {
+            mGridLayoutManager.onRestoreInstanceState(listState);
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -63,7 +88,6 @@ public class TopRatedFragment extends BaseFragment implements TopRatedMoviesAdap
         if (mMovieList != null) {
             final Movie movie = mMovieList.get(position);
             showDetailActivity(movie.getId());
-            Log.d(TAG, "onMovieClick: " + movie.toString());
         }
     }
 
