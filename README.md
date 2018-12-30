@@ -2,6 +2,9 @@
 
 Movies Crib is an app to allow users to discover the most popular & top rated movies.
 
+**If you want to run your application on your machine, you will need to add YoutubePlayerApiJar into your libs folder:**
+https://developers.google.com/youtube/android/player/downloads/
+
 ![fotojet](https://user-images.githubusercontent.com/35500199/49510001-e1366f00-f83b-11e8-9ef6-f59ac4ea002d.jpg)
 ![fotojet 1](https://user-images.githubusercontent.com/35500199/49510002-e2679c00-f83b-11e8-96f3-403b500dca97.jpg)
 ![fotojet](https://user-images.githubusercontent.com/35500199/49510013-e98eaa00-f83b-11e8-82e5-94a158ce40c6.png)
